@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <product name="Начало">
+    <reference id="door" name="Инфопанель"/>
+    <reference id="door" name="контрольный показатель"/>
+    <reference id="vertical_panel" name="Активные стада"/>
+    <reference id="vertical_panel" name="Выход из системы"/>    
+  </product>
+  <product name="Ввод данных">
+    <reference id="door" name="Дневная запись"/>
+    <reference id="door" name="Группы"/>
+    <reference id="vertical_panel" name="Библиотеки"/>
+    <reference id="vertical_panel" name="Настройки"/>
+  </product>
+  <product name="Анализ/доклады">
+    <reference id="door" name="Инфопанель"/>
+    <reference id="vertical_panel" name="Доклады"/>
+    <reference id="vertical_panel" name="X-Link"/>
+    <reference id="vertical_panel" name="Показания устройства"/>
+  </product>
+  <product name="Конфигурация">
+    <reference id="door" name="Глобальные установки фермы"/>
+    <reference id="vertical_panel" name="Устройства"/>
+    <reference id="vertical_panel" name="Настройки экспорта(переноса)"/>
+    <reference id="vertical_panel" name="Встраиваемые модули"/>
+  </product>
+  <product name="Обслуживание">
+    <reference id="door" name="Резервное копирование и восстановление"/>
+    <reference id="vertical_panel" name="Проверка обновлений"/>
+    <reference id="vertical_panel" name="Информация о лицензии"/>
+  </product>  
+  <product name="Электронное обучение">
+    <reference id="door" name="Обучение онлайн"/>
+    <reference id="door" name="Академия онлайн"/>
+  </product>
+  <product name="Поиск">
+    <reference id="door" name="Введите строку поиска"/>
+  </product>
+</document>

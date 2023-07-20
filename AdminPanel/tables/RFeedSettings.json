@@ -1,0 +1,274 @@
+{
+  "RFeedSettings": [
+    {
+      "TagId": "text NOT NULL"
+    },
+    {
+      "StructId": "text NOT NULL"
+    },
+    {
+      "FeedingSettings": "text NOT NULL"
+    },
+    {
+      "CowId        ": "text NOT NULL"
+    },
+    {
+      "CreationTime": "TIMESTAMP"
+    },
+    {
+      "FeedAlgorithm": "text NOT NULL"
+    },
+    {
+      "NrOfFeedTypes": "text NOT NULL"
+    },
+    {
+      "ConnectFailFactor": "text NOT NULL"
+    },
+    {
+      "Free": "text NOT NULL"
+    },
+    {
+      "FeedId1": "text NOT NULL"
+    },
+    {
+      "DoseStratic1": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart1": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration1": "TIMESTAMP"
+    },
+    {
+      "AmountProHour1": "text NOT NULL"
+    },
+    {
+      "FeedSpeed1": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount1": "text NOT NULL"
+    },
+    {
+      "MaxCredit1": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount1": "text NOT NULL"
+    },
+    {
+      "FeedId2": "text NOT NULL"
+    },
+    {
+      "DoseStratic2": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart2": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration2": "TIMESTAMP"
+    },
+    {
+      "AmountProHour2": "text NOT NULL"
+    },
+    {
+      "FeedSpeed2": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount2": "text NOT NULL"
+    },
+    {
+      "MaxCredit2": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount2": "text NOT NULL"
+    },
+    {
+      "FeedId13": "text NOT NULL"
+    },
+    {
+      "DoseStratic3": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart3": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration3": "TIMESTAMP"
+    },
+    {
+      "AmountProHour3": "text NOT NULL"
+    },
+    {
+      "FeedSpeed3": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount3": "text NOT NULL"
+    },
+    {
+      "MaxCredit3": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount3": "text NOT NULL"
+    },
+    {
+      "FeedId4": "text NOT NULL"
+    },
+    {
+      "DoseStratic4": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart4": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration4": "TIMESTAMP"
+    },
+    {
+      "AmountProHour4": "text NOT NULL"
+    },
+    {
+      "FeedSpeed4": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount4": "text NOT NULL"
+    },
+    {
+      "MaxCredit4": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount4": "text NOT NULL"
+    },
+    {
+      "FeedId5": "text NOT NULL"
+    },
+    {
+      "DoseStratic5": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart5": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration5": "TIMESTAMP"
+    },
+    {
+      "AmountProHour5": "text NOT NULL"
+    },
+    {
+      "FeedSpeed5": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount5": "text NOT NULL"
+    },
+    {
+      "MaxCredit5": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount5": "text NOT NULL"
+    },
+    {
+      "FeedId6": "text NOT NULL"
+    },
+    {
+      "DoseStratic6": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart6": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration6": "TIMESTAMP"
+    },
+    {
+      "AmountProHour6": "text NOT NULL"
+    },
+    {
+      "FeedSpeed6": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount6": "text NOT NULL"
+    },
+    {
+      "MaxCredit6": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount6": "text NOT NULL"
+    },
+    {
+      "FeedId7": "text NOT NULL"
+    },
+    {
+      "DoseStratic7": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart7": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration7": "TIMESTAMP"
+    },
+    {
+      "AmountProHour7": "text NOT NULL"
+    },
+    {
+      "FeedSpeed7": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount7": "text NOT NULL"
+    },
+    {
+      "MaxCredit7": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount7": "text NOT NULL"
+    },
+    {
+      "FeedId8": "text NOT NULL"
+    },
+    {
+      "DoseStratic8": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart8": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration8": "TIMESTAMP"
+    },
+    {
+      "AmountProHour8": "text NOT NULL"
+    },
+    {
+      "FeedSpeed8": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount8": "text NOT NULL"
+    },
+    {
+      "MaxCredit8": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount8": "text NOT NULL"
+    },
+    {
+      "FeedId9": "text NOT NULL"
+    },
+    {
+      "DoseStratic9": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart9": "TIMESTAMP"
+    },
+    {
+      "BlockTimeDuration9": "TIMESTAMP"
+    },
+    {
+      "AmountProHour9": "text NOT NULL"
+    },
+    {
+      "FeedSpeed9": "text NOT NULL"
+    },
+    {
+      "MinPeriodAmount9": "text NOT NULL"
+    },
+    {
+      "MaxCredit9": "text NOT NULL"
+    },
+    {
+      "MaxPeriodAmount9": "text NOT NULL"
+    }
+  ]
+}

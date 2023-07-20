@@ -1,0 +1,151 @@
+{
+  "RMilkSettings": [
+    {
+      "TagId": "text NOT NULL"
+    },
+    {
+      "StructId": "text NOT NULL"
+    },
+    {
+      "MilkingAllowed": "text NOT NULL"
+    },
+    {
+      "CreationTime": "TIMESTAMP"
+    },
+    {
+      "MinMilkInterval": "text NOT NULL"
+    },
+    {
+      "ForcedCleaning": "text NOT NULL"
+    },
+    {
+      "MilkAction": "text NOT NULL"
+    },
+    {
+      "MilkDestination": "text NOT NULL"
+    },
+    {
+      "SCCSampling": "text NOT NULL"
+    },
+    {
+      "TakeOffMethod": "text NOT NULL"
+    },
+    {
+      "PulsMethodMilking": "text NOT NULL"
+    },
+    {
+      "MilkMethod": "text NOT NULL"
+    },
+    {
+      "MilkSampling": "text NOT NULL"
+    },
+    {
+      "Calved": "text NOT NULL"
+    },
+    {
+      "AltConnMethod": "text NOT NULL"
+    },
+    {
+      "VacuumLevel": "text NOT NULL"
+    },
+    {
+      "MaxConnectTime": "TIMESTAMP"
+    },
+    {
+      "MaxConnections": "text NOT NULL"
+    },
+    {
+      "CleaningOrder": "text NOT NULL"
+    },
+    {
+      "CleaningTimeLR": "TIMESTAMP"
+    },
+    {
+      "CleaningTimeRR": "TIMESTAMP"
+    },
+    {
+      "CleaningTimeRF": "TIMESTAMP"
+    },
+    {
+      "CleaningTimeLF": "TIMESTAMP"
+    },
+    {
+      "CleaningIterLR": "text NOT NULL"
+    },
+    {
+      "CleaningIterRR": "text NOT NULL"
+    },
+    {
+      "CleaningIterRF": "text NOT NULL"
+    },
+    {
+      "CleaningIterLF": "text NOT NULL"
+    },
+    {
+      "PulsFreqLR": "text NOT NULL"
+    },
+    {
+      "PulsFreqRR": "text NOT NULL"
+    },
+    {
+      "PulsFreqRF": "text NOT NULL"
+    },
+    {
+      "PulsFreqLF": "text NOT NULL"
+    },
+    {
+      "PulsRatioLR": "text NOT NULL"
+    },
+    {
+      "PulsRatioRR": "text NOT NULL"
+    },
+    {
+      "PulsRatioRF": "text NOT NULL"
+    },
+    {
+      "PulsRatioLF": "text NOT NULL"
+    },
+    {
+      "DisIterLR": "text NOT NULL"
+    },
+    {
+      "DisIterRR": "text NOT NULL"
+    },
+    {
+      "DisIterRF": "text NOT NULL"
+    },
+    {
+      "DisIterLF": "text NOT NULL"
+    },
+    {
+      "DisTimeLR": "TIMESTAMP"
+    },
+    {
+      "DisTimeRR": "TIMESTAMP"
+    },
+    {
+      "DisTimeRF": "TIMESTAMP"
+    },
+    {
+      "DisTimeLF": "TIMESTAMP"
+    },
+    {
+      "BlockTimeStart1": "TIMESTAMP"
+    },
+    {
+      "BlockDuration1": "text NOT NULL"
+    },
+    {
+      "BlockTimeStart2": "TIMESTAMP"
+    },
+    {
+      "BlockDuration2": "text NOT NULL"
+    },
+    {
+      "StartTimeMilkSampling": "TIMESTAMP"
+    },
+    {
+      "StartTimeSCCSampling": "TIMESTAMP"
+    }
+  ]
+}

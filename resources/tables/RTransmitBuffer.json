@@ -1,0 +1,664 @@
+{
+  "RTransmitBuffer": [
+    {
+      "Dest": "text NOT NULL"
+    },
+    {
+      "Code": "text NOT NULL"
+    },
+    {
+      "Crc": "text NOT NULL"
+    },
+    {
+      "Length": "text NOT NULL"
+    },
+    {
+      "TabId": "text NOT NULL"
+    },
+    {
+      "D00": "text NOT NULL"
+    },
+    {
+      "D01": "text NOT NULL"
+    },
+    {
+      "D02": "text NOT NULL"
+    },
+    {
+      "D03": "text NOT NULL"
+    },
+    {
+      "D04": "text NOT NULL"
+    },
+    {
+      "D05": "text NOT NULL"
+    },
+    {
+      "D06": "text NOT NULL"
+    },
+    {
+      "D07": "text NOT NULL"
+    },
+    {
+      "D08": "text NOT NULL"
+    },
+    {
+      "D09": "text NOT NULL"
+    },
+    {
+      "D10": "text NOT NULL"
+    },
+    {
+      "D11": "text NOT NULL"
+    },
+    {
+      "D12": "text NOT NULL"
+    },
+    {
+      "D13": "text NOT NULL"
+    },
+    {
+      "D14": "text NOT NULL"
+    },
+    {
+      "D15": "text NOT NULL"
+    },
+    {
+      "D16": "text NOT NULL"
+    },
+    {
+      "D17": "text NOT NULL"
+    },
+    {
+      "D18": "text NOT NULL"
+    },
+    {
+      "D19": "text NOT NULL"
+    },
+    {
+      "D20": "text NOT NULL"
+    },
+    {
+      "D21": "text NOT NULL"
+    },
+    {
+      "D22": "text NOT NULL"
+    },
+    {
+      "D23": "text NOT NULL"
+    },
+    {
+      "D24": "text NOT NULL"
+    },
+    {
+      "D25": "text NOT NULL"
+    },
+    {
+      "D26": "text NOT NULL"
+    },
+    {
+      "D27": "text NOT NULL"
+    },
+    {
+      "D28": "text NOT NULL"
+    },
+    {
+      "D29": "text NOT NULL"
+    },
+    {
+      "D30": "text NOT NULL"
+    },
+    {
+      "D31": "text NOT NULL"
+    },
+    {
+      "D32": "text NOT NULL"
+    },
+    {
+      "D33": "text NOT NULL"
+    },
+    {
+      "D34": "text NOT NULL"
+    },
+    {
+      "D35": "text NOT NULL"
+    },
+    {
+      "D36": "text NOT NULL"
+    },
+    {
+      "D37": "text NOT NULL"
+    },
+    {
+      "D38": "text NOT NULL"
+    },
+    {
+      "D39": "text NOT NULL"
+    },
+    {
+      "D40": "text NOT NULL"
+    },
+    {
+      "D41": "text NOT NULL"
+    },
+    {
+      "D42": "text NOT NULL"
+    },
+    {
+      "D43": "text NOT NULL"
+    },
+    {
+      "D44": "text NOT NULL"
+    },
+    {
+      "D45": "text NOT NULL"
+    },
+    {
+      "D46": "text NOT NULL"
+    },
+    {
+      "D47": "text NOT NULL"
+    },
+    {
+      "D48": "text NOT NULL"
+    },
+    {
+      "D49": "text NOT NULL"
+    },
+    {
+      "D50": "text NOT NULL"
+    },
+    {
+      "D51": "text NOT NULL"
+    },
+    {
+      "D52": "text NOT NULL"
+    },
+    {
+      "D53": "text NOT NULL"
+    },
+    {
+      "D54": "text NOT NULL"
+    },
+    {
+      "D55": "text NOT NULL"
+    },
+    {
+      "D56": "text NOT NULL"
+    },
+    {
+      "D57": "text NOT NULL"
+    },
+    {
+      "D58": "text NOT NULL"
+    },
+    {
+      "D59": "text NOT NULL"
+    },
+    {
+      "D60": "text NOT NULL"
+    },
+    {
+      "D61": "text NOT NULL"
+    },
+    {
+      "D62": "text NOT NULL"
+    },
+    {
+      "D63": "text NOT NULL"
+    },
+    {
+      "D64": "text NOT NULL"
+    },
+    {
+      "D65": "text NOT NULL"
+    },
+    {
+      "D66": "text NOT NULL"
+    },
+    {
+      "D67": "text NOT NULL"
+    },
+    {
+      "D68": "text NOT NULL"
+    },
+    {
+      "D69": "text NOT NULL"
+    },
+    {
+      "D70": "text NOT NULL"
+    },
+    {
+      "D71": "text NOT NULL"
+    },
+    {
+      "D72": "text NOT NULL"
+    },
+    {
+      "D73": "text NOT NULL"
+    },
+    {
+      "D74": "text NOT NULL"
+    },
+    {
+      "D75": "text NOT NULL"
+    },
+    {
+      "D76": "text NOT NULL"
+    },
+    {
+      "D77": "text NOT NULL"
+    },
+    {
+      "D78": "text NOT NULL"
+    },
+    {
+      "D79": "text NOT NULL"
+    },
+    {
+      "D80": "text NOT NULL"
+    },
+    {
+      "D81": "text NOT NULL"
+    },
+    {
+      "D82": "text NOT NULL"
+    },
+    {
+      "D83": "text NOT NULL"
+    },
+    {
+      "D84": "text NOT NULL"
+    },
+    {
+      "D85": "text NOT NULL"
+    },
+    {
+      "D86": "text NOT NULL"
+    },
+    {
+      "D87": "text NOT NULL"
+    },
+    {
+      "D88": "text NOT NULL"
+    },
+    {
+      "D89": "text NOT NULL"
+    },
+    {
+      "D90": "text NOT NULL"
+    },
+    {
+      "D91": "text NOT NULL"
+    },
+    {
+      "D92": "text NOT NULL"
+    },
+    {
+      "D93": "text NOT NULL"
+    },
+    {
+      "D94": "text NOT NULL"
+    },
+    {
+      "D95": "text NOT NULL"
+    },
+    {
+      "D96": "text NOT NULL"
+    },
+    {
+      "D97": "text NOT NULL"
+    },
+    {
+      "D98": "text NOT NULL"
+    },
+    {
+      "D99": "text NOT NULL"
+    },
+    {
+      "D100": "text NOT NULL"
+    },
+    {
+      "D101": "text NOT NULL"
+    },
+    {
+      "D102": "text NOT NULL"
+    },
+    {
+      "D103": "text NOT NULL"
+    },
+    {
+      "D104": "text NOT NULL"
+    },
+    {
+      "D105": "text NOT NULL"
+    },
+    {
+      "D106": "text NOT NULL"
+    },
+    {
+      "D107": "text NOT NULL"
+    },
+    {
+      "D108": "text NOT NULL"
+    },
+    {
+      "D109": "text NOT NULL"
+    },
+    {
+      "D110": "text NOT NULL"
+    },
+    {
+      "D111": "text NOT NULL"
+    },
+    {
+      "D112": "text NOT NULL"
+    },
+    {
+      "D113": "text NOT NULL"
+    },
+    {
+      "D114": "text NOT NULL"
+    },
+    {
+      "D115": "text NOT NULL"
+    },
+    {
+      "D116": "text NOT NULL"
+    },
+    {
+      "D117": "text NOT NULL"
+    },
+    {
+      "D118": "text NOT NULL"
+    },
+    {
+      "D119": "text NOT NULL"
+    },
+    {
+      "D120": "text NOT NULL"
+    },
+    {
+      "D121": "text NOT NULL"
+    },
+    {
+      "D122": "text NOT NULL"
+    },
+    {
+      "D123": "text NOT NULL"
+    },
+    {
+      "D124": "text NOT NULL"
+    },
+    {
+      "D125": "text NOT NULL"
+    },
+    {
+      "D126": "text NOT NULL"
+    },
+    {
+      "D127": "text NOT NULL"
+    },
+    {
+      "D128": "text NOT NULL"
+    },
+    {
+      "D129": "text NOT NULL"
+    },
+    {
+      "D130": "text NOT NULL"
+    },
+    {
+      "D131": "text NOT NULL"
+    },
+    {
+      "D132": "text NOT NULL"
+    },
+    {
+      "D133": "text NOT NULL"
+    },
+    {
+      "D134": "text NOT NULL"
+    },
+    {
+      "D135": "text NOT NULL"
+    },
+    {
+      "D136": "text NOT NULL"
+    },
+    {
+      "D137": "text NOT NULL"
+    },
+    {
+      "D138": "text NOT NULL"
+    },
+    {
+      "D139": "text NOT NULL"
+    },
+    {
+      "D140": "text NOT NULL"
+    },
+    {
+      "D141": "text NOT NULL"
+    },
+    {
+      "D142": "text NOT NULL"
+    },
+    {
+      "D143": "text NOT NULL"
+    },
+    {
+      "D144": "text NOT NULL"
+    },
+    {
+      "D145": "text NOT NULL"
+    },
+    {
+      "D146": "text NOT NULL"
+    },
+    {
+      "D147": "text NOT NULL"
+    },
+    {
+      "D148": "text NOT NULL"
+    },
+    {
+      "D149": "text NOT NULL"
+    },
+    {
+      "D150": "text NOT NULL"
+    },
+    {
+      "D151": "text NOT NULL"
+    },
+    {
+      "D152": "text NOT NULL"
+    },
+    {
+      "D153": "text NOT NULL"
+    },
+    {
+      "D154": "text NOT NULL"
+    },
+    {
+      "D155": "text NOT NULL"
+    },
+    {
+      "D156": "text NOT NULL"
+    },
+    {
+      "D157": "text NOT NULL"
+    },
+    {
+      "D158": "text NOT NULL"
+    },
+    {
+      "D159": "text NOT NULL"
+    },
+    {
+      "D160": "text NOT NULL"
+    },
+    {
+      "D161": "text NOT NULL"
+    },
+    {
+      "D162": "text NOT NULL"
+    },
+    {
+      "D163": "text NOT NULL"
+    },
+    {
+      "D164": "text NOT NULL"
+    },
+    {
+      "D165": "text NOT NULL"
+    },
+    {
+      "D166": "text NOT NULL"
+    },
+    {
+      "D167": "text NOT NULL"
+    },
+    {
+      "D168": "text NOT NULL"
+    },
+    {
+      "D169": "text NOT NULL"
+    },
+    {
+      "D170": "text NOT NULL"
+    },
+    {
+      "D171": "text NOT NULL"
+    },
+    {
+      "D172": "text NOT NULL"
+    },
+    {
+      "D173": "text NOT NULL"
+    },
+    {
+      "D174": "text NOT NULL"
+    },
+    {
+      "D175": "text NOT NULL"
+    },
+    {
+      "D176": "text NOT NULL"
+    },
+    {
+      "D177": "text NOT NULL"
+    },
+    {
+      "D178": "text NOT NULL"
+    },
+    {
+      "D179": "text NOT NULL"
+    },
+    {
+      "D180": "text NOT NULL"
+    },
+    {
+      "D181": "text NOT NULL"
+    },
+    {
+      "D182": "text NOT NULL"
+    },
+    {
+      "D183": "text NOT NULL"
+    },
+    {
+      "D184": "text NOT NULL"
+    },
+    {
+      "D185": "text NOT NULL"
+    },
+    {
+      "D186": "text NOT NULL"
+    },
+    {
+      "D187": "text NOT NULL"
+    },
+    {
+      "D188": "text NOT NULL"
+    },
+    {
+      "D189": "text NOT NULL"
+    },
+    {
+      "D190": "text NOT NULL"
+    },
+    {
+      "D191": "text NOT NULL"
+    },
+    {
+      "D192": "text NOT NULL"
+    },
+    {
+      "D193": "text NOT NULL"
+    },
+    {
+      "D194": "text NOT NULL"
+    },
+    {
+      "D195": "text NOT NULL"
+    },
+    {
+      "D196": "text NOT NULL"
+    },
+    {
+      "D197": "text NOT NULL"
+    },
+    {
+      "D198": "text NOT NULL"
+    },
+    {
+      "D199": "text NOT NULL"
+    },
+    {
+      "D150_": "text NOT NULL"
+    },
+    {
+      "D151_": "text NOT NULL"
+    },
+    {
+      "D152_": "text NOT NULL"
+    },
+    {
+      "D153_": "text NOT NULL"
+    },
+    {
+      "D154_": "text NOT NULL"
+    },
+    {
+      "D155_": "text NOT NULL"
+    },
+    {
+      "D156_": "text NOT NULL"
+    },
+    {
+      "D157_": "text NOT NULL"
+    },
+    {
+      "D158_": "text NOT NULL"
+    },
+    {
+      "D159_": "text NOT NULL"
+    },
+    {
+      "D160_": "text NOT NULL"
+    },
+    {
+      "D161_": "text NOT NULL"
+    },
+    {
+      "D162_": "text NOT NULL"
+    },
+    {
+      "D163_": "text NOT NULL"
+    },
+    {
+      "D164_": "text NOT NULL"
+    }
+  ]
+}
