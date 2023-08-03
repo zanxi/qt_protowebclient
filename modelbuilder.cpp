@@ -97,14 +97,14 @@ void ModelBuilder::GetElementData(
 
         if(!id.isEmpty()&&!node.isNull()&&!from_hash)
         {
-            GetElementData(item,node,hash,true);
+            GetElementData(item,node,hash,true);            
         }
     }
     else if(!id.isEmpty())
     {
         while(!child.isNull())
         {
-            GetElementData(treeItem,child,hash);
+            GetElementData(treeItem,child,hash);            
             child = child.nextSibling();
 
         }
@@ -148,7 +148,6 @@ QStandardItem *ModelBuilder::SetChild(
         else
         {
             tree_model->setItem(tree_model->rowCount(),0,parent);
-
         }
         return parent;
 

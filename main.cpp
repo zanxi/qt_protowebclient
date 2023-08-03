@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QFile file(":/style/app");
     bool ret = file.open(QFile::ReadOnly);
     if (ret) {
-        qApp->setStyleSheet(file.readAll());
+        //qApp->setStyleSheet(file.readAll());
         file.close();
     }
 

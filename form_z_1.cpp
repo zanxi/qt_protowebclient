@@ -19,6 +19,18 @@ Form_Z_1::Form_Z_1(QWidget *parent) :
     this->setPalette(pal);
     setGeometry(QRect(600, 100, 900, 700));
 
+    // ***********************************
+
+    ui->groupBox->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+
     // ************************************
     Form_1_1 *fe_1_1 = new Form_1_1;
     ui->tabWidget->insertTab(0,fe_1_1,QString("Ферма"));

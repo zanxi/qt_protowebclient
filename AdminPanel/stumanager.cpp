@@ -11,6 +11,7 @@ stuManager::stuManager(QString nameTab, QWidget *parent) : QWidget(parent), ui(n
     curStr = "";
     model = new QSqlTableModel;
     showTable(nameTab);
+    qDebug()<<"table: "<<nameTab<<"\n";
 
 
     QHeaderView *hv = ui->tableView->horizontalHeader();
@@ -26,7 +27,8 @@ stuManager::~stuManager()
 
 void stuManager::showTable(QString str)
 {
-    curStr = str;
+    if(str=="") curStr = str;
+    else curStr = "RTransmitBuffer";
     //model->setTable("RTransmitBuffer");
     model->setTable(nameTab);
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);

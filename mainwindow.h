@@ -5,7 +5,7 @@
 #include "widget_form.h"
 #include "widget_menu.h"
 
-#include "AdminPanel/mainwidget.h"
+#include "AdminPanel/adminwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,7 +34,8 @@ private:
 
     Widget_Form *w_f;
     Widget_menu *w_m;
-    mainWidget *admin;
+
+    AdminWidget *admin2;
 
     QHash<QString, QWidget*> CollectionAction;
 };

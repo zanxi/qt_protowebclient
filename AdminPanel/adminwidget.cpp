@@ -1,13 +1,81 @@
-#include "AdminPanel/mainwidget.h"
+#include "AdminWidget.h"
 #include "db/connectdb.h"
-#include "ui_mainWidget.h"
+#include "ui_adminwidget.h"
+
 #include "modelbuilder.h"
 
 #include "Debug/logger.h"
 
-mainWidget::mainWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidget)
+AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidget)
 {
     ui->setupUi(this);
+
+    ui->groupBox->setStyleSheet("QGroupBox {"
+                                "background-color: white;"
+                                "}"
+                                "QGroupBox::title {"
+                                "color: white;"
+                                "background-color:#14B143;"
+                                "padding: 4 20000 4 10;"
+                                "}");
+
+
+
+    ui->groupBox_2->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox_3->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox_4->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox_5->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox_6->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox_7->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+
 
     //setWindowTitle("VIM MENU");
     //setWindowIcon(QIcon(":/menu/icon.png"));
@@ -19,7 +87,6 @@ mainWidget::mainWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidget
     str = "";
     tabNum = 0;
     searchEdit = new QLineEdit;
-    qLabel = new QLabel(tr(" "));
     addBtn = new QPushButton(tr("Добавить"));
     updateBtn = new QPushButton(tr("Обновить таблицу"));
     deleteBtn = new QPushButton(tr("Удалить строчку"));
@@ -39,12 +106,12 @@ mainWidget::mainWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidget
     connect(ui->treeView->selectionModel(),SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(selectTreeItem(const QItemSelection&,const QItemSelection&)));
 
-    //connect(ui->treeView->selectionModel(), &mainWidget::signalMenu, this, &mainWidget::slotMenu);
+    //connect(ui->treeView->selectionModel(), &AdminWidget::signalMenu, this, &AdminWidget::slotMenu);
 
 }
 
 
-void mainWidget::slotMenu(QString val)
+void AdminWidget::slotMenu(QString val)
 {
     //ui->verticalLayout_2.de;
     //logger::WriteMsg("sent signal From Widget_menu to MainWindow: "+val.toStdString());
@@ -96,7 +163,7 @@ void mainWidget::slotMenu(QString val)
 
 
 int cnt =0;
-void mainWidget::selectTreeItem(const QItemSelection &selected, const QItemSelection &deselected)
+void AdminWidget::selectTreeItem(const QItemSelection &selected, const QItemSelection &deselected)
 {
     cnt++;
     qDebug()<<" key tree item: "<<cnt;
@@ -138,7 +205,7 @@ void mainWidget::selectTreeItem(const QItemSelection &selected, const QItemSelec
 
 
 
-mainWidget::~mainWidget()
+AdminWidget::~AdminWidget()
 {
     delete ui;
     if(m_pStuManager!=nullptr)delete m_pStuManager;
@@ -146,37 +213,37 @@ mainWidget::~mainWidget()
     qDebug() << "Database closeed!";
 }
 
-void mainWidget::refresh()
+void AdminWidget::refresh()
 {
     if (0 == tabNum) m_pStuManager->showTable(str);
     //else if (1 == tabNum) m_pTeaManager->showTable(str);
 }
 
-void mainWidget::addBtnClicked()
+void AdminWidget::addBtnClicked()
 {
      if (0 == tabNum) m_pStuManager->addRow();
      //else if (1 == tabNum) m_pTeaManager->addRow();
 }
 
-void mainWidget::updateBtnClicked()
+void AdminWidget::updateBtnClicked()
 {
     if (0 == tabNum) m_pStuManager->updateTable();
     //else if (1 == tabNum) m_pTeaManager->updateTable();
 }
 
-void mainWidget::deleteBtnClicked()
+void AdminWidget::deleteBtnClicked()
 {
     if (0 == tabNum) m_pStuManager->deleteRows();
     //else if (1 == tabNum) m_pTeaManager->deleteRows();
 }
 
-void mainWidget::setCurTabIndex()
+void AdminWidget::setCurTabIndex()
 {
     tabNum = ui->tabWidget->currentIndex();
     refresh();
 }
 
-void mainWidget::getSearchText()
+void AdminWidget::getSearchText()
 {
     str = searchEdit->text().trimmed();
     refresh();
@@ -184,7 +251,7 @@ void mainWidget::getSearchText()
 //    qDebug() << tabNum;
 }
 
-void mainWidget::initUI(QString nameTab)
+void AdminWidget::initUI(QString nameTab)
 {
 //    if(m_pStuManager!=nullptr)
 //    {
@@ -199,25 +266,19 @@ void mainWidget::initUI(QString nameTab)
     //ui->tabWidget->addTab(m_pTeaManager, tr("Teacher"));
 }
 
-void mainWidget::creatCornerBtn()
+void AdminWidget::creatCornerBtn()
 {
     searchEdit->setPlaceholderText(tr("Search by name"));
     searchEdit->setFixedSize(200, 20);
 
     QWidget *cornerWidget = new QWidget;
-
-    QVBoxLayout *vLayout = new QVBoxLayout;
-
     QHBoxLayout *hLayout = new QHBoxLayout;
-    hLayout->addWidget(searchEdit);
-    hLayout->addSpacing(170);
+    ui->horizontalLayout->addWidget(searchEdit);
+    ui->horizontalLayout->addSpacing(170);
     //hLayout->addStrut(170);
-    hLayout->addWidget(addBtn);
-    hLayout->addWidget(updateBtn);
-    hLayout->addWidget(deleteBtn);
-
-    vLayout->addItem(hLayout);
-    vLayout->addWidget(qLabel);
+    ui->horizontalLayout->addWidget(addBtn);
+    ui->horizontalLayout->addWidget(updateBtn);
+    ui->horizontalLayout->addWidget(deleteBtn);
 
 //    ui->horizontalLayout->addWidget(searchEdit);
 //    ui->horizontalLayout->addSpacing(130);
@@ -226,7 +287,7 @@ void mainWidget::creatCornerBtn()
 //    ui->horizontalLayout->addWidget(updateBtn);
 //    ui->horizontalLayout->addWidget(deleteBtn);
 
-    cornerWidget->setLayout(hLayout);
-    ui->tabWidget->setCornerWidget(cornerWidget, Qt::TopRightCorner);
+    //cornerWidget->setLayout(hLayout);
+    //ui->tabWidget->setCornerWidget(cornerWidget, Qt::TopRightCorner);
 }
 

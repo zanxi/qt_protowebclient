@@ -2,6 +2,7 @@
 #define FORM_2_1_H
 
 #include <QWidget>
+#include <QStringListModel>
 
 namespace Ui {
 class Form_2_1;
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::Form_2_1 *ui;
+
+    QStringListModel *m_qlist_model;
 };
 
 #endif // FORM_2_1_H

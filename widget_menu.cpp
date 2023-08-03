@@ -10,6 +10,15 @@ Widget_menu::Widget_menu(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->groupBox->setStyleSheet("QGroupBox {"
+                                "background-color: white;"
+                                "}"
+                                "QGroupBox::title {"
+                                "color: white;"
+                                "background-color:#14B143;"
+                                "padding: 4 20000 4 10;"
+                                "}");
+
     setWindowTitle("VIM MENU");
     setWindowIcon(QIcon(":/menu/icon.png"));
     model_builder = new ModelBuilder(file_path);
@@ -26,34 +35,14 @@ void Widget_menu::selectTreeItem(const QItemSelection &selected, const QItemSele
 {
     //QModelIndexList indices =  qDebug()<<selected.at(0).indexes();
     QModelIndexList indices =  selected.at(0).indexes();
-    QModelIndex signalIndex = indices[0];
-    //qDebug()<<signalIndex.data(0);
-    QVariant qv = signalIndex.data(0);
-    //QString val = qv.toString();
-    QString val = qv.toStringList()[0];
-    //qDebug()<<"val = "<<val;
-    //logger::WriteMsg("Action button treeview: "+val.toStdString());
-
+    QModelIndex signalIndex = indices[0];    
+    QVariant qv = signalIndex.data(0);    
+    QString val = qv.toStringList()[0];    
     if(!CollectionAction.contains(val)){
         CollectionAction.insert(val, new QWidget(this));
         logger::WriteMsg("Action button <<<TREE ITEM>>> treeview: "+val.toStdString());
     }
-
     emit signalMenu(val);
-
-
-
-    //indices[0].child(0,0)
-
-    //QTreeView::selec  ::selectionChanged(selected, deselected);
-//    if (!m_blockSelectionEvent) {
-//        QModelIndex signalIndex;
-//        QModelIndexList indices = ui->treeView->SelectItems();
-//        if (indices.size() > 0) {
-//            signalIndex = indices[0];
-//        }
-//        emit markerSelected(signalIndex);
-//    }
 }
 
 void Widget_menu::slot(QString a){

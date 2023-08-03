@@ -4,9 +4,10 @@
     <submenu id="" name="Инфопанель"/>
   </menu>
   <menu name="Ввод данных">
-    <submenu id="" name="Дневная запись"/>
   </menu>
   <menu name="Анализ/доклады">
+  </menu>
+  <menu name="Экспорт данных">
     <submenu id="" name="Word/Excel"/>
   </menu>
   <menu name="Конфигурация">

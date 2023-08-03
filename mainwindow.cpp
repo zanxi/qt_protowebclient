@@ -6,7 +6,6 @@
 #include "FormsMenu/form_1_2.h"
 #include "FormsMenu/form_1_2_general.h"
 //#include "FormsMenu/form_tabview.h"
-#include "form_z_1.h"
 #include "form_2_1.h"
 
 #include "AdminPanel/mainwidget.h"
@@ -25,7 +24,12 @@ MainWindow::MainWindow(QWidget *parent)
     QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);
-    setGeometry(QRect(600, 100, 900, 700));
+    setGeometry(QRect(200, 100, 1600, 800));
+
+    ui->widget_title->setStyleSheet("background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #14B143, stop:1 #14B143);"
+                                    "foreground: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #FFFFFF, stop:1 #FFFFFF);");
+    ui->widget_title_2->setStyleSheet("background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #14B143, stop:1 #14B143);"
+                                    "foreground: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #FFFFFF, stop:1 #FFFFFF);");
 
     w_m = new Widget_menu();
     ui->verticalLayout->addWidget(w_m);
@@ -88,7 +92,7 @@ void MainWindow::slotMenu(QString val)
         else
         {
            //fm = new Form_1_2_General;
-           fm = new Form_Z_1;
+           fm = new Form_2_1;
         }
         ui->verticalLayout_2->addWidget(fm);
 
@@ -123,9 +127,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_triggered()
 {
-    admin = new mainWidget;
+    //admin = new mainWidget;
+    admin2 = new AdminWidget();
     //admin.setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint);
-    admin->show();
+    admin2->show();
 
 }
 
