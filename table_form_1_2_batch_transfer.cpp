@@ -9,6 +9,8 @@
 #include <QCompleter>
 #include <QStringList>
 #include <QDateTime>
+#include <QDate>
+#include <QTime>
 #include <QList>
 #include <QTableWidgetItem>
 
@@ -18,6 +20,25 @@ Table_Form_1_2_batch_transfer::Table_Form_1_2_batch_transfer(QWidget *parent) :
     ui(new Ui::Table_Form_1_2_batch_transfer)
 {
     ui->setupUi(this);
+
+    ui->groupBox_2->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox->setStyleSheet("QGroupBox {"
+                                "background-color: white;"
+                                "}"
+                                "QGroupBox::title {"
+                                "color: white;"
+                                "background-color:#14B143;"
+                                "padding: 4 20000 4 10;"
+                                "}");
+
 
     auto datetimeDelegate = new DateTimeStyledItemDelegate(ui->tableWidget);
 
@@ -41,13 +62,8 @@ Table_Form_1_2_batch_transfer::Table_Form_1_2_batch_transfer(QWidget *parent) :
     ui->tableWidget->setColumnCount( allColumns.count() );
     ui->tableWidget->setRowCount( 1 );
 
-
-    //header = ui->tableWidget->horizontalHeader();
-    //ui->tableWidget->setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
     ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Название"));
-
     ui->tableWidget->setHorizontalHeaderLabels( NameColumns );
-    //ui->tableWidget->setHorizontalHeaderItem(0, );
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
 
     //QStringList wordList;

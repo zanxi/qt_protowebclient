@@ -7,5 +7,6 @@
 #include <QDebug>
 
 void connectDb(QSqlDatabase db);
+void connectDb_pg(QSqlDatabase db);
 #endif // CONNECTDB
 

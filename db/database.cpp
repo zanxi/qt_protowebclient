@@ -1,4 +1,5 @@
 #include "database.h"
+#include "dataanimals.h"
 
 
 DataBase::DataBase(QObject *parent) : QObject(parent) { }
@@ -6,37 +7,34 @@ DataBase::DataBase(QObject *parent) : QObject(parent) { }
 DataBase::~DataBase() {}
 
 
-void DataBase::connectToDataBase(
-        QString user,
-        QString pwd,
-        QString host,
-        QString db_name)                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
+void DataBase::connectToDataBase()                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
 {
+    switch(DataSystems::Instance().db_check)
+    {
+    case DB_check::SQLITE:
+    {
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(DataSystems::Instance().db_sqlite_file);
+        break;
+    }
+    case DB_check::PGSQL:
+    {
          QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");              //  драйвер
-//         db.setUserName("postgres");
-//         db.setPassword("000");
-//         db.setHostName("192.168.124.135");              // или  localhost
-//         db.setPort(5432);
-//         db.setDatabaseName("vim");       //  сперва подключаемся к встроенной бд, что-бы иметь возможность создать нашу.
-
-//         db.setUserName(user);
-//         db.setPassword(pwd);
-//         db.setHostName(host);              // или  localhost
-//         db.setPort(5432);
-//         db.setDatabaseName(db_name);       //  сперва подключаемся к встроенной бд, что-бы иметь возможность создать нашу.
-
-         db = QSqlDatabase::addDatabase("QSQLITE");
-         //db.setDatabaseName("D:/_2023_/_Src__94__/sqlwidget-master2/MyDataBase.db");
-         //db.setDatabaseName("D:/_2023_/_Src__94__/sqlwidget2/db-lely3.db");
-         db.setDatabaseName("./db-lely3.db");
-
-
+         db.setUserName(DataSystems::Instance().db_login);
+         db.setPassword(DataSystems::Instance().db_password);
+         db.setHostName(DataSystems::Instance().db_host);              // или  localhost
+         db.setPort(5432);
+         db.setDatabaseName(DataSystems::Instance().db_name);       //  сперва подключаемся к встроенной бд, что-бы иметь возможность создать нашу.
+         break;
+    }
+    }
 
          if (db.open())  {
-               if(tryCreateNewDataBase()){
+               if(tryCreateNewDataBase(DataSystems::Instance().db_sql_create)){
                       QMessageBox::information(0, "Ок", "База данных " DB_NAME " создана. Подключение прошло успешно.");              //  пытаемся создать нашу БД, если она уже существует, то не будет создана.
+
                }
-               db.setDatabaseName(DB_NAME);                                                                                                                                   //  переподключаемся к ней.
+               db.setDatabaseName(DataSystems::Instance().db_name);                                                                                                                                   //  переподключаемся к ней.
                if (!db.open()) {
                      // QMessageBox::critical(0, "Ошибка", "Не удалось подключиться к базе данных " DB_NAME);
                }
@@ -46,41 +44,46 @@ void DataBase::connectToDataBase(
          }
          else { QMessageBox::critical(0, "Ошибка", "Не удалось подключиться к серверу."); }
 
-      createTables();
+      tryCreateNewDataBase(DataSystems::Instance().db_sql_create);
 }
 
-void DataBase::createTables()                       // Метод  создания таблиц
+void DataBase::createTables(QString file_sql)                       // Метод  создания таблиц
 {
     QSqlQuery query;
-    if(!query.exec( "CREATE TABLE IF NOT EXISTS " TABLE1 " ("                       //   создаем qual_table  ,  если она не создана.
+    if(!query.exec( "CREATE TABLE IF NOT EXISTS "  " ("                       //   создаем qual_table  ,  если она не создана.
                             "p00    CHARACTER VARYING(2) UNIQUE, "
                             "p01    TEXT  "
                         "  )"  )) {
-        qDebug() << "DataBase: error of create " << TABLE1;                     //  вывод возможной ошибки при создании.
+        qDebug() << "DataBase: error of create " << file_sql;                     //  вывод возможной ошибки при создании.
         qDebug() << query.lastError().text();
     }
 
-    if(!query.exec( "CREATE TABLE IF NOT EXISTS " TABLE2 " ("                                              //  создаем main_table
-                            "i    int4 PRIMARY KEY, "
-                            "r   CHARACTER VARYING(2) REFERENCES " TABLE1 " (p00)  ON UPDATE CASCADE , "
-                            "t    TEXT  "
-                        "  )"  )) {
-        qDebug() << "DataBase: error of create " << TABLE2;
-        qDebug() << query.lastError().text();
-    }
+
 }
 
-bool DataBase::inserIntoQualTable(const QVariantList  &data)                  //   метод вставки строки в таблицу qual_table ,  принимает QVariantList  т.к.  значения в таблицах могут быть разных типов.
+bool DataBase::inserIntoTable(QString table, const QList<QString>  columns, const QVariantList  &data)                  //   метод вставки строки в таблицу qual_table ,  принимает QVariantList  т.к.  значения в таблицах могут быть разных типов.
 {
     QSqlQuery query;
 
-    query.prepare( "INSERT INTO "  TABLE1 " ( p00,  p01 ) "            //   готовим запрос
-                                           "VALUES  (?,?)");
-    query.addBindValue(data[0].toString());
+    QString vars = columns[0];
+    for(int i=1; i<columns.count();i++)vars+=", "+ columns[i];
+    QString insert="INSERT INTO " + table + " ( " + vars+ " ) " "VALUES ";
+
+    QString values = data[0].toString();
+    for(int i=1; i<data.count();i++)vars+=", "+ data[i].toString();
+
+    insert+= " ( " + values+ ")";
+
+    //query.prepare( "INSERT INTO " + table + " ( p00,  p01, p02 ) "            //   готовим запрос
+    //                                       "VALUES  (?,?,?)");
+
+    for(int i=1; i<data.count();i++)query.addBindValue(data[i].toString());
     query.addBindValue(data[1].toString());
 
+    query.prepare(insert);
+
     if(!query.exec()){                                                                       //  выполняем запрос методом exec()
-        qDebug() << "error insert into " << TABLE1;
+        qDebug() << "error insert into " << table;
         qDebug() << query.lastError().text();                                       //  в этом методе предусмотрен вывод информации об ошибках.
         return false;
     } else {
@@ -88,32 +91,19 @@ bool DataBase::inserIntoQualTable(const QVariantList  &data)                  //
     }
 }
 
-bool DataBase::inserIntoMainTable(const QVariantList  &data)                  //   метод вставки строки в таблицу main_table
+
+bool DataBase::tryCreateNewDataBase(QString file_sql)
 {
-    QSqlQuery query;
-
-    query.prepare( "INSERT INTO "  TABLE2 " ( i, r, t ) "
-                                           "VALUES  (?,?,?)");
-    query.addBindValue(data[0].toInt());
-    query.addBindValue(data[1].toInt());
-    query.addBindValue(data[2].toString());
-
-    if(!query.exec()){
-        qDebug() << "error insert into " << TABLE2;
-        qDebug() << query.lastError().text();
-        return false;
-    } else {
-        return true;
-    }
-}
-
-bool DataBase::tryCreateNewDataBase()
-{
-    QSqlQuery *query = new QSqlQuery(db);
-    if(!query->exec( "CREATE DATABASE " DB_NAME ";")) {
-        qDebug() << "DataBase: error of create database " << DB_NAME;                     //  если такая БД уже существует, эта информация будет выведена в отладке.
-        qDebug() << query->lastError().text();
-        return false;
+    QFile file(file_sql);
+    bool ret = file.open(QFile::ReadOnly);
+    if (ret) {
+        QSqlQuery *query = new QSqlQuery(db);
+        if(!query->exec(file.readAll())) {
+                      qDebug() << "DataBase: error of create database " << DB_NAME;                     //  если такая БД уже существует, эта информация будет выведена в отладке.
+                      qDebug() << query->lastError().text();
+                      return false;
+        }
+        file.close();
     }
     else return true;
 }

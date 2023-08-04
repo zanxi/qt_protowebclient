@@ -18,6 +18,28 @@ Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+    ui->groupBox_2->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+    ui->groupBox->setStyleSheet("QGroupBox {"
+                                  "background-color: white;"
+                                  "}"
+                                  "QGroupBox::title {"
+                                  "color: white;"
+                                  "background-color:#14B143;"
+                                  "padding: 4 20000 4 10;"
+                                  "}");
+
+
+
+
     auto comboBoxDelegate = new ComboBoxItemDelegate(ui->tableWidget_lists_signals);
     auto spinBoxDelegate = new SpinBoxItemDelegate(ui->tableWidget_lists_signals);
     auto checkBoxDelegate = new CheckBoxItemDelegate(ui->tableWidget_lists_signals);

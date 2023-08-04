@@ -10,8 +10,7 @@
 #include <QSqlDatabase>
 
 
-#define TABLE1      "qual_table"           //  наши таблицы.    main_table  будет зависить от qual_table.
-#define TABLE2      "main_table"
+
 #define DB_NAME   "vim2"
 
 
@@ -21,12 +20,8 @@ class DataBase : public QObject
 public:
     DataBase(QObject *parent = 0);
 
-    void connectToDataBase(QString user, QString pwd, QString host, QString db_name);                                      //  публичный метод - соединиться с бд
-    bool inserIntoQualTable(const QVariantList &data);          // публичный метод - вставить в таблицу
-    bool inserIntoMainTable(const QVariantList &data);
-
-
-
+    void connectToDataBase();                                      //  публичный метод - соединиться с бд
+    bool inserIntoTable(QString table, const QList<QString>  clumns, const QVariantList &data);          // публичный метод - вставить в таблицу
 
     ~DataBase();
 
@@ -34,8 +29,8 @@ private:
     QSqlDatabase   db;                         // Сам объект базы данных
 
     void closeDataBase();               //  закрыть бд
-    void createTables();                  //   создать таблицу
-    bool tryCreateNewDataBase();
+    void createTables(QString fileSql);                  //   создать таблицу
+    bool tryCreateNewDataBase(QString table);
 };
 
 #endif   // DATABASE_H

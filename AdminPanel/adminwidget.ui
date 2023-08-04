@@ -22,8 +22,47 @@
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <item>
        <widget class="QTabWidget" name="tabWidget_2">
+        <property name="styleSheet">
+         <string notr="true">QTabWidget
+{
+   background-color:rgb(0,255,128);
+}
+
+QTabWidget:tab-bar
+{
+    alignment: center;
+}
+
+QTabBar:tab
+{
+   width: 150px;   
+   height: 30px;
+}
+
+QTabBar:selected
+{
+    background-color:rgb(0,255,128);
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected
+{     
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected:hover
+{ 
+    background-color:rgb(0,255,128);
+    color.rgb(0,255,128);
+}
+
+
+</string>
+        </property>
         <property name="currentIndex">
-         <number>4</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab_2">
          <attribute name="title">
@@ -38,167 +77,213 @@
             <property name="title">
              <string>Параметры связи с базой данных</string>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
-              <widget class="QGroupBox" name="groupBox_6">
+              <widget class="QGroupBox" name="groupBox_12">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>500</width>
-                 <height>0</height>
+                 <width>0</width>
+                 <height>70</height>
                 </size>
                </property>
                <property name="title">
-                <string>SQLite(локальная)</string>
+                <string>Выберите базу данных</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_6">
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
-                  <item>
-                   <widget class="QLabel" name="userLabel_3">
-                    <property name="text">
-                     <string>Локальный файл</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="userEdit_3">
-                    <property name="text">
-                     <string>c:\lely\db-lely3.db</string>
-                    </property>
-                    <property name="placeholderText">
-                     <string/>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>356</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <widget class="QCheckBox" name="checkBox">
+                <property name="geometry">
+                 <rect>
+                  <x>40</x>
+                  <y>30</y>
+                  <width>281</width>
+                  <height>20</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>SQLite база данных</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox_8">
-               <property name="title">
-                <string>PostgreSql(удаленный сервер)</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QGroupBox" name="groupBox_db_sqlite">
+                 <property name="minimumSize">
+                  <size>
+                   <width>500</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="title">
+                  <string>SQLite(локальная)</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
-                   <widget class="QLabel" name="userLabel_2">
+                   <layout class="QHBoxLayout" name="horizontalLayout_7">
+                    <item>
+                     <widget class="QLabel" name="userLabel_3">
+                      <property name="text">
+                       <string>Локальный файл</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_db_sqlite_file">
+                      <property name="text">
+                       <string>c:\lely\db-lely3.db</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_3">
                     <property name="text">
-                     <string>Логин:</string>
+                     <string>найти файл на диске</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="userEdit_2">
-                    <property name="text">
-                     <string>postgres</string>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
                     </property>
-                    <property name="placeholderText">
-                     <string/>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>356</height>
+                     </size>
                     </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                  <item>
-                   <widget class="QLabel" name="passwordLabel_2">
-                    <property name="text">
-                     <string>Пароль:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="passwordEdit_2">
-                    <property name="inputMask">
-                     <string/>
-                    </property>
-                    <property name="text">
-                     <string>000</string>
-                    </property>
-                    <property name="echoMode">
-                     <enum>QLineEdit::Password</enum>
-                    </property>
-                    <property name="placeholderText">
-                     <string/>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11">
-                  <item>
-                   <widget class="QLabel" name="databaseLabel_2">
-                    <property name="text">
-                     <string>База данных:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="dbnameEdit_2">
-                    <property name="text">
-                     <string>vim</string>
-                    </property>
-                    <property name="placeholderText">
-                     <string/>
-                    </property>
-                   </widget>
+                   </spacer>
                   </item>
                  </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                </widget>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="groupBox_db_pg">
+                 <property name="title">
+                  <string>PostgreSql(удаленный сервер)</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
                   <item>
-                   <widget class="QLabel" name="hostLabel_2">
-                    <property name="text">
-                     <string>IP Address:</string>
-                    </property>
-                   </widget>
+                   <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <item>
+                     <widget class="QLabel" name="userLabel_2">
+                      <property name="text">
+                       <string>Логин:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_db_pg_login">
+                      <property name="text">
+                       <string>postgres</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="hostEdit_2">
-                    <property name="text">
-                     <string>192.168.124.135</string>
+                   <layout class="QHBoxLayout" name="horizontalLayout_10">
+                    <item>
+                     <widget class="QLabel" name="passwordLabel_2">
+                      <property name="text">
+                       <string>Пароль:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_db_pg_password">
+                      <property name="inputMask">
+                       <string/>
+                      </property>
+                      <property name="text">
+                       <string>000</string>
+                      </property>
+                      <property name="echoMode">
+                       <enum>QLineEdit::Password</enum>
+                      </property>
+                      <property name="placeholderText">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_11">
+                    <item>
+                     <widget class="QLabel" name="databaseLabel_2">
+                      <property name="text">
+                       <string>База данных:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_db_pg_name">
+                      <property name="text">
+                       <string>vim</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_12">
+                    <item>
+                     <widget class="QLabel" name="hostLabel_2">
+                      <property name="text">
+                       <string>IP Address:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="linerEdit_db_pg_host">
+                      <property name="text">
+                       <string>192.168.124.135</string>
+                      </property>
+                      <property name="placeholderText">
+                       <string>localhost</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
                     </property>
-                    <property name="placeholderText">
-                     <string>localhost</string>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
                     </property>
-                   </widget>
+                   </spacer>
                   </item>
                  </layout>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>

@@ -5,10 +5,12 @@
 #include "FormsMenu/form_1_1.h"
 #include "FormsMenu/form_1_2.h"
 #include "FormsMenu/form_1_2_general.h"
-//#include "FormsMenu/form_tabview.h"
-#include "form_2_1.h"
 
+#include "form_2_1.h"
+#include "form_in_work.h"
 #include "AdminPanel/mainwidget.h"
+
+#include "dataanimals.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //if (objectName().isEmpty())  setObjectName(QString::fromUtf8("VIM"));
-    //setObjectName(QString::fromUtf8("VIM"));
     setWindowTitle("ВИМ");
 
     QPalette pal = this->palette();
@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
     //w_f = new Widget_Form();
     //ui->verticalLayout_2->addWidget(w_f);
 
+    //DataSystems::Instance().db_host="";
+
     Form_2_1 *w_f_2_1 = new Form_2_1();
     ui->verticalLayout_2->addWidget(w_f_2_1);
     //w_f = new Widget_Form();
@@ -44,8 +46,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::signal, w_m, &Widget_menu::slot);
     connect(w_m, &Widget_menu::signalMenu, this, &MainWindow::slotMenu);
-
-
 }
 
 void MainWindow::slotMenu(QString val)
@@ -88,11 +88,11 @@ void MainWindow::slotMenu(QString val)
         else if(val.contains("Группы"))
         {
                  fm = new Form_1_2_General;
-        }
+        }        
         else
         {
            //fm = new Form_1_2_General;
-           fm = new Form_2_1;
+           fm = new Form_in_work;
         }
         ui->verticalLayout_2->addWidget(fm);
 

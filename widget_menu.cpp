@@ -25,6 +25,8 @@ Widget_menu::Widget_menu(QWidget *parent) :
     ui->treeView->setModel(model_builder->GetTreeModel());
     //ui->treeView->verticalHeader()->hi
 
+    ui->treeView->expandAll();
+
     connect(ui->treeView->selectionModel(),SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(selectTreeItem(const QItemSelection&,const QItemSelection&)));
 

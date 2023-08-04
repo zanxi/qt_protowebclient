@@ -3,7 +3,6 @@
 
 #include "FormsMenu/form_1_1.h"
 #include "FormsMenu/form_1_2.h"
-#include "FormsMenu/form_tabview.h"
 
 #include "connectiondialog.h"
 
@@ -37,17 +36,10 @@ Form_Z_1::Form_Z_1(QWidget *parent) :
     Form_1_2 *fe_1_2 = new Form_1_2;
     ConnectionDialog dialog(this);
     //dialog.show();
-    Form_tabview *form_tabvie = new Form_tabview(
-        dialog.username(),
-        dialog.password(),
-        dialog.hostname(),
-        dialog.databasename(),
-        this);
 
     QHBoxLayout *hlayot = new QHBoxLayout();     // горизонтальный слой с кнопками
     hlayot->addWidget(fe_1_2);
     //hlayot->addSpacing(300);
-    hlayot->addWidget(form_tabvie);
     //hlayot->addSpacing(300);
     //hlayot->addSpacing(300);
 

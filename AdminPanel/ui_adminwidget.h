@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -36,27 +37,31 @@ public:
     QWidget *tab_2;
     QHBoxLayout *horizontalLayout_13;
     QGroupBox *groupBox_5;
+    QVBoxLayout *verticalLayout_8;
+    QGroupBox *groupBox_12;
+    QCheckBox *checkBox;
     QHBoxLayout *horizontalLayout_9;
-    QGroupBox *groupBox_6;
+    QGroupBox *groupBox_db_sqlite;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_7;
     QLabel *userLabel_3;
-    QLineEdit *userEdit_3;
+    QLineEdit *lineEdit_db_sqlite_file;
+    QPushButton *pushButton_3;
     QSpacerItem *verticalSpacer;
-    QGroupBox *groupBox_8;
+    QGroupBox *groupBox_db_pg;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *horizontalLayout_8;
     QLabel *userLabel_2;
-    QLineEdit *userEdit_2;
+    QLineEdit *lineEdit_db_pg_login;
     QHBoxLayout *horizontalLayout_10;
     QLabel *passwordLabel_2;
-    QLineEdit *passwordEdit_2;
+    QLineEdit *lineEdit_db_pg_password;
     QHBoxLayout *horizontalLayout_11;
     QLabel *databaseLabel_2;
-    QLineEdit *dbnameEdit_2;
+    QLineEdit *lineEdit_db_pg_name;
     QHBoxLayout *horizontalLayout_12;
     QLabel *hostLabel_2;
-    QLineEdit *hostEdit_2;
+    QLineEdit *linerEdit_db_pg_host;
     QSpacerItem *verticalSpacer_2;
     QWidget *tab_3;
     QHBoxLayout *horizontalLayout_6;
@@ -108,6 +113,43 @@ public:
         verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
         tabWidget_2 = new QTabWidget(groupBox_4);
         tabWidget_2->setObjectName(QString::fromUtf8("tabWidget_2"));
+        tabWidget_2->setStyleSheet(QString::fromUtf8("QTabWidget\n"
+"{\n"
+"   background-color:rgb(0,255,128);\n"
+"}\n"
+"\n"
+"QTabWidget:tab-bar\n"
+"{\n"
+"    alignment: center;\n"
+"}\n"
+"\n"
+"QTabBar:tab\n"
+"{\n"
+"   width: 150px;   \n"
+"   height: 30px;\n"
+"}\n"
+"\n"
+"QTabBar:selected\n"
+"{\n"
+"    background-color:rgb(0,255,128);\n"
+"    color.rgb(0,255,128);\n"
+"}\n"
+"\n"
+"\n"
+"QTabBar:tab:!selected\n"
+"{     \n"
+"    color.rgb(0,255,128);\n"
+"}\n"
+"\n"
+"\n"
+"QTabBar:tab:!selected:hover\n"
+"{ \n"
+"    background-color:rgb(0,255,128);\n"
+"    color.rgb(0,255,128);\n"
+"}\n"
+"\n"
+"\n"
+""));
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         horizontalLayout_13 = new QHBoxLayout(tab_2);
@@ -117,58 +159,81 @@ public:
         groupBox_5 = new QGroupBox(tab_2);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
         groupBox_5->setEnabled(true);
-        horizontalLayout_9 = new QHBoxLayout(groupBox_5);
+        verticalLayout_8 = new QVBoxLayout(groupBox_5);
+        verticalLayout_8->setSpacing(6);
+        verticalLayout_8->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        groupBox_12 = new QGroupBox(groupBox_5);
+        groupBox_12->setObjectName(QString::fromUtf8("groupBox_12"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_12->sizePolicy().hasHeightForWidth());
+        groupBox_12->setSizePolicy(sizePolicy);
+        groupBox_12->setMinimumSize(QSize(0, 70));
+        checkBox = new QCheckBox(groupBox_12);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        checkBox->setGeometry(QRect(40, 30, 281, 20));
+        checkBox->setChecked(true);
+
+        verticalLayout_8->addWidget(groupBox_12);
+
+        horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(6);
-        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
-        groupBox_6 = new QGroupBox(groupBox_5);
-        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
-        groupBox_6->setMinimumSize(QSize(500, 0));
-        verticalLayout_6 = new QVBoxLayout(groupBox_6);
+        groupBox_db_sqlite = new QGroupBox(groupBox_5);
+        groupBox_db_sqlite->setObjectName(QString::fromUtf8("groupBox_db_sqlite"));
+        groupBox_db_sqlite->setMinimumSize(QSize(500, 0));
+        verticalLayout_6 = new QVBoxLayout(groupBox_db_sqlite);
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        userLabel_3 = new QLabel(groupBox_6);
+        userLabel_3 = new QLabel(groupBox_db_sqlite);
         userLabel_3->setObjectName(QString::fromUtf8("userLabel_3"));
 
         horizontalLayout_7->addWidget(userLabel_3);
 
-        userEdit_3 = new QLineEdit(groupBox_6);
-        userEdit_3->setObjectName(QString::fromUtf8("userEdit_3"));
+        lineEdit_db_sqlite_file = new QLineEdit(groupBox_db_sqlite);
+        lineEdit_db_sqlite_file->setObjectName(QString::fromUtf8("lineEdit_db_sqlite_file"));
 
-        horizontalLayout_7->addWidget(userEdit_3);
+        horizontalLayout_7->addWidget(lineEdit_db_sqlite_file);
 
 
         verticalLayout_6->addLayout(horizontalLayout_7);
+
+        pushButton_3 = new QPushButton(groupBox_db_sqlite);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+
+        verticalLayout_6->addWidget(pushButton_3);
 
         verticalSpacer = new QSpacerItem(20, 356, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_6->addItem(verticalSpacer);
 
 
-        horizontalLayout_9->addWidget(groupBox_6);
+        horizontalLayout_9->addWidget(groupBox_db_sqlite);
 
-        groupBox_8 = new QGroupBox(groupBox_5);
-        groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
-        verticalLayout_4 = new QVBoxLayout(groupBox_8);
+        groupBox_db_pg = new QGroupBox(groupBox_5);
+        groupBox_db_pg->setObjectName(QString::fromUtf8("groupBox_db_pg"));
+        verticalLayout_4 = new QVBoxLayout(groupBox_db_pg);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        userLabel_2 = new QLabel(groupBox_8);
+        userLabel_2 = new QLabel(groupBox_db_pg);
         userLabel_2->setObjectName(QString::fromUtf8("userLabel_2"));
 
         horizontalLayout_8->addWidget(userLabel_2);
 
-        userEdit_2 = new QLineEdit(groupBox_8);
-        userEdit_2->setObjectName(QString::fromUtf8("userEdit_2"));
+        lineEdit_db_pg_login = new QLineEdit(groupBox_db_pg);
+        lineEdit_db_pg_login->setObjectName(QString::fromUtf8("lineEdit_db_pg_login"));
 
-        horizontalLayout_8->addWidget(userEdit_2);
+        horizontalLayout_8->addWidget(lineEdit_db_pg_login);
 
 
         verticalLayout_4->addLayout(horizontalLayout_8);
@@ -176,16 +241,16 @@ public:
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(6);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        passwordLabel_2 = new QLabel(groupBox_8);
+        passwordLabel_2 = new QLabel(groupBox_db_pg);
         passwordLabel_2->setObjectName(QString::fromUtf8("passwordLabel_2"));
 
         horizontalLayout_10->addWidget(passwordLabel_2);
 
-        passwordEdit_2 = new QLineEdit(groupBox_8);
-        passwordEdit_2->setObjectName(QString::fromUtf8("passwordEdit_2"));
-        passwordEdit_2->setEchoMode(QLineEdit::Password);
+        lineEdit_db_pg_password = new QLineEdit(groupBox_db_pg);
+        lineEdit_db_pg_password->setObjectName(QString::fromUtf8("lineEdit_db_pg_password"));
+        lineEdit_db_pg_password->setEchoMode(QLineEdit::Password);
 
-        horizontalLayout_10->addWidget(passwordEdit_2);
+        horizontalLayout_10->addWidget(lineEdit_db_pg_password);
 
 
         verticalLayout_4->addLayout(horizontalLayout_10);
@@ -193,15 +258,15 @@ public:
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        databaseLabel_2 = new QLabel(groupBox_8);
+        databaseLabel_2 = new QLabel(groupBox_db_pg);
         databaseLabel_2->setObjectName(QString::fromUtf8("databaseLabel_2"));
 
         horizontalLayout_11->addWidget(databaseLabel_2);
 
-        dbnameEdit_2 = new QLineEdit(groupBox_8);
-        dbnameEdit_2->setObjectName(QString::fromUtf8("dbnameEdit_2"));
+        lineEdit_db_pg_name = new QLineEdit(groupBox_db_pg);
+        lineEdit_db_pg_name->setObjectName(QString::fromUtf8("lineEdit_db_pg_name"));
 
-        horizontalLayout_11->addWidget(dbnameEdit_2);
+        horizontalLayout_11->addWidget(lineEdit_db_pg_name);
 
 
         verticalLayout_4->addLayout(horizontalLayout_11);
@@ -209,15 +274,15 @@ public:
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setSpacing(6);
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
-        hostLabel_2 = new QLabel(groupBox_8);
+        hostLabel_2 = new QLabel(groupBox_db_pg);
         hostLabel_2->setObjectName(QString::fromUtf8("hostLabel_2"));
 
         horizontalLayout_12->addWidget(hostLabel_2);
 
-        hostEdit_2 = new QLineEdit(groupBox_8);
-        hostEdit_2->setObjectName(QString::fromUtf8("hostEdit_2"));
+        linerEdit_db_pg_host = new QLineEdit(groupBox_db_pg);
+        linerEdit_db_pg_host->setObjectName(QString::fromUtf8("linerEdit_db_pg_host"));
 
-        horizontalLayout_12->addWidget(hostEdit_2);
+        horizontalLayout_12->addWidget(linerEdit_db_pg_host);
 
 
         verticalLayout_4->addLayout(horizontalLayout_12);
@@ -227,7 +292,10 @@ public:
         verticalLayout_4->addItem(verticalSpacer_2);
 
 
-        horizontalLayout_9->addWidget(groupBox_8);
+        horizontalLayout_9->addWidget(groupBox_db_pg);
+
+
+        verticalLayout_8->addLayout(horizontalLayout_9);
 
 
         horizontalLayout_13->addWidget(groupBox_5);
@@ -381,7 +449,7 @@ public:
 
         retranslateUi(mainWidget);
 
-        tabWidget_2->setCurrentIndex(3);
+        tabWidget_2->setCurrentIndex(0);
         tabWidget->setCurrentIndex(0);
 
 
@@ -393,24 +461,27 @@ public:
         mainWidget->setWindowTitle(QApplication::translate("mainWidget", "mainWidget", nullptr));
         groupBox_4->setTitle(QApplication::translate("mainWidget", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
         groupBox_5->setTitle(QApplication::translate("mainWidget", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \321\201\320\262\321\217\320\267\320\270 \321\201 \320\261\320\260\320\267\320\276\320\271 \320\264\320\260\320\275\320\275\321\213\321\205", nullptr));
-        groupBox_6->setTitle(QApplication::translate("mainWidget", "SQLite(\320\273\320\276\320\272\320\260\320\273\321\214\320\275\320\260\321\217)", nullptr));
+        groupBox_12->setTitle(QApplication::translate("mainWidget", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 \320\261\320\260\320\267\321\203 \320\264\320\260\320\275\320\275\321\213\321\205", nullptr));
+        checkBox->setText(QApplication::translate("mainWidget", "SQLite \320\261\320\260\320\267\320\260 \320\264\320\260\320\275\320\275\321\213\321\205", nullptr));
+        groupBox_db_sqlite->setTitle(QApplication::translate("mainWidget", "SQLite(\320\273\320\276\320\272\320\260\320\273\321\214\320\275\320\260\321\217)", nullptr));
         userLabel_3->setText(QApplication::translate("mainWidget", "\320\233\320\276\320\272\320\260\320\273\321\214\320\275\321\213\320\271 \321\204\320\260\320\271\320\273", nullptr));
-        userEdit_3->setText(QApplication::translate("mainWidget", "c:\\lely\\db-lely3.db", nullptr));
-        userEdit_3->setPlaceholderText(QString());
-        groupBox_8->setTitle(QApplication::translate("mainWidget", "PostgreSql(\321\203\320\264\320\260\320\273\320\265\320\275\320\275\321\213\320\271 \321\201\320\265\321\200\320\262\320\265\321\200)", nullptr));
+        lineEdit_db_sqlite_file->setText(QApplication::translate("mainWidget", "c:\\lely\\db-lely3.db", nullptr));
+        lineEdit_db_sqlite_file->setPlaceholderText(QString());
+        pushButton_3->setText(QApplication::translate("mainWidget", "\320\275\320\260\320\271\321\202\320\270 \321\204\320\260\320\271\320\273 \320\275\320\260 \320\264\320\270\321\201\320\272\320\265", nullptr));
+        groupBox_db_pg->setTitle(QApplication::translate("mainWidget", "PostgreSql(\321\203\320\264\320\260\320\273\320\265\320\275\320\275\321\213\320\271 \321\201\320\265\321\200\320\262\320\265\321\200)", nullptr));
         userLabel_2->setText(QApplication::translate("mainWidget", "\320\233\320\276\320\263\320\270\320\275:", nullptr));
-        userEdit_2->setText(QApplication::translate("mainWidget", "postgres", nullptr));
-        userEdit_2->setPlaceholderText(QString());
+        lineEdit_db_pg_login->setText(QApplication::translate("mainWidget", "postgres", nullptr));
+        lineEdit_db_pg_login->setPlaceholderText(QString());
         passwordLabel_2->setText(QApplication::translate("mainWidget", "\320\237\320\260\321\200\320\276\320\273\321\214:", nullptr));
-        passwordEdit_2->setInputMask(QString());
-        passwordEdit_2->setText(QApplication::translate("mainWidget", "000", nullptr));
-        passwordEdit_2->setPlaceholderText(QString());
+        lineEdit_db_pg_password->setInputMask(QString());
+        lineEdit_db_pg_password->setText(QApplication::translate("mainWidget", "000", nullptr));
+        lineEdit_db_pg_password->setPlaceholderText(QString());
         databaseLabel_2->setText(QApplication::translate("mainWidget", "\320\221\320\260\320\267\320\260 \320\264\320\260\320\275\320\275\321\213\321\205:", nullptr));
-        dbnameEdit_2->setText(QApplication::translate("mainWidget", "vim", nullptr));
-        dbnameEdit_2->setPlaceholderText(QString());
+        lineEdit_db_pg_name->setText(QApplication::translate("mainWidget", "vim", nullptr));
+        lineEdit_db_pg_name->setPlaceholderText(QString());
         hostLabel_2->setText(QApplication::translate("mainWidget", "IP Address:", nullptr));
-        hostEdit_2->setText(QApplication::translate("mainWidget", "192.168.124.135", nullptr));
-        hostEdit_2->setPlaceholderText(QApplication::translate("mainWidget", "localhost", nullptr));
+        linerEdit_db_pg_host->setText(QApplication::translate("mainWidget", "192.168.124.135", nullptr));
+        linerEdit_db_pg_host->setPlaceholderText(QApplication::translate("mainWidget", "localhost", nullptr));
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_2), QApplication::translate("mainWidget", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \321\201\320\262\321\217\320\267\320\270", nullptr));
         groupBox_7->setTitle(QApplication::translate("mainWidget", "\320\224\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\270\320\265/\321\203\320\264\320\260\320\273\320\265\320\275\320\270\320\265 \320\277\321\203\320\275\320\272\321\202\320\276\320\262 \320\274\320\265\320\275\321\216(XML)", nullptr));
         textEdit->setDocumentTitle(QString());
