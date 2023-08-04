@@ -18,29 +18,17 @@ Form_tabview::Form_tabview(QString user,QString pwd, QString host, QString db_na
    //ConnectionDialog dialog(this);
 
     db = new DataBase();                        //  объект, который будет использоваться для подключения и дальнейшей работы с БД
-    db->connectToDataBase(
-                user,
-                pwd,
-                host,
-                db_name
-                );                //  подключаемся/создаем бд
+    db->connectToDataBase();                //  подключаемся/создаем бд
 
     for (int i = 0; i < 10; i++) {
          QVariantList data;
          data.append(i+1);                                      //     ЗАПОЛНЯЕМ СТРОКАМИ qual_table
          data.append(i+10);
-         db->inserIntoQualTable(data);             //  каждый раз вызываем inserIntoTable()  с передачей массива данных
+         db->inserIntoTable("", QList<QString>{""},data);             //  каждый раз вызываем inserIntoTable()  с передачей массива данных
     }
 
-    for (int i = 0; i < 5; i++) {
-         QVariantList data;
-         data.append(i+12);                                           //  ЗАПОЛНЯЕМ СТРОКАМИ main_table
-         data.append(i+1);
-         data.append(i+11);
-         db->inserIntoMainTable(data);
-    }
 
-    this->setupSQLTableModel( TABLE2,   QStringList() <<"main_table.i"  << "qual_table.p01"   << "main_table.t"  );         // передаем имя таблицы main_table, и массив заголовков (который заполняем прямо здесь)
+    //this->setupSQLTableModel( TABLE2,   QStringList() << "columns"  );         // передаем имя таблицы main_table, и массив заголовков (который заполняем прямо здесь)
 
     tableView = new QTableView(this);
     this->setupTableView();                       //  инициализируем ВИД  (QTableView)
@@ -132,16 +120,16 @@ void Form_tabview::onAddButtonClickedSlot()
 
 void Form_tabview::onSaveButtonClickedSlot()
 {
-    if(forEdit) { updateRow(); }                                       //  вызовет либо изменение либо добавление строки, в зависимости от ситуации.
-    else insertRow();
+    //if(forEdit) { updateRow("", QList<QString>(){""}); }                                       //  вызовет либо изменение либо добавление строки, в зависимости от ситуации.
+    //else insertRow();
 }
 
 
-void Form_tabview::insertRow()
+void Form_tabview::insertRow(QString table)
 {
     QSqlQuery query;
 
-    query.prepare( "INSERT INTO "  TABLE2 " ( i, r, t ) "
+    query.prepare( "INSERT INTO " + table + " ( i, r, t ) "
                                            "VALUES  (?,?,?)");
     query.addBindValue(dialog.lineedit1->text().toInt());
     query.addBindValue(dialog.lineedit2->text());
@@ -157,19 +145,26 @@ void Form_tabview::insertRow()
     }
 }
 
-
-
-void Form_tabview::updateRow()
+void Form_tabview::updateRow(QString table, QList<QString> columns)
 {
     QModelIndex ind = model->index(tableView->currentIndex().row(), 0, QModelIndex());          //  получаем индекс первого элемента выделенной строки (он уникальный, поэтому будем по нему искать)
     QString str = ind.data().toString();
 
+
     QSqlQuery query;
 
-    query.prepare( "UPDATE "  TABLE2 " SET i = ?, r = ?, t = ?  WHERE i = " +str+";");
-    query.addBindValue(dialog.lineedit1->text().toInt());
-    query.addBindValue(dialog.lineedit2->text());
-    query.addBindValue(dialog.lineedit3->text());
+    QString update="UPDATE " + table + " SET "+columns[0]+" = ? ";
+    for(int i=1; i<columns.count();i++)
+    {
+       update+=", "+columns[i]+" = ? ";
+    }
+
+        query.prepare(update);
+        //query.prepare( "UPDATE " + table + " SET i = ?, r = ?, t = ?  WHERE i = " +str+";");
+
+        for(int i=0; i<columns.count();i++)
+         query.addBindValue(columns[i]);
+
 
     if(!query.exec()){
         QMessageBox::critical(0, "Не удалось изменить строку", query.lastError().text());
@@ -182,13 +177,13 @@ void Form_tabview::updateRow()
 }
 
 
-void Form_tabview::deleteRowSlot(){
+void Form_tabview::deleteRowSlot(int i){
 
    QModelIndex ind = model->index(tableView->currentIndex().row(), 0, QModelIndex());          //  получаем индекс первого элемента выделенной строки (он уникальный, поэтому будем по нему искать)
    QString str = ind.data().toString();
 
     QSqlQuery query;
-    if(!query.exec( "DELETE FROM " TABLE2 " WHERE i = " +str+";"))                      //  удаляем строку по уникальному индексу
+   if(!query.exec( "DELETE FROM " + table + " WHERE i = " +str+";"))                      //  удаляем строку по уникальному индексу
     {
         QMessageBox::critical(0, "Не удалось удалить строку", query.lastError().text());
     }

@@ -37,11 +37,12 @@ public:
    void setupSQLTableModel(QString tableName,   QStringList headers);        //  методы настройки  SQLTableModel   и  TableView
    void setupTableView();
 
-   void insertRow();              //  методы добавления и изменения строк в БД
-   void updateRow();
+   void insertRow(QString table);              //  методы добавления и изменения строк в БД
+   void updateRow(QString table, QList<QString> columns);
 
 private slots:
-   void deleteRowSlot();
+   QString table;
+   void deleteRowSlot(int index);
    void onEditButtonClickedSlot();
    void onAddButtonClickedSlot();
    void onSaveButtonClickedSlot();
