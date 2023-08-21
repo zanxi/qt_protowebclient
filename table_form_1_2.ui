@@ -68,7 +68,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QTableWidget" name="tableWidget_lists_signals"/>
+         <widget class="QTableWidget" name="tableWidget"/>
         </item>
        </layout>
       </widget>

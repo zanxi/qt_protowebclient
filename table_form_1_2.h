@@ -15,6 +15,8 @@ public:
     explicit Table_Form_1_2(QWidget *parent = nullptr);
     ~Table_Form_1_2();
 
+    QString tab;
+
 private:
     Ui::Table_Form_1_2 *ui;
 };

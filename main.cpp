@@ -1,7 +1,8 @@
 #include "mainwindow.h"
+#include "AdminPanel/AdminWidget.h"
 
 #include <QApplication>
-#include <QtCore/QTextCodec>
+//#include <QtWidgets/Qtex>
 #include <QFile>
 #include <QSplashScreen>
 
@@ -46,6 +47,8 @@ int main(int argc, char *argv[])
     //std::ios_base::sync_with_stdio(false);
 
     MainWindow w;
+    //AdminWidget *w = new AdminWidget();
+
     w.show();
     splash.finish(&w);
 

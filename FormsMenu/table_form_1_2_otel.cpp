@@ -2,7 +2,7 @@
 #include "ui_table_form_1_2_otel.h"
 #include "tabelwidget_module/datetimestyleditemdelegate.h"
 
-#include "BuildData/json_w.h"
+#include "json/json_w.h"
 
 #include <QCheckBox>
 
@@ -51,6 +51,9 @@ table_form_1_2_otel::table_form_1_2_otel(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Название"));
     ui->tableWidget->setHorizontalHeaderLabels( NameColumns );
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+
+    ui->tableWidget->hideColumn(0);
+
 
     //QStringList wordList;
     //wordList << "alpha" << "omega" << "omega2" << "omega3" <<"omicron" << "zeta";

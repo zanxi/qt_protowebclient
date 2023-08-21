@@ -11,6 +11,7 @@
 #include "AdminPanel/mainwidget.h"
 
 #include "dataanimals.h"
+#include "db/SqlDataBase.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -31,32 +32,46 @@ MainWindow::MainWindow(QWidget *parent)
     ui->widget_title_2->setStyleSheet("background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #14B143, stop:1 #14B143);"
                                     "foreground: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #FFFFFF, stop:1 #FFFFFF);");
 
+
+    logger::ClearLog();
+    DataSystems::Instance().clear();
+
+    SqlDataBase::DropTables();
+    SqlDataBase::DropDataBase(DataSystems::Instance().db_name.toStdString());
+    SqlDataBase::UseDataBase("Use "+DataSystems::Instance().db_name.toStdString()+";");
+    SqlDataBase::CreateDataBase(DataSystems::Instance().db_name.toStdString());
+    SqlDataBase::CreateTables();
+    SqlDataBase::AllTablesInsert();
+    SqlDataBase::DropTables();
+    SqlDataBase::TablesUpdate();
+    SqlDataBase::DropDataBase(DataSystems::Instance().db_name.toStdString());
+
+    DataSystems::Instance().db = new DataBase();
+    if(DataSystems::Instance().db->Open())
+    {
+        //DataSystems::Instance().db->sql_exec("DROP TABLE DataService;");
+        //DataSystems::Instance().db->sql_exec("CREATE TABLE IF NOT EXISTS  DataService(AnimalsId text NOT NULL,NumberAnswerId text NOT NULL,GroupId text NOT NULL,LabelId text NOT NULL,CONSTRAINT RIndication_pkey PRIMARY KEY (RecordId));");
+
+        //DataSystems::Instance().db->DropTables();
+
+        DataSystems::Instance().db->createTables();
+        DataSystems::Instance().db->FillValue();
+    }
+
+
     w_m = new Widget_menu();
     ui->verticalLayout->addWidget(w_m);
 
-    //w_f = new Widget_Form();
-    //ui->verticalLayout_2->addWidget(w_f);
-
-    //DataSystems::Instance().db_host="";
-
     Form_2_1 *w_f_2_1 = new Form_2_1();
     ui->verticalLayout_2->addWidget(w_f_2_1);
-    //w_f = new Widget_Form();
-    //ui->verticalLayout_2->addWidget(w_f);
 
     connect(this, &MainWindow::signal, w_m, &Widget_menu::slot);
     connect(w_m, &Widget_menu::signalMenu, this, &MainWindow::slotMenu);
+
 }
 
 void MainWindow::slotMenu(QString val)
 {
-    //ui->verticalLayout_2.de;
-    //logger::WriteMsg("sent signal From Widget_menu to MainWindow: "+val.toStdString());
-
-    //qDebug()<<"value tree item: "<<val;
-
-    //return;
-
     QLayoutItem *child = ui->verticalLayout_2->takeAt(0);
     //while ((child = ui->verticalLayout_2->takeAt(0)) != 0)
 
@@ -77,7 +92,12 @@ void MainWindow::slotMenu(QString val)
         }
 
         QWidget *fm;
-        if(val.contains("Глобальные установки фермы"))
+        if(val.contains("Начало"))
+        {
+                 fm = new Form_2_1;
+            qDebug()<<"Начало работает";
+        }
+        else if(val.contains("Глобальные установки фермы"))
         {
                  fm = new Form_1_1;
         }
@@ -94,33 +114,14 @@ void MainWindow::slotMenu(QString val)
            //fm = new Form_1_2_General;
            fm = new Form_in_work;
         }
+
         ui->verticalLayout_2->addWidget(fm);
-
-//    ui.tabWidget->insertTab(0,fe_1_1,QString("Ферма"));
-//    Form_1_2 *fe_1_2 = new Form_1_2;
-//    ConnectionDialog dialog(this);
-//    //dialog.show();
-//    Form_tabview *form_tabvie = new Form_tabview(
-//        dialog.username(),
-//        dialog.password(),
-//        dialog.hostname(),
-//        dialog.databasename(),
-//        this);
-
-//    QHBoxLayout *hlayot = new QHBoxLayout();     // горизонтальный слой с кнопками
-//    hlayot->addWidget(fe_1_2);
-//    //hlayot->addSpacing(300);
-//    hlayot->addWidget(form_tabvie);
-//    //hlayot->addSpacing(300);
-//    //hlayot->addSpacing(300);
-
-//    QWidget *placeholderWidget = new QWidget;        //  стандартный приём, добавляем главный слой на простой виджет, и этот виджет делаем центральным. Т.к.  setCentralWidget принимает лишь виджет.
-//    placeholderWidget->setLayout(hlayot);
 
 }
 
 MainWindow::~MainWindow()
 {
+    if(DataSystems::Instance().db!=nullptr) DataSystems::Instance().db->closeDataBase();
     delete ui;
 }
 

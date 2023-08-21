@@ -1,0 +1,60 @@
+/********************************************************************************
+** Form generated from reading UI file 'stumanager.ui'
+**
+** Created by: Qt User Interface Compiler version 5.4.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_DBMANAGER_H
+#define UI_DBMANAGER_H
+
+#include <QtCore/QVariant>
+#include <QAction>
+#include <QApplication>
+#include <QButtonGroup>
+#include <QGridLayout>
+#include <QHeaderView>
+#include <QTableView>
+#include <QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_DbManager
+{
+public:
+    QGridLayout *gridLayout;
+    QTableView *tableView;
+
+    void setupUi(QWidget *stuManager)
+    {
+        if (stuManager->objectName().isEmpty())
+            stuManager->setObjectName(QStringLiteral("stuManager"));
+        stuManager->resize(427, 292);
+        gridLayout = new QGridLayout(stuManager);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        tableView = new QTableView(stuManager);
+        tableView->setObjectName(QStringLiteral("tableView"));
+
+        gridLayout->addWidget(tableView, 0, 0, 1, 1);
+
+
+        retranslateUi(stuManager);
+
+        QMetaObject::connectSlotsByName(stuManager);
+    } // setupUi
+
+    void retranslateUi(QWidget *stuManager)
+    {
+        stuManager->setWindowTitle(QApplication::translate("stuManager", "Form", 0));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class DbManager: public Ui_DbManager {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_DBMANAGER_H

@@ -3,6 +3,9 @@
 
 void DataSystems::clear()
 {
+    db = nullptr;
+
+
     log="";
     log_create_db="";
     mj.clear();
@@ -11,17 +14,20 @@ void DataSystems::clear()
     db_sql_table_insert.clear();
 
     db_check = DB_check::SQLITE;
+    //db_check = DB_check::PGSQL;
 
-    db_host="";
-    db_name="vim";
-    db_login="";
-    db_password="";
+    db_host="192.168.124.135";
+    db_name="vim3";
+    db_login="postgres";
+    db_password="000";
     db_sql_create="create.sql";
     db_sql_insert="insert.sql";
     db_sql_drop="drop.sql";
 //    db_sqlite_file="./db-lely3.db";
     //db_sqlite_file="db-test.db";
-    db_sqlite_file="002.db";
+    db_sqlite_file="003.db";
+
+    db_sqlite_file="C:/lely/db-lely3.db";
 
     name_animals="корова";
 

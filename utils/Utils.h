@@ -20,6 +20,8 @@ struct db_propeties{
 
 struct key_value_t
 {
+    key_value_t(std::string key, std::string value):key(key),value(value){}
+    key_value_t(){}
   std::string key;
   std::string value;
 };

@@ -25,6 +25,8 @@ table_form_1_2_in_work::table_form_1_2_in_work(QWidget *parent) :
                                 "padding: 4 20000 4 10;"
                                 "}");
 
+    ui->tableWidget->hideColumn(0);
+
 
 
 }

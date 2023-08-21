@@ -108,7 +108,7 @@ QTabBar:tab:!selected:hover
                  <string>SQLite база данных</string>
                 </property>
                 <property name="checked">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </widget>

@@ -170,6 +170,16 @@ std::string datetime::GenerateTime()
            +"', 'dd/mm/yyyy hh24:mi:ss')";
 }
 
+std::string datetime::GenerateTime_sqlite()
+{
+    long int ms = string2timestamp(utcExample())+3600*24*100+
+                  (cntTime++)*(3600*100);
+    return "'"+ unixTimeToHumanReadable(ms)+"'";
+}
 
+std::string datetime::GenerateTime_exp()
+{
+    return "' '";
+}
 
 

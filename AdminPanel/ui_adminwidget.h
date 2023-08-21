@@ -174,7 +174,7 @@ public:
         checkBox = new QCheckBox(groupBox_12);
         checkBox->setObjectName(QString::fromUtf8("checkBox"));
         checkBox->setGeometry(QRect(40, 30, 281, 20));
-        checkBox->setChecked(true);
+        checkBox->setChecked(false);
 
         verticalLayout_8->addWidget(groupBox_12);
 

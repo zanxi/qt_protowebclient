@@ -1,12 +1,24 @@
-#include "logger.h"    
+#include "logger.h"
+#include "../dataanimals.h"
+#include <QFileInfo>
 
     long logger::cnt = 0;
+    QString logger::log = " ";
+
 
     std::string logger::CreateLogName(){        
 
         return Num::fn;       
         //return "log_debug_"+ datetime::utcExample()+ ".txt";
     }
+
+    void logger::WriteLog(QString msg)
+    {
+        //log+=QString(" | ")+QString::fromStdString(datetime::utcExample())+"| message: "+msg+"  "+"\n";
+        DataSystems::Instance().log+=QString(" | ")+QString::fromStdString(datetime::utcExample())+"| message: "+msg+"  "+"\n";
+
+    }
+
 
     void logger::ClearLog(std::string fn){        
        fn=CreateLogName();
@@ -20,8 +32,8 @@
 
     void logger::WriteMsg(std::string msg, std::string fn){
        //return;
-        fn=CreateLogName();
-    std::ofstream out;    
+       //fn=CreateLogName();
+    std::ofstream out;
     out.open(fn,std::ios::app);
     //out.open(fn);
     if(out.is_open())
@@ -71,21 +83,34 @@
     }
     else
     {
-        cnt=0;
+        cnt=0;        
     }
     in2.close();    
     }
 
     void logger::WriteSqlScript(std::string msg, std::string fn)
     {
-        fn=CreateLogName();        
-    std::ofstream out;    
-    out.open(fn,std::ios::app);
-    //out.open(fn);
+
+    QFileInfo qf(QString::fromStdString(fn));
+    if(!qf.exists())
+    {
+        //logger::WriteLog("full path ---> <<< "+QString::fromStdString(fn)+" >>> не записан скрипт - no writable script"+QString::fromStdString(fn));
+        //return;
+    }
+
+        //fn=CreateLogName();
+    std::ofstream out;
+    //out.open(fn,std::ios::app);
+    out.open(fn);
     if(out.is_open())
     {   
         //out<<(cnt++)<<" | "<<datetime::utcExample()<<" | *************************************** | Error information: "<<msg<<"  "<<"\n";        
         out<<msg<<"  "<<"\n";        
+    }
+    else
+    {
+        //logger::WriteLog("не записан скринпт - no writable script");
+        logger::WriteLog("full path ---> <<< "+QString::fromStdString(fn)+" >>> не записан скрипт - no writable script"+QString::fromStdString(fn));
     }
     out.close();
     }

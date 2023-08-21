@@ -5,7 +5,7 @@
 #include "tabelwidget_module/spinboxitemdelegate.h"
 #include "tabelwidget_module/checkboxitemdelegate.h"
 
-#include "BuildData/json_w.h"
+#include "json/json_w.h"
 
 
 Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
@@ -30,16 +30,18 @@ Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
     auto spinBoxDelegate = new SpinBoxItemDelegate(ui->tableWidget_lists_signals);
     auto checkBoxDelegate = new CheckBoxItemDelegate(ui->tableWidget_lists_signals);
 
-    QMap<QString, QString> allColumns = json_w::form_table("table_form_2_1.json");
+    //QMap<QString, QString> allColumns = json_w::form_table2("table_form_2_1.json");
+    QList<QString> allColumns = json_w::form_table2("table_form_2_1.json");
     //qDebug()<< " ||| " << allTabs.count() << " ||| " ;
-    QString firstColumn = allColumns.keys().first();
+    //QString firstColumn = allColumns.keys().first();
     //QList<QString> tab = allTabs.value(firstTab);
-    qDebug()<< " ||| " << firstColumn << " ||| " ;
+    //qDebug()<< " ||| " << firstColumn << " ||| " ;
     QStringList NameColumns;
-    foreach (QString key, allColumns.keys())
+    foreach (QString key, allColumns)
     {
         //NameColumns.append(allColumns[key]);
-        NameColumns.append(key);
+        NameColumns<<(key);
+        qDebug()<<key;
     }
 
     ui->tableWidget_lists_signals->setColumnCount( allColumns.count() );
@@ -51,6 +53,8 @@ Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
 
     ui->tableWidget_lists_signals->setHorizontalHeaderLabels( NameColumns );
     ui->tableWidget_lists_signals->horizontalHeader()->setStretchLastSection(true);
+
+    ui->tableWidget_lists_signals->hideColumn(0);
 
     for(int i=0;i<10;i++)
     {

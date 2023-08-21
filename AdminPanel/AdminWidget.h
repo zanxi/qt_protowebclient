@@ -9,7 +9,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QString>
-#include "stumanager.h"
+#include "DbManager.h"
 //#include "teamanager.h"
 
 #include "modelbuilder.h"
@@ -63,7 +63,7 @@ private:
     QPushButton *addBtn;
     QPushButton *updateBtn;
     QPushButton *deleteBtn;
-    stuManager *m_pStuManager;
+    DbManager *m_pDbManager;
     //teaManager *m_pTeaManager;
     void initUI(QString nameTab= "RFeedSettings");
     void refresh();

@@ -3,7 +3,7 @@
 
 #include "tabelwidget_module/datetimestyleditemdelegate.h"
 
-#include "BuildData/json_w.h"
+#include "json/json_w.h"
 
 #include <QLineEdit>
 #include <QCompleter>
@@ -72,6 +72,7 @@ Table_Form_1_2_batch_transfer::Table_Form_1_2_batch_transfer(QWidget *parent) :
     ui->tableWidget->setItemDelegateForColumn(3,  datetimeDelegate);
     ui->tableWidget->setItemDelegateForColumn(5,  datetimeDelegate);
     ui->tableWidget->setItemDelegateForColumn(6,  datetimeDelegate);
+    ui->tableWidget->hideColumn(0);
 
     for(int i=0;i<1;i++)
     {

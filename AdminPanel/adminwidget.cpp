@@ -13,9 +13,10 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
 {
     ui->setupUi(this);
 
-    ui->groupBox_db_sqlite->setDisabled(false);
-    ui->groupBox_db_pg->setDisabled(true);
-    ui->checkBox->setText("SQLite база данных");
+    //ui->groupBox_db_sqlite->setDisabled(false);
+    //ui->groupBox_db_pg->setDisabled(true);
+    //ui->checkBox->setText("SQLite база данных");
+    //ui->checkBox->setCheckState(Qt::CheckState::Unchecked);
 
     ui->groupBox->setStyleSheet("QGroupBox {"
                                 "background-color: white;"
@@ -99,7 +100,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
     ui->treeView->setModel(model_builder->GetTreeModel());
     //ui->treeView->verticalHeader()->hi
 
-    this->setWindowTitle("Таблица данных");
+    this->setWindowTitle("Administrator panel perfomance");
     str = "";
     tabNum = 0;
     searchEdit = new QLineEdit;
@@ -108,20 +109,6 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
     deleteBtn = new QPushButton(tr("Удалить строчку"));
 
     creatCornerBtn();
-
-    switch(DataSystems::Instance().db_check)
-    {
-    case DB_check::SQLITE:
-        connectDb(database);
-        break;
-    case DB_check::PGSQL:
-        connectDb_pg(database);
-        break;
-    }
-
-
-
-
 
     initUI();
     resize(900, 600);
@@ -137,6 +124,24 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
 
     connect(ui->treeView->selectionModel(),SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
             this, SLOT(selectTreeItem(const QItemSelection&,const QItemSelection&)));
+
+
+    if(ui->checkBox->checkState())
+    {
+        ui->groupBox_db_sqlite->setDisabled(false);
+        ui->groupBox_db_pg->setDisabled(true);
+        ui->checkBox->setText("SQLite база данных");
+
+        DataSystems::Instance().db_check=DB_check::SQLITE;
+    }
+    else
+    {
+        ui->groupBox_db_sqlite->setDisabled(true);
+        ui->groupBox_db_pg->setDisabled(false);
+        ui->checkBox->setText("PostgreSQL база данных");
+
+        DataSystems::Instance().db_check=DB_check::PGSQL;
+    }
 
     //connect(ui->treeView->selectionModel(), &AdminWidget::signalMenu, this, &AdminWidget::slotMenu);
 
@@ -174,32 +179,32 @@ void AdminWidget::selectTreeItem(const QItemSelection &selected, const QItemSele
 AdminWidget::~AdminWidget()
 {
     delete ui;
-    if(m_pStuManager!=nullptr)delete m_pStuManager;
+    if(m_pDbManager!=nullptr)delete m_pDbManager;
     database.close();
     qDebug() << "Database closeed!";
 }
 
 void AdminWidget::refresh()
 {
-    if (0 == tabNum) m_pStuManager->showTable(str);
+    if (0 == tabNum) m_pDbManager->showTable(str);
     //else if (1 == tabNum) m_pTeaManager->showTable(str);
 }
 
 void AdminWidget::addBtnClicked()
 {
-     if (0 == tabNum) m_pStuManager->addRow();
+     if (0 == tabNum) m_pDbManager->addRow();
      //else if (1 == tabNum) m_pTeaManager->addRow();
 }
 
 void AdminWidget::updateBtnClicked()
 {
-    if (0 == tabNum) m_pStuManager->updateTable();
+    if (0 == tabNum) m_pDbManager->updateTable();
     //else if (1 == tabNum) m_pTeaManager->updateTable();
 }
 
 void AdminWidget::deleteBtnClicked()
 {
-    if (0 == tabNum) m_pStuManager->deleteRows();
+    if (0 == tabNum) m_pDbManager->deleteRows();
     //else if (1 == tabNum) m_pTeaManager->deleteRows();
 }
 
@@ -217,11 +222,11 @@ void AdminWidget::getSearchText()
 
 void AdminWidget::initUI(QString nameTab)
 {
-    m_pStuManager = new stuManager(nameTab);
-    QByteArray ba = m_pStuManager->NameTab().toLocal8Bit();
+    m_pDbManager = new DbManager(nameTab);
+    QByteArray ba = m_pDbManager->NameTab().toLocal8Bit();
     const char *c_str2 = ba.data();    
     if(ui->tabWidget->count()>0)ui->tabWidget->removeTab(0);
-    ui->tabWidget->addTab(m_pStuManager, tr(c_str2));// +QString::fromStdString("Таблица данных Farm").toStdString()));
+    ui->tabWidget->addTab(m_pDbManager, tr(c_str2));// +QString::fromStdString("Таблица данных Farm").toStdString()));
 }
 
 void AdminWidget::creatCornerBtn()
@@ -242,12 +247,24 @@ void AdminWidget::creatCornerBtn()
 
 void AdminWidget::on_pushButton_2_clicked()
 {
+    if(DataSystems::Instance().db!=nullptr)DataSystems::Instance().db->closeDataBase();
+    DataSystems::Instance().db = nullptr;
+
     DataSystems::Instance().db_host=ui->linerEdit_db_pg_host->text();
     DataSystems::Instance().db_name=ui->lineEdit_db_pg_name->text();
     DataSystems::Instance().db_login=ui->lineEdit_db_pg_login->text();
     DataSystems::Instance().db_password=ui->lineEdit_db_pg_password->text();
 
     DataSystems::Instance().db_sqlite_file=ui->lineEdit_db_sqlite_file->text();
+
+        DataSystems::Instance().db = new DataBase();
+        if(!DataSystems::Instance().db->Open())
+        {
+            DataSystems::Instance().db->closeDataBase();
+        }
+
+
+    this->close();
 }
 
 
