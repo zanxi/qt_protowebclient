@@ -1,415 +1,415 @@
 {
-  "RMilkVisit": [
-    {
-      "TagId": "text NOT NULL"
-    },
-    {
-      "StructId": "text NOT NULL"
-    },
-    {
-      "ChangedSettings": "text NOT NULL"
-    },
-    {
-      "VisitId": "text NOT NULL"
-    },
-    {
-      "SettingTime": "TIMESTAMP"
-    },
-    {
-      "StartMilkVisitTime": "TIMESTAMP"
-    },
-    {
-      "EndMilkVisitTime": "TIMESTAMP"
-    },
-    {
-      "LastSucceedMilkTime": "TIMESTAMP"
-    },
-    {
-      "MilkingResult": "text NOT NULL"
-    },
-    {
-      "ConsecFailes": "text NOT NULL"
-    },
-    {
-      "AvgVisitTime": "TIMESTAMP"
-    },
-    {
-      "MilkYield": "text NOT NULL"
-    },
-    {
-      "MilkYieldExp": "text NOT NULL"
-    },
-    {
-      "BottleNumber": "text NOT NULL"
-    },
-    {
-      "RackNumber": "text NOT NULL"
-    },
-    {
-      "MilkTemperature": "text NOT NULL"
-    },
-    {
-      "MilkSpeedMax": "text NOT NULL"
-    },
-    {
-      "DeadMilkTimeLR": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeRR": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeRF": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeLF": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeAvgLR": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeAvgRR": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeAvgRF": "TIMESTAMP"
-    },
-    {
-      "DeadMilkTimeAvgLF": "TIMESTAMP"
-    },
-    {
-      "MilkTimeLR": "TIMESTAMP"
-    },
-    {
-      "MilkTimeRR": "TIMESTAMP"
-    },
-    {
-      "MilkTimeRF": "TIMESTAMP"
-    },
-    {
-      "MilkTimeLF": "TIMESTAMP"
-    },
-    {
-      "YieldLR": "text NOT NULL"
-    },
-    {
-      "YieldRR": "text NOT NULL"
-    },
-    {
-      "YieldRF": "text NOT NULL"
-    },
-    {
-      "YieldLF": "text NOT NULL"
-    },
-    {
-      "RankLR": "text NOT NULL"
-    },
-    {
-      "RankRR": "text NOT NULL"
-    },
-    {
-      "RankRF": "text NOT NULL"
-    },
-    {
-      "RankLF": "text NOT NULL"
-    },
-    {
-      "RankDevLR": "text NOT NULL"
-    },
-    {
-      "RankDevRR": "text NOT NULL"
-    },
-    {
-      "RankDevRF": "text NOT NULL"
-    },
-    {
-      "RankDevLF": "text NOT NULL"
-    },
-    {
-      "XPosAvgLR": "text NOT NULL"
-    },
-    {
-      "XPosAvgRR": "text NOT NULL"
-    },
-    {
-      "XPosAvgRF": "text NOT NULL"
-    },
-    {
-      "XPosAvgLF": "text NOT NULL"
-    },
-    {
-      "YPosAvgLR": "text NOT NULL"
-    },
-    {
-      "YPosAvgRR": "text NOT NULL"
-    },
-    {
-      "YPosAvgRF": "text NOT NULL"
-    },
-    {
-      "YPosAvgLF": "text NOT NULL"
-    },
-    {
-      "ZPosAvgLR": "text NOT NULL"
-    },
-    {
-      "ZPosAvgRR": "text NOT NULL"
-    },
-    {
-      "ZPosAvgRF": "text NOT NULL"
-    },
-    {
-      "ZPosAvgLF": "text NOT NULL"
-    },
-    {
-      "LengthLR": "text NOT NULL"
-    },
-    {
-      "LengthRR": "text NOT NULL"
-    },
-    {
-      "LengthRF": "text NOT NULL"
-    },
-    {
-      "LengthLF": "text NOT NULL"
-    },
-    {
-      "WidthLR": "text NOT NULL"
-    },
-    {
-      "WidthRR": "text NOT NULL"
-    },
-    {
-      "WidthRF": "text NOT NULL"
-    },
-    {
-      "WidthLF": "text NOT NULL"
-    },
-    {
-      "AttachmentsLR": "text NOT NULL"
-    },
-    {
-      "AttachmentsRR": "text NOT NULL"
-    },
-    {
-      "AttachmentsRF": "text NOT NULL"
-    },
-    {
-      "AttachmentsLF": "text NOT NULL"
-    },
-    {
-      "ConductivityLR": "text NOT NULL"
-    },
-    {
-      "ConductivityRR": "text NOT NULL"
-    },
-    {
-      "ConductivityRF": "text NOT NULL"
-    },
-    {
-      "ConductivityLF": "text NOT NULL"
-    },
-    {
-      "ConductivityMAvgLR": "text NOT NULL"
-    },
-    {
-      "ConductivityMAvgRR": "text NOT NULL"
-    },
-    {
-      "ConductivityMAvgRF": "text NOT NULL"
-    },
-    {
-      "ConductivityMAvgLF": "text NOT NULL"
-    },
-    {
-      "RedReflectionLR": "text NOT NULL"
-    },
-    {
-      "RedReflectionRR": "text NOT NULL"
-    },
-    {
-      "RedReflectionRF": "text NOT NULL"
-    },
-    {
-      "RedReflectionLF": "text NOT NULL"
-    },
-    {
-      "GreenReflectionLR": "text NOT NULL"
-    },
-    {
-      "GreenReflectionRR": "text NOT NULL"
-    },
-    {
-      "GreenReflectionRF": "text NOT NULL"
-    },
-    {
-      "GreenReflectionLF": "text NOT NULL"
-    },
-    {
-      "BlueReflectionLR": "text NOT NULL"
-    },
-    {
-      "BlueReflectionRR": "text NOT NULL"
-    },
-    {
-      "BlueReflectionRF": "text NOT NULL"
-    },
-    {
-      "BlueReflectionLF": "text NOT NULL"
-    },
-    {
-      "BackColorLR": "text NOT NULL"
-    },
-    {
-      "BackColorRR": "text NOT NULL"
-    },
-    {
-      "BackColorRF": "text NOT NULL"
-    },
-    {
-      "BackColorLF": "text NOT NULL"
-    },
-    {
-      "AttMastitis": "text NOT NULL"
-    },
-    {
-      "AttBlood": "text NOT NULL"
-    },
-    {
-      "AttColostrum": "text NOT NULL"
-    },
-    {
-      "AttAbnormal": "text NOT NULL"
-    },
-    {
-      "AttFirstMilkAbnormal": "text NOT NULL"
-    },
-    {
-      "AttConductivity": "text NOT NULL"
-    },
-    {
-      "AvgMilkPerHourLR": "text NOT NULL"
-    },
-    {
-      "AvgMilkPerHourRR": "text NOT NULL"
-    },
-    {
-      "AvgMilkPerHourRF": "text NOT NULL"
-    },
-    {
-      "AvgMilkPerHourLF": "text NOT NULL"
-    },
-    {
-      "FailedMilkYieldLR": "text NOT NULL"
-    },
-    {
-      "FailedMilkYieldRR": "text NOT NULL"
-    },
-    {
-      "FailedMilkYieldRF": "text NOT NULL"
-    },
-    {
-      "FailedMilkYieldLF": "text NOT NULL"
-    },
-    {
-      "AvgMilkTimePHourLR": "TIMESTAMP"
-    },
-    {
-      "AvgMilkTimePHourRR": "TIMESTAMP"
-    },
-    {
-      "AvgMilkTimePHourRF": "TIMESTAMP"
-    },
-    {
-      "AvgMilkTimePHourLF": "TIMESTAMP"
-    },
-    {
-      "FailedMilkTimeLR": "TIMESTAMP"
-    },
-    {
-      "FailedMilkTimeRR": "TIMESTAMP"
-    },
-    {
-      "FailedMilkTimeRF": "TIMESTAMP"
-    },
-    {
-      "FailedMilkTimeLF": "TIMESTAMP"
-    },
-    {
-      "MilkDestination": "text NOT NULL"
-    },
-    {
-      "MilkDestReason": "text NOT NULL"
-    },
-    {
-      "PreTreatmentTime": "TIMESTAMP"
-    },
-    {
-      "ConnectTime": "TIMESTAMP"
-    },
-    {
-      "PostTreatmentTime": "TIMESTAMP"
-    },
-    {
-      "MilkTime": "TIMESTAMP"
-    },
-    {
-      "CurrentNrMilkSamples": "text NOT NULL"
-    },
-    {
-      "UdderScansNr": "text NOT NULL"
-    },
-    {
-      "UdderScanTime": "TIMESTAMP"
-    },
-    {
-      "RearScansNr": "text NOT NULL"
-    },
-    {
-      "FrontScansNr": "text NOT NULL"
-    },
-    {
-      "RearScanTime": "TIMESTAMP"
-    },
-    {
-      "FrontScanTime": "TIMESTAMP"
-    },
-    {
-      "AttachmentTimeLR": "TIMESTAMP"
-    },
-    {
-      "AttachmentTimeRR": "TIMESTAMP"
-    },
-    {
-      "AttachmentTimeRF": "TIMESTAMP"
-    },
-    {
-      "AttachmentTimeLF": "TIMESTAMP"
-    },
-    {
-      "WaitTimeLelyWash": "TIMESTAMP"
-    },
-    {
-      "WaitTimeMilkJar": "TIMESTAMP"
-    },
-    {
-      "SCC_DrainTimeLR": "TIMESTAMP"
-    },
-    {
-      "SCC_DrainTimeRR": "TIMESTAMP"
-    },
-    {
-      "SCC_DrainTimeRF": "TIMESTAMP"
-    },
-    {
-      "SCC_DrainTimeLF": "TIMESTAMP"
-    },
-    {
-      "CurrentNrSCCSamples": "text NOT NULL"
-    },
-    {
-      "Free1": "text NOT NULL"
-    },
-    {
-      "LastMilkSamplingTime": "TIMESTAMP"
-    }
-  ]
+    "RMilkVisit": [
+        {
+            "TagId": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "StructId": "text"
+        },
+        {
+            "ChangedSettings": "text"
+        },
+        {
+            "VisitId": "text"
+        },
+        {
+            "SettingTime": "text"
+        },
+        {
+            "StartMilkVisitTime": "text"
+        },
+        {
+            "EndMilkVisitTime": "text"
+        },
+        {
+            "LastSucceedMilkTime": "text"
+        },
+        {
+            "MilkingResult": "text"
+        },
+        {
+            "ConsecFailes": "text"
+        },
+        {
+            "AvgVisitTime": "text"
+        },
+        {
+            "MilkYield": "text"
+        },
+        {
+            "MilkYieldExp": "text"
+        },
+        {
+            "BottleNumber": "text"
+        },
+        {
+            "RackNumber": "text"
+        },
+        {
+            "MilkTemperature": "text"
+        },
+        {
+            "MilkSpeedMax": "text"
+        },
+        {
+            "DeadMilkTimeLR": "text"
+        },
+        {
+            "DeadMilkTimeRR": "text"
+        },
+        {
+            "DeadMilkTimeRF": "text"
+        },
+        {
+            "DeadMilkTimeLF": "text"
+        },
+        {
+            "DeadMilkTimeAvgLR": "text"
+        },
+        {
+            "DeadMilkTimeAvgRR": "text"
+        },
+        {
+            "DeadMilkTimeAvgRF": "text"
+        },
+        {
+            "DeadMilkTimeAvgLF": "text"
+        },
+        {
+            "MilkTimeLR": "text"
+        },
+        {
+            "MilkTimeRR": "text"
+        },
+        {
+            "MilkTimeRF": "text"
+        },
+        {
+            "MilkTimeLF": "text"
+        },
+        {
+            "YieldLR": "text"
+        },
+        {
+            "YieldRR": "text"
+        },
+        {
+            "YieldRF": "text"
+        },
+        {
+            "YieldLF": "text"
+        },
+        {
+            "RankLR": "text"
+        },
+        {
+            "RankRR": "text"
+        },
+        {
+            "RankRF": "text"
+        },
+        {
+            "RankLF": "text"
+        },
+        {
+            "RankDevLR": "text"
+        },
+        {
+            "RankDevRR": "text"
+        },
+        {
+            "RankDevRF": "text"
+        },
+        {
+            "RankDevLF": "text"
+        },
+        {
+            "XPosAvgLR": "text"
+        },
+        {
+            "XPosAvgRR": "text"
+        },
+        {
+            "XPosAvgRF": "text"
+        },
+        {
+            "XPosAvgLF": "text"
+        },
+        {
+            "YPosAvgLR": "text"
+        },
+        {
+            "YPosAvgRR": "text"
+        },
+        {
+            "YPosAvgRF": "text"
+        },
+        {
+            "YPosAvgLF": "text"
+        },
+        {
+            "ZPosAvgLR": "text"
+        },
+        {
+            "ZPosAvgRR": "text"
+        },
+        {
+            "ZPosAvgRF": "text"
+        },
+        {
+            "ZPosAvgLF": "text"
+        },
+        {
+            "LengthLR": "text"
+        },
+        {
+            "LengthRR": "text"
+        },
+        {
+            "LengthRF": "text"
+        },
+        {
+            "LengthLF": "text"
+        },
+        {
+            "WidthLR": "text"
+        },
+        {
+            "WidthRR": "text"
+        },
+        {
+            "WidthRF": "text"
+        },
+        {
+            "WidthLF": "text"
+        },
+        {
+            "AttachmentsLR": "text"
+        },
+        {
+            "AttachmentsRR": "text"
+        },
+        {
+            "AttachmentsRF": "text"
+        },
+        {
+            "AttachmentsLF": "text"
+        },
+        {
+            "ConductivityLR": "text"
+        },
+        {
+            "ConductivityRR": "text"
+        },
+        {
+            "ConductivityRF": "text"
+        },
+        {
+            "ConductivityLF": "text"
+        },
+        {
+            "ConductivityMAvgLR": "text"
+        },
+        {
+            "ConductivityMAvgRR": "text"
+        },
+        {
+            "ConductivityMAvgRF": "text"
+        },
+        {
+            "ConductivityMAvgLF": "text"
+        },
+        {
+            "RedReflectionLR": "text"
+        },
+        {
+            "RedReflectionRR": "text"
+        },
+        {
+            "RedReflectionRF": "text"
+        },
+        {
+            "RedReflectionLF": "text"
+        },
+        {
+            "GreenReflectionLR": "text"
+        },
+        {
+            "GreenReflectionRR": "text"
+        },
+        {
+            "GreenReflectionRF": "text"
+        },
+        {
+            "GreenReflectionLF": "text"
+        },
+        {
+            "BlueReflectionLR": "text"
+        },
+        {
+            "BlueReflectionRR": "text"
+        },
+        {
+            "BlueReflectionRF": "text"
+        },
+        {
+            "BlueReflectionLF": "text"
+        },
+        {
+            "BackColorLR": "text"
+        },
+        {
+            "BackColorRR": "text"
+        },
+        {
+            "BackColorRF": "text"
+        },
+        {
+            "BackColorLF": "text"
+        },
+        {
+            "AttMastitis": "text"
+        },
+        {
+            "AttBlood": "text"
+        },
+        {
+            "AttColostrum": "text"
+        },
+        {
+            "AttAbnormal": "text"
+        },
+        {
+            "AttFirstMilkAbnormal": "text"
+        },
+        {
+            "AttConductivity": "text"
+        },
+        {
+            "AvgMilkPerHourLR": "text"
+        },
+        {
+            "AvgMilkPerHourRR": "text"
+        },
+        {
+            "AvgMilkPerHourRF": "text"
+        },
+        {
+            "AvgMilkPerHourLF": "text"
+        },
+        {
+            "FailedMilkYieldLR": "text"
+        },
+        {
+            "FailedMilkYieldRR": "text"
+        },
+        {
+            "FailedMilkYieldRF": "text"
+        },
+        {
+            "FailedMilkYieldLF": "text"
+        },
+        {
+            "AvgMilkTimePHourLR": "text"
+        },
+        {
+            "AvgMilkTimePHourRR": "text"
+        },
+        {
+            "AvgMilkTimePHourRF": "text"
+        },
+        {
+            "AvgMilkTimePHourLF": "text"
+        },
+        {
+            "FailedMilkTimeLR": "text"
+        },
+        {
+            "FailedMilkTimeRR": "text"
+        },
+        {
+            "FailedMilkTimeRF": "text"
+        },
+        {
+            "FailedMilkTimeLF": "text"
+        },
+        {
+            "MilkDestination": "text"
+        },
+        {
+            "MilkDestReason": "text"
+        },
+        {
+            "PreTreatmentTime": "text"
+        },
+        {
+            "ConnectTime": "text"
+        },
+        {
+            "PostTreatmentTime": "text"
+        },
+        {
+            "MilkTime": "text"
+        },
+        {
+            "CurrentNrMilkSamples": "text"
+        },
+        {
+            "UdderScansNr": "text"
+        },
+        {
+            "UdderScanTime": "text"
+        },
+        {
+            "RearScansNr": "text"
+        },
+        {
+            "FrontScansNr": "text"
+        },
+        {
+            "RearScanTime": "text"
+        },
+        {
+            "FrontScanTime": "text"
+        },
+        {
+            "AttachmentTimeLR": "text"
+        },
+        {
+            "AttachmentTimeRR": "text"
+        },
+        {
+            "AttachmentTimeRF": "text"
+        },
+        {
+            "AttachmentTimeLF": "text"
+        },
+        {
+            "WaitTimeLelyWash": "text"
+        },
+        {
+            "WaitTimeMilkJar": "text"
+        },
+        {
+            "SCC_DrainTimeLR": "text"
+        },
+        {
+            "SCC_DrainTimeRR": "text"
+        },
+        {
+            "SCC_DrainTimeRF": "text"
+        },
+        {
+            "SCC_DrainTimeLF": "text"
+        },
+        {
+            "CurrentNrSCCSamples": "text"
+        },
+        {
+            "Free1": "text"
+        },
+        {
+            "LastMilkSamplingTime": "text"
+        }
+    ]
 }

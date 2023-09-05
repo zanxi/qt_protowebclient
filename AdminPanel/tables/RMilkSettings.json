@@ -1,151 +1,151 @@
 {
-  "RMilkSettings": [
-    {
-      "TagId": "text NOT NULL"
-    },
-    {
-      "StructId": "text NOT NULL"
-    },
-    {
-      "MilkingAllowed": "text NOT NULL"
-    },
-    {
-      "CreationTime": "TIMESTAMP"
-    },
-    {
-      "MinMilkInterval": "text NOT NULL"
-    },
-    {
-      "ForcedCleaning": "text NOT NULL"
-    },
-    {
-      "MilkAction": "text NOT NULL"
-    },
-    {
-      "MilkDestination": "text NOT NULL"
-    },
-    {
-      "SCCSampling": "text NOT NULL"
-    },
-    {
-      "TakeOffMethod": "text NOT NULL"
-    },
-    {
-      "PulsMethodMilking": "text NOT NULL"
-    },
-    {
-      "MilkMethod": "text NOT NULL"
-    },
-    {
-      "MilkSampling": "text NOT NULL"
-    },
-    {
-      "Calved": "text NOT NULL"
-    },
-    {
-      "AltConnMethod": "text NOT NULL"
-    },
-    {
-      "VacuumLevel": "text NOT NULL"
-    },
-    {
-      "MaxConnectTime": "TIMESTAMP"
-    },
-    {
-      "MaxConnections": "text NOT NULL"
-    },
-    {
-      "CleaningOrder": "text NOT NULL"
-    },
-    {
-      "CleaningTimeLR": "TIMESTAMP"
-    },
-    {
-      "CleaningTimeRR": "TIMESTAMP"
-    },
-    {
-      "CleaningTimeRF": "TIMESTAMP"
-    },
-    {
-      "CleaningTimeLF": "TIMESTAMP"
-    },
-    {
-      "CleaningIterLR": "text NOT NULL"
-    },
-    {
-      "CleaningIterRR": "text NOT NULL"
-    },
-    {
-      "CleaningIterRF": "text NOT NULL"
-    },
-    {
-      "CleaningIterLF": "text NOT NULL"
-    },
-    {
-      "PulsFreqLR": "text NOT NULL"
-    },
-    {
-      "PulsFreqRR": "text NOT NULL"
-    },
-    {
-      "PulsFreqRF": "text NOT NULL"
-    },
-    {
-      "PulsFreqLF": "text NOT NULL"
-    },
-    {
-      "PulsRatioLR": "text NOT NULL"
-    },
-    {
-      "PulsRatioRR": "text NOT NULL"
-    },
-    {
-      "PulsRatioRF": "text NOT NULL"
-    },
-    {
-      "PulsRatioLF": "text NOT NULL"
-    },
-    {
-      "DisIterLR": "text NOT NULL"
-    },
-    {
-      "DisIterRR": "text NOT NULL"
-    },
-    {
-      "DisIterRF": "text NOT NULL"
-    },
-    {
-      "DisIterLF": "text NOT NULL"
-    },
-    {
-      "DisTimeLR": "TIMESTAMP"
-    },
-    {
-      "DisTimeRR": "TIMESTAMP"
-    },
-    {
-      "DisTimeRF": "TIMESTAMP"
-    },
-    {
-      "DisTimeLF": "TIMESTAMP"
-    },
-    {
-      "BlockTimeStart1": "TIMESTAMP"
-    },
-    {
-      "BlockDuration1": "text NOT NULL"
-    },
-    {
-      "BlockTimeStart2": "TIMESTAMP"
-    },
-    {
-      "BlockDuration2": "text NOT NULL"
-    },
-    {
-      "StartTimeMilkSampling": "TIMESTAMP"
-    },
-    {
-      "StartTimeSCCSampling": "TIMESTAMP"
-    }
-  ]
+    "RMilkSettings": [
+        {
+            "TagId": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "StructId": "text"
+        },
+        {
+            "MilkingAllowed": "text"
+        },
+        {
+            "CreationTime": "text"
+        },
+        {
+            "MinMilkInterval": "text"
+        },
+        {
+            "ForcedCleaning": "text"
+        },
+        {
+            "MilkAction": "text"
+        },
+        {
+            "MilkDestination": "text"
+        },
+        {
+            "SCCSampling": "text"
+        },
+        {
+            "TakeOffMethod": "text"
+        },
+        {
+            "PulsMethodMilking": "text"
+        },
+        {
+            "MilkMethod": "text"
+        },
+        {
+            "MilkSampling": "text"
+        },
+        {
+            "Calved": "text"
+        },
+        {
+            "AltConnMethod": "text"
+        },
+        {
+            "VacuumLevel": "text"
+        },
+        {
+            "MaxConnectTime": "text"
+        },
+        {
+            "MaxConnections": "text"
+        },
+        {
+            "CleaningOrder": "text"
+        },
+        {
+            "CleaningTimeLR": "text"
+        },
+        {
+            "CleaningTimeRR": "text"
+        },
+        {
+            "CleaningTimeRF": "text"
+        },
+        {
+            "CleaningTimeLF": "text"
+        },
+        {
+            "CleaningIterLR": "text"
+        },
+        {
+            "CleaningIterRR": "text"
+        },
+        {
+            "CleaningIterRF": "text"
+        },
+        {
+            "CleaningIterLF": "text"
+        },
+        {
+            "PulsFreqLR": "text"
+        },
+        {
+            "PulsFreqRR": "text"
+        },
+        {
+            "PulsFreqRF": "text"
+        },
+        {
+            "PulsFreqLF": "text"
+        },
+        {
+            "PulsRatioLR": "text"
+        },
+        {
+            "PulsRatioRR": "text"
+        },
+        {
+            "PulsRatioRF": "text"
+        },
+        {
+            "PulsRatioLF": "text"
+        },
+        {
+            "DisIterLR": "text"
+        },
+        {
+            "DisIterRR": "text"
+        },
+        {
+            "DisIterRF": "text"
+        },
+        {
+            "DisIterLF": "text"
+        },
+        {
+            "DisTimeLR": "text"
+        },
+        {
+            "DisTimeRR": "text"
+        },
+        {
+            "DisTimeRF": "text"
+        },
+        {
+            "DisTimeLF": "text"
+        },
+        {
+            "BlockTimeStart1": "text"
+        },
+        {
+            "BlockDuration1": "text"
+        },
+        {
+            "BlockTimeStart2": "text"
+        },
+        {
+            "BlockDuration2": "text"
+        },
+        {
+            "StartTimeMilkSampling": "text"
+        },
+        {
+            "StartTimeSCCSampling": "text"
+        }
+    ]
 }

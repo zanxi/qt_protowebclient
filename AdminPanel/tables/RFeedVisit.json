@@ -1,211 +1,211 @@
 {
-  "RFeedVisit": [
-    {
-      "TagId": "text NOT NULL"
-    },
-    {
-      "StructId": "text NOT NULL"
-    },
-    {
-      "NrOfFeedTypes": "text NOT NULL"
-    },
-    {
-      "VisitId": "text NOT NULL"
-    },
-    {
-      "SeqNr": "text NOT NULL"
-    },
-    {
-      "StartFeedVisitTime": "TIMESTAMP"
-    },
-    {
-      "EndFeedVisitTime": "TIMESTAMP"
-    },
-    {
-      "SettingTime": "TIMESTAMP"
-    },
-    {
-      "TroughId": "text NOT NULL"
-    },
-    {
-      "Free": "text NOT NULL"
-    },
-    {
-      "RemindTime": "TIMESTAMP"
-    },
-    {
-      "RemindTrough": "text NOT NULL"
-    },
-    {
-      "CowType": "text NOT NULL"
-    },
-    {
-      "StuffRate": "text NOT NULL"
-    },
-    {
-      "FeedId1": "text NOT NULL"
-    },
-    {
-      "Nu1": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime1": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount1": "text NOT NULL"
-    },
-    {
-      "Credit1": "text NOT NULL"
-    },
-    {
-      "TakeIn1": "text NOT NULL"
-    },
-    {
-      "FeedId2": "text NOT NULL"
-    },
-    {
-      "Nu2": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime2": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount2": "text NOT NULL"
-    },
-    {
-      "Credit2": "text NOT NULL"
-    },
-    {
-      "TakeIn2": "text NOT NULL"
-    },
-    {
-      "FeedId3": "text NOT NULL"
-    },
-    {
-      "Nu3": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime3": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount3": "text NOT NULL"
-    },
-    {
-      "Credit3": "text NOT NULL"
-    },
-    {
-      "TakeIn3": "text NOT NULL"
-    },
-    {
-      "FeedId4": "text NOT NULL"
-    },
-    {
-      "NU4": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime4": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount4": "text NOT NULL"
-    },
-    {
-      "Credit4": "text NOT NULL"
-    },
-    {
-      "TakeIn4": "text NOT NULL"
-    },
-    {
-      "FeedId5": "text NOT NULL"
-    },
-    {
-      "NU5": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime5": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount5": "text NOT NULL"
-    },
-    {
-      "Credit5": "text NOT NULL"
-    },
-    {
-      "TakeIn5": "text NOT NULL"
-    },
-    {
-      "FeedId6": "text NOT NULL"
-    },
-    {
-      "NU6": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime6": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount6": "text NOT NULL"
-    },
-    {
-      "Credit6": "text NOT NULL"
-    },
-    {
-      "TakeIn6": "text NOT NULL"
-    },
-    {
-      "FeedId7": "text NOT NULL"
-    },
-    {
-      "NU7": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime7": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount7": "text NOT NULL"
-    },
-    {
-      "Credit7": "text NOT NULL"
-    },
-    {
-      "TakeIn7": "text NOT NULL"
-    },
-    {
-      "FeedId8": "text NOT NULL"
-    },
-    {
-      "NU8": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime8": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount8": "text NOT NULL"
-    },
-    {
-      "Credit8": "text NOT NULL"
-    },
-    {
-      "TakeIn8": "text NOT NULL"
-    },
-    {
-      "FeedId9": "text NOT NULL"
-    },
-    {
-      "NU9": "text NOT NULL"
-    },
-    {
-      "LastFeedVisitTime9": "TIMESTAMP"
-    },
-    {
-      "CurrentPeriodAmount9": "text NOT NULL"
-    },
-    {
-      "Credit9": "text NOT NULL"
-    },
-    {
-      "TakeIn9": "text NOT NULL"
-    },
-    {
-      "Free_": "text NOT NULL"
-    }
-  ]
+    "RFeedVisit": [
+        {
+            "TagId": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "StructId": "text"
+        },
+        {
+            "NrOfFeedTypes": "text"
+        },
+        {
+            "VisitId": "text"
+        },
+        {
+            "SeqNr": "text"
+        },
+        {
+            "StartFeedVisitTime": "text"
+        },
+        {
+            "EndFeedVisitTime": "text"
+        },
+        {
+            "SettingTime": "text"
+        },
+        {
+            "TroughId": "text"
+        },
+        {
+            "Free": "text"
+        },
+        {
+            "RemindTime": "text"
+        },
+        {
+            "RemindTrough": "text"
+        },
+        {
+            "CowType": "text"
+        },
+        {
+            "StuffRate": "text"
+        },
+        {
+            "FeedId1": "text"
+        },
+        {
+            "Nu1": "text"
+        },
+        {
+            "LastFeedVisitTime1": "text"
+        },
+        {
+            "CurrentPeriodAmount1": "text"
+        },
+        {
+            "Credit1": "text"
+        },
+        {
+            "TakeIn1": "text"
+        },
+        {
+            "FeedId2": "text"
+        },
+        {
+            "Nu2": "text"
+        },
+        {
+            "LastFeedVisitTime2": "text"
+        },
+        {
+            "CurrentPeriodAmount2": "text"
+        },
+        {
+            "Credit2": "text"
+        },
+        {
+            "TakeIn2": "text"
+        },
+        {
+            "FeedId3": "text"
+        },
+        {
+            "Nu3": "text"
+        },
+        {
+            "LastFeedVisitTime3": "text"
+        },
+        {
+            "CurrentPeriodAmount3": "text"
+        },
+        {
+            "Credit3": "text"
+        },
+        {
+            "TakeIn3": "text"
+        },
+        {
+            "FeedId4": "text"
+        },
+        {
+            "NU4": "text"
+        },
+        {
+            "LastFeedVisitTime4": "text"
+        },
+        {
+            "CurrentPeriodAmount4": "text"
+        },
+        {
+            "Credit4": "text"
+        },
+        {
+            "TakeIn4": "text"
+        },
+        {
+            "FeedId5": "text"
+        },
+        {
+            "NU5": "text"
+        },
+        {
+            "LastFeedVisitTime5": "text"
+        },
+        {
+            "CurrentPeriodAmount5": "text"
+        },
+        {
+            "Credit5": "text"
+        },
+        {
+            "TakeIn5": "text"
+        },
+        {
+            "FeedId6": "text"
+        },
+        {
+            "NU6": "text"
+        },
+        {
+            "LastFeedVisitTime6": "text"
+        },
+        {
+            "CurrentPeriodAmount6": "text"
+        },
+        {
+            "Credit6": "text"
+        },
+        {
+            "TakeIn6": "text"
+        },
+        {
+            "FeedId7": "text"
+        },
+        {
+            "NU7": "text"
+        },
+        {
+            "LastFeedVisitTime7": "text"
+        },
+        {
+            "CurrentPeriodAmount7": "text"
+        },
+        {
+            "Credit7": "text"
+        },
+        {
+            "TakeIn7": "text"
+        },
+        {
+            "FeedId8": "text"
+        },
+        {
+            "NU8": "text"
+        },
+        {
+            "LastFeedVisitTime8": "text"
+        },
+        {
+            "CurrentPeriodAmount8": "text"
+        },
+        {
+            "Credit8": "text"
+        },
+        {
+            "TakeIn8": "text"
+        },
+        {
+            "FeedId9": "text"
+        },
+        {
+            "NU9": "text"
+        },
+        {
+            "LastFeedVisitTime9": "text"
+        },
+        {
+            "CurrentPeriodAmount9": "text"
+        },
+        {
+            "Credit9": "text"
+        },
+        {
+            "TakeIn9": "text"
+        },
+        {
+            "Free_": "text"
+        }
+    ]
 }

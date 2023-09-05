@@ -1,37 +1,37 @@
 {
-  "RVisitTab": [
-    {
-      "TagId": "text NOT NULL"
-    },
-    {
-      "StructId": "text NOT NULL"
-    },
-    {
-      "Result": "text NOT NULL"
-    },
-    {
-      "StartVisitTime": "TIMESTAMP"
-    },
-    {
-      "EndVisitTime": "TIMESTAMP"
-    },
-    {
-      "AnimalWeight": "text NOT NULL"
-    },
-    {
-      "AnimalActivity": "text NOT NULL"
-    },
-    {
-      "SeqNr": "text NOT NULL"
-    },
-    {
-      "ChangedSettings": "text NOT NULL"
-    },
-    {
-      "Free": "text NOT NULL"
-    },
-    {
-      "UserWaitTime": "TIMESTAMP"
-    }
-  ]
+    "RVisitTab": [
+        {
+            "TagId": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "StructId": "text"
+        },
+        {
+            "Result_": "text"
+        },
+        {
+            "StartVisitTime": "text"
+        },
+        {
+            "EndVisitTime": "text"
+        },
+        {
+            "AnimalWeight": "text"
+        },
+        {
+            "AnimalActivity": "text"
+        },
+        {
+            "SeqNr": "text"
+        },
+        {
+            "ChangedSettings": "text"
+        },
+        {
+            "Free_": "text"
+        },
+        {
+            "UserWaitTime": "text"
+        }
+    ]
 }

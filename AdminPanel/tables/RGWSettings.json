@@ -1,154 +1,154 @@
 {
-  "RGWSettings": [
-    {
-      "TagId": "text NOT NULL"
-    },
-    {
-      "StructId": "text NOT NULL"
-    },
-    {
-      "Free": "text NOT NULL"
-    },
-    {
-      "CreationTime": "TIMESTAMP"
-    },
-    {
-      "MinMilkInt": "text NOT NULL"
-    },
-    {
-      "MinMilkIntGrazing": "text NOT NULL"
-    },
-    {
-      "CowSelectionSettings": "text NOT NULL"
-    },
-    {
-      "NrOfCowSeparations": "text NOT NULL"
-    },
-    {
-      "ManualDestPrio": "text NOT NULL"
-    },
-    {
-      "ManualDest": "text NOT NULL"
-    },
-    {
-      "ManualDestStartTime": "TIMESTAMP"
-    },
-    {
-      "ManualDestDuration": "text NOT NULL"
-    },
-    {
-      "MilkNowPrio": "text NOT NULL"
-    },
-    {
-      "MilkNowDest": "text NOT NULL"
-    },
-    {
-      "MilkNowStartTime": "TIMESTAMP"
-    },
-    {
-      "MilkNowDuration": "text NOT NULL"
-    },
-    {
-      "NearMilkPrio": "text NOT NULL"
-    },
-    {
-      "NearMilkDest": "text NOT NULL"
-    },
-    {
-      "NearMilkingStartTime": "TIMESTAMP"
-    },
-    {
-      "NearMilkDuration": "text NOT NULL"
-    },
-    {
-      "MilkedPrio": "text NOT NULL"
-    },
-    {
-      "MilkedDest": "text NOT NULL"
-    },
-    {
-      "MilkedStartTime": "TIMESTAMP"
-    },
-    {
-      "MilkedDuration": "text NOT NULL"
-    },
-    {
-      "FailedMilkPrio": "text NOT NULL"
-    },
-    {
-      "FailedMilkDest": "text NOT NULL"
-    },
-    {
-      "FailedMilkStartTime": "TIMESTAMP"
-    },
-    {
-      "FailedMilkDuration": "text NOT NULL"
-    },
-    {
-      "NrFailedMilksPrio": "text NOT NULL"
-    },
-    {
-      "NrFailedMilksDest": "text NOT NULL"
-    },
-    {
-      "NrFailedMilkStartTime": "TIMESTAMP"
-    },
-    {
-      "NrFailedMilkDuration": "text NOT NULL"
-    },
-    {
-      "GrazingAPrio": "text NOT NULL"
-    },
-    {
-      "GrazingADest": "text NOT NULL"
-    },
-    {
-      "GrazingAStartTime": "TIMESTAMP"
-    },
-    {
-      "GrazingADuration": "text NOT NULL"
-    },
-    {
-      "GrazingBPrio": "text NOT NULL"
-    },
-    {
-      "GrazingBDest": "text NOT NULL"
-    },
-    {
-      "GrazingBStartTime": "TIMESTAMP"
-    },
-    {
-      "GrazingBDuration": "text NOT NULL"
-    },
-    {
-      "GrazingCPrio": "text NOT NULL"
-    },
-    {
-      "GrazingCDest": "text NOT NULL"
-    },
-    {
-      "GrazingCStartTime": "TIMESTAMP"
-    },
-    {
-      "GrazingCDuration": "text NOT NULL"
-    },
-    {
-      "GrazingDPrio": "text NOT NULL"
-    },
-    {
-      "GrazingDDest": "text NOT NULL"
-    },
-    {
-      "GrazingDStartTime": "TIMESTAMP"
-    },
-    {
-      "GrazingDDuration": "text NOT NULL"
-    },
-    {
-      "Free_1": "text NOT NULL"
-    },
-    {
-      "Free_2": "text NOT NULL"
-    }
-  ]
+    "RGWSettings": [
+        {
+            "TagId": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "StructId": "text"
+        },
+        {
+            "Free": "text"
+        },
+        {
+            "CreationTime": "text"
+        },
+        {
+            "MinMilkInt": "text"
+        },
+        {
+            "MinMilkIntGrazing": "text"
+        },
+        {
+            "CowSelectionSettings": "text"
+        },
+        {
+            "NrOfCowSeparations": "text"
+        },
+        {
+            "ManualDestPrio": "text"
+        },
+        {
+            "ManualDest": "text"
+        },
+        {
+            "ManualDestStartTime": "text"
+        },
+        {
+            "ManualDestDuration": "text"
+        },
+        {
+            "MilkNowPrio": "text"
+        },
+        {
+            "MilkNowDest": "text"
+        },
+        {
+            "MilkNowStartTime": "text"
+        },
+        {
+            "MilkNowDuration": "text"
+        },
+        {
+            "NearMilkPrio": "text"
+        },
+        {
+            "NearMilkDest": "text"
+        },
+        {
+            "NearMilkingStartTime": "text"
+        },
+        {
+            "NearMilkDuration": "text"
+        },
+        {
+            "MilkedPrio": "text"
+        },
+        {
+            "MilkedDest": "text"
+        },
+        {
+            "MilkedStartTime": "text"
+        },
+        {
+            "MilkedDuration": "text"
+        },
+        {
+            "FailedMilkPrio": "text"
+        },
+        {
+            "FailedMilkDest": "text"
+        },
+        {
+            "FailedMilkStartTime": "text"
+        },
+        {
+            "FailedMilkDuration": "text"
+        },
+        {
+            "NrFailedMilksPrio": "text"
+        },
+        {
+            "NrFailedMilksDest": "text"
+        },
+        {
+            "NrFailedMilkStartTime": "text"
+        },
+        {
+            "NrFailedMilkDuration": "text"
+        },
+        {
+            "GrazingAPrio": "text"
+        },
+        {
+            "GrazingADest": "text"
+        },
+        {
+            "GrazingAStartTime": "text"
+        },
+        {
+            "GrazingADuration": "text"
+        },
+        {
+            "GrazingBPrio": "text"
+        },
+        {
+            "GrazingBDest": "text"
+        },
+        {
+            "GrazingBStartTime": "text"
+        },
+        {
+            "GrazingBDuration": "text"
+        },
+        {
+            "GrazingCPrio": "text"
+        },
+        {
+            "GrazingCDest": "text"
+        },
+        {
+            "GrazingCStartTime": "text"
+        },
+        {
+            "GrazingCDuration": "text"
+        },
+        {
+            "GrazingDPrio": "text"
+        },
+        {
+            "GrazingDDest": "text"
+        },
+        {
+            "GrazingDStartTime": "text"
+        },
+        {
+            "GrazingDDuration": "text"
+        },
+        {
+            "Free_1": "text"
+        },
+        {
+            "Free_2": "text"
+        }
+    ]
 }

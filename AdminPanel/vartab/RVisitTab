@@ -1,1 +1,1 @@
-TagId;StructId;Result;StartVisitTime;EndVisitTime;AnimalWeight;AnimalActivity;SeqNr;ChangedSettings;Free;UserWaitTime;
+TagId;StructId;Result_;StartVisitTime;EndVisitTime;AnimalWeight;AnimalActivity;SeqNr;ChangedSettings;Free_;UserWaitTime;

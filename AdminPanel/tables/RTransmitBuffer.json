@@ -1,664 +1,664 @@
 {
-  "RTransmitBuffer": [
-    {
-      "Dest": "text NOT NULL"
-    },
-    {
-      "Code": "text NOT NULL"
-    },
-    {
-      "Crc": "text NOT NULL"
-    },
-    {
-      "Length": "text NOT NULL"
-    },
-    {
-      "TabId": "text NOT NULL"
-    },
-    {
-      "D00": "text NOT NULL"
-    },
-    {
-      "D01": "text NOT NULL"
-    },
-    {
-      "D02": "text NOT NULL"
-    },
-    {
-      "D03": "text NOT NULL"
-    },
-    {
-      "D04": "text NOT NULL"
-    },
-    {
-      "D05": "text NOT NULL"
-    },
-    {
-      "D06": "text NOT NULL"
-    },
-    {
-      "D07": "text NOT NULL"
-    },
-    {
-      "D08": "text NOT NULL"
-    },
-    {
-      "D09": "text NOT NULL"
-    },
-    {
-      "D10": "text NOT NULL"
-    },
-    {
-      "D11": "text NOT NULL"
-    },
-    {
-      "D12": "text NOT NULL"
-    },
-    {
-      "D13": "text NOT NULL"
-    },
-    {
-      "D14": "text NOT NULL"
-    },
-    {
-      "D15": "text NOT NULL"
-    },
-    {
-      "D16": "text NOT NULL"
-    },
-    {
-      "D17": "text NOT NULL"
-    },
-    {
-      "D18": "text NOT NULL"
-    },
-    {
-      "D19": "text NOT NULL"
-    },
-    {
-      "D20": "text NOT NULL"
-    },
-    {
-      "D21": "text NOT NULL"
-    },
-    {
-      "D22": "text NOT NULL"
-    },
-    {
-      "D23": "text NOT NULL"
-    },
-    {
-      "D24": "text NOT NULL"
-    },
-    {
-      "D25": "text NOT NULL"
-    },
-    {
-      "D26": "text NOT NULL"
-    },
-    {
-      "D27": "text NOT NULL"
-    },
-    {
-      "D28": "text NOT NULL"
-    },
-    {
-      "D29": "text NOT NULL"
-    },
-    {
-      "D30": "text NOT NULL"
-    },
-    {
-      "D31": "text NOT NULL"
-    },
-    {
-      "D32": "text NOT NULL"
-    },
-    {
-      "D33": "text NOT NULL"
-    },
-    {
-      "D34": "text NOT NULL"
-    },
-    {
-      "D35": "text NOT NULL"
-    },
-    {
-      "D36": "text NOT NULL"
-    },
-    {
-      "D37": "text NOT NULL"
-    },
-    {
-      "D38": "text NOT NULL"
-    },
-    {
-      "D39": "text NOT NULL"
-    },
-    {
-      "D40": "text NOT NULL"
-    },
-    {
-      "D41": "text NOT NULL"
-    },
-    {
-      "D42": "text NOT NULL"
-    },
-    {
-      "D43": "text NOT NULL"
-    },
-    {
-      "D44": "text NOT NULL"
-    },
-    {
-      "D45": "text NOT NULL"
-    },
-    {
-      "D46": "text NOT NULL"
-    },
-    {
-      "D47": "text NOT NULL"
-    },
-    {
-      "D48": "text NOT NULL"
-    },
-    {
-      "D49": "text NOT NULL"
-    },
-    {
-      "D50": "text NOT NULL"
-    },
-    {
-      "D51": "text NOT NULL"
-    },
-    {
-      "D52": "text NOT NULL"
-    },
-    {
-      "D53": "text NOT NULL"
-    },
-    {
-      "D54": "text NOT NULL"
-    },
-    {
-      "D55": "text NOT NULL"
-    },
-    {
-      "D56": "text NOT NULL"
-    },
-    {
-      "D57": "text NOT NULL"
-    },
-    {
-      "D58": "text NOT NULL"
-    },
-    {
-      "D59": "text NOT NULL"
-    },
-    {
-      "D60": "text NOT NULL"
-    },
-    {
-      "D61": "text NOT NULL"
-    },
-    {
-      "D62": "text NOT NULL"
-    },
-    {
-      "D63": "text NOT NULL"
-    },
-    {
-      "D64": "text NOT NULL"
-    },
-    {
-      "D65": "text NOT NULL"
-    },
-    {
-      "D66": "text NOT NULL"
-    },
-    {
-      "D67": "text NOT NULL"
-    },
-    {
-      "D68": "text NOT NULL"
-    },
-    {
-      "D69": "text NOT NULL"
-    },
-    {
-      "D70": "text NOT NULL"
-    },
-    {
-      "D71": "text NOT NULL"
-    },
-    {
-      "D72": "text NOT NULL"
-    },
-    {
-      "D73": "text NOT NULL"
-    },
-    {
-      "D74": "text NOT NULL"
-    },
-    {
-      "D75": "text NOT NULL"
-    },
-    {
-      "D76": "text NOT NULL"
-    },
-    {
-      "D77": "text NOT NULL"
-    },
-    {
-      "D78": "text NOT NULL"
-    },
-    {
-      "D79": "text NOT NULL"
-    },
-    {
-      "D80": "text NOT NULL"
-    },
-    {
-      "D81": "text NOT NULL"
-    },
-    {
-      "D82": "text NOT NULL"
-    },
-    {
-      "D83": "text NOT NULL"
-    },
-    {
-      "D84": "text NOT NULL"
-    },
-    {
-      "D85": "text NOT NULL"
-    },
-    {
-      "D86": "text NOT NULL"
-    },
-    {
-      "D87": "text NOT NULL"
-    },
-    {
-      "D88": "text NOT NULL"
-    },
-    {
-      "D89": "text NOT NULL"
-    },
-    {
-      "D90": "text NOT NULL"
-    },
-    {
-      "D91": "text NOT NULL"
-    },
-    {
-      "D92": "text NOT NULL"
-    },
-    {
-      "D93": "text NOT NULL"
-    },
-    {
-      "D94": "text NOT NULL"
-    },
-    {
-      "D95": "text NOT NULL"
-    },
-    {
-      "D96": "text NOT NULL"
-    },
-    {
-      "D97": "text NOT NULL"
-    },
-    {
-      "D98": "text NOT NULL"
-    },
-    {
-      "D99": "text NOT NULL"
-    },
-    {
-      "D100": "text NOT NULL"
-    },
-    {
-      "D101": "text NOT NULL"
-    },
-    {
-      "D102": "text NOT NULL"
-    },
-    {
-      "D103": "text NOT NULL"
-    },
-    {
-      "D104": "text NOT NULL"
-    },
-    {
-      "D105": "text NOT NULL"
-    },
-    {
-      "D106": "text NOT NULL"
-    },
-    {
-      "D107": "text NOT NULL"
-    },
-    {
-      "D108": "text NOT NULL"
-    },
-    {
-      "D109": "text NOT NULL"
-    },
-    {
-      "D110": "text NOT NULL"
-    },
-    {
-      "D111": "text NOT NULL"
-    },
-    {
-      "D112": "text NOT NULL"
-    },
-    {
-      "D113": "text NOT NULL"
-    },
-    {
-      "D114": "text NOT NULL"
-    },
-    {
-      "D115": "text NOT NULL"
-    },
-    {
-      "D116": "text NOT NULL"
-    },
-    {
-      "D117": "text NOT NULL"
-    },
-    {
-      "D118": "text NOT NULL"
-    },
-    {
-      "D119": "text NOT NULL"
-    },
-    {
-      "D120": "text NOT NULL"
-    },
-    {
-      "D121": "text NOT NULL"
-    },
-    {
-      "D122": "text NOT NULL"
-    },
-    {
-      "D123": "text NOT NULL"
-    },
-    {
-      "D124": "text NOT NULL"
-    },
-    {
-      "D125": "text NOT NULL"
-    },
-    {
-      "D126": "text NOT NULL"
-    },
-    {
-      "D127": "text NOT NULL"
-    },
-    {
-      "D128": "text NOT NULL"
-    },
-    {
-      "D129": "text NOT NULL"
-    },
-    {
-      "D130": "text NOT NULL"
-    },
-    {
-      "D131": "text NOT NULL"
-    },
-    {
-      "D132": "text NOT NULL"
-    },
-    {
-      "D133": "text NOT NULL"
-    },
-    {
-      "D134": "text NOT NULL"
-    },
-    {
-      "D135": "text NOT NULL"
-    },
-    {
-      "D136": "text NOT NULL"
-    },
-    {
-      "D137": "text NOT NULL"
-    },
-    {
-      "D138": "text NOT NULL"
-    },
-    {
-      "D139": "text NOT NULL"
-    },
-    {
-      "D140": "text NOT NULL"
-    },
-    {
-      "D141": "text NOT NULL"
-    },
-    {
-      "D142": "text NOT NULL"
-    },
-    {
-      "D143": "text NOT NULL"
-    },
-    {
-      "D144": "text NOT NULL"
-    },
-    {
-      "D145": "text NOT NULL"
-    },
-    {
-      "D146": "text NOT NULL"
-    },
-    {
-      "D147": "text NOT NULL"
-    },
-    {
-      "D148": "text NOT NULL"
-    },
-    {
-      "D149": "text NOT NULL"
-    },
-    {
-      "D150": "text NOT NULL"
-    },
-    {
-      "D151": "text NOT NULL"
-    },
-    {
-      "D152": "text NOT NULL"
-    },
-    {
-      "D153": "text NOT NULL"
-    },
-    {
-      "D154": "text NOT NULL"
-    },
-    {
-      "D155": "text NOT NULL"
-    },
-    {
-      "D156": "text NOT NULL"
-    },
-    {
-      "D157": "text NOT NULL"
-    },
-    {
-      "D158": "text NOT NULL"
-    },
-    {
-      "D159": "text NOT NULL"
-    },
-    {
-      "D160": "text NOT NULL"
-    },
-    {
-      "D161": "text NOT NULL"
-    },
-    {
-      "D162": "text NOT NULL"
-    },
-    {
-      "D163": "text NOT NULL"
-    },
-    {
-      "D164": "text NOT NULL"
-    },
-    {
-      "D165": "text NOT NULL"
-    },
-    {
-      "D166": "text NOT NULL"
-    },
-    {
-      "D167": "text NOT NULL"
-    },
-    {
-      "D168": "text NOT NULL"
-    },
-    {
-      "D169": "text NOT NULL"
-    },
-    {
-      "D170": "text NOT NULL"
-    },
-    {
-      "D171": "text NOT NULL"
-    },
-    {
-      "D172": "text NOT NULL"
-    },
-    {
-      "D173": "text NOT NULL"
-    },
-    {
-      "D174": "text NOT NULL"
-    },
-    {
-      "D175": "text NOT NULL"
-    },
-    {
-      "D176": "text NOT NULL"
-    },
-    {
-      "D177": "text NOT NULL"
-    },
-    {
-      "D178": "text NOT NULL"
-    },
-    {
-      "D179": "text NOT NULL"
-    },
-    {
-      "D180": "text NOT NULL"
-    },
-    {
-      "D181": "text NOT NULL"
-    },
-    {
-      "D182": "text NOT NULL"
-    },
-    {
-      "D183": "text NOT NULL"
-    },
-    {
-      "D184": "text NOT NULL"
-    },
-    {
-      "D185": "text NOT NULL"
-    },
-    {
-      "D186": "text NOT NULL"
-    },
-    {
-      "D187": "text NOT NULL"
-    },
-    {
-      "D188": "text NOT NULL"
-    },
-    {
-      "D189": "text NOT NULL"
-    },
-    {
-      "D190": "text NOT NULL"
-    },
-    {
-      "D191": "text NOT NULL"
-    },
-    {
-      "D192": "text NOT NULL"
-    },
-    {
-      "D193": "text NOT NULL"
-    },
-    {
-      "D194": "text NOT NULL"
-    },
-    {
-      "D195": "text NOT NULL"
-    },
-    {
-      "D196": "text NOT NULL"
-    },
-    {
-      "D197": "text NOT NULL"
-    },
-    {
-      "D198": "text NOT NULL"
-    },
-    {
-      "D199": "text NOT NULL"
-    },
-    {
-      "D150_": "text NOT NULL"
-    },
-    {
-      "D151_": "text NOT NULL"
-    },
-    {
-      "D152_": "text NOT NULL"
-    },
-    {
-      "D153_": "text NOT NULL"
-    },
-    {
-      "D154_": "text NOT NULL"
-    },
-    {
-      "D155_": "text NOT NULL"
-    },
-    {
-      "D156_": "text NOT NULL"
-    },
-    {
-      "D157_": "text NOT NULL"
-    },
-    {
-      "D158_": "text NOT NULL"
-    },
-    {
-      "D159_": "text NOT NULL"
-    },
-    {
-      "D160_": "text NOT NULL"
-    },
-    {
-      "D161_": "text NOT NULL"
-    },
-    {
-      "D162_": "text NOT NULL"
-    },
-    {
-      "D163_": "text NOT NULL"
-    },
-    {
-      "D164_": "text NOT NULL"
-    }
-  ]
+    "RTransmitBuffer": [
+        {
+            "Dest": "BIGSERIAL PRIMARY KEY"
+        },
+        {
+            "Code": "text"
+        },
+        {
+            "Crc": "text"
+        },
+        {
+            "Length_": "text"
+        },
+        {
+            "TabId": "text"
+        },
+        {
+            "D00": "text"
+        },
+        {
+            "D01": "text"
+        },
+        {
+            "D02": "text"
+        },
+        {
+            "D03": "text"
+        },
+        {
+            "D04": "text"
+        },
+        {
+            "D05": "text"
+        },
+        {
+            "D06": "text"
+        },
+        {
+            "D07": "text"
+        },
+        {
+            "D08": "text"
+        },
+        {
+            "D09": "text"
+        },
+        {
+            "D10": "text"
+        },
+        {
+            "D11": "text"
+        },
+        {
+            "D12": "text"
+        },
+        {
+            "D13": "text"
+        },
+        {
+            "D14": "text"
+        },
+        {
+            "D15": "text"
+        },
+        {
+            "D16": "text"
+        },
+        {
+            "D17": "text"
+        },
+        {
+            "D18": "text"
+        },
+        {
+            "D19": "text"
+        },
+        {
+            "D20": "text"
+        },
+        {
+            "D21": "text"
+        },
+        {
+            "D22": "text"
+        },
+        {
+            "D23": "text"
+        },
+        {
+            "D24": "text"
+        },
+        {
+            "D25": "text"
+        },
+        {
+            "D26": "text"
+        },
+        {
+            "D27": "text"
+        },
+        {
+            "D28": "text"
+        },
+        {
+            "D29": "text"
+        },
+        {
+            "D30": "text"
+        },
+        {
+            "D31": "text"
+        },
+        {
+            "D32": "text"
+        },
+        {
+            "D33": "text"
+        },
+        {
+            "D34": "text"
+        },
+        {
+            "D35": "text"
+        },
+        {
+            "D36": "text"
+        },
+        {
+            "D37": "text"
+        },
+        {
+            "D38": "text"
+        },
+        {
+            "D39": "text"
+        },
+        {
+            "D40": "text"
+        },
+        {
+            "D41": "text"
+        },
+        {
+            "D42": "text"
+        },
+        {
+            "D43": "text"
+        },
+        {
+            "D44": "text"
+        },
+        {
+            "D45": "text"
+        },
+        {
+            "D46": "text"
+        },
+        {
+            "D47": "text"
+        },
+        {
+            "D48": "text"
+        },
+        {
+            "D49": "text"
+        },
+        {
+            "D50": "text"
+        },
+        {
+            "D51": "text"
+        },
+        {
+            "D52": "text"
+        },
+        {
+            "D53": "text"
+        },
+        {
+            "D54": "text"
+        },
+        {
+            "D55": "text"
+        },
+        {
+            "D56": "text"
+        },
+        {
+            "D57": "text"
+        },
+        {
+            "D58": "text"
+        },
+        {
+            "D59": "text"
+        },
+        {
+            "D60": "text"
+        },
+        {
+            "D61": "text"
+        },
+        {
+            "D62": "text"
+        },
+        {
+            "D63": "text"
+        },
+        {
+            "D64": "text"
+        },
+        {
+            "D65": "text"
+        },
+        {
+            "D66": "text"
+        },
+        {
+            "D67": "text"
+        },
+        {
+            "D68": "text"
+        },
+        {
+            "D69": "text"
+        },
+        {
+            "D70": "text"
+        },
+        {
+            "D71": "text"
+        },
+        {
+            "D72": "text"
+        },
+        {
+            "D73": "text"
+        },
+        {
+            "D74": "text"
+        },
+        {
+            "D75": "text"
+        },
+        {
+            "D76": "text"
+        },
+        {
+            "D77": "text"
+        },
+        {
+            "D78": "text"
+        },
+        {
+            "D79": "text"
+        },
+        {
+            "D80": "text"
+        },
+        {
+            "D81": "text"
+        },
+        {
+            "D82": "text"
+        },
+        {
+            "D83": "text"
+        },
+        {
+            "D84": "text"
+        },
+        {
+            "D85": "text"
+        },
+        {
+            "D86": "text"
+        },
+        {
+            "D87": "text"
+        },
+        {
+            "D88": "text"
+        },
+        {
+            "D89": "text"
+        },
+        {
+            "D90": "text"
+        },
+        {
+            "D91": "text"
+        },
+        {
+            "D92": "text"
+        },
+        {
+            "D93": "text"
+        },
+        {
+            "D94": "text"
+        },
+        {
+            "D95": "text"
+        },
+        {
+            "D96": "text"
+        },
+        {
+            "D97": "text"
+        },
+        {
+            "D98": "text"
+        },
+        {
+            "D99": "text"
+        },
+        {
+            "D100": "text"
+        },
+        {
+            "D101": "text"
+        },
+        {
+            "D102": "text"
+        },
+        {
+            "D103": "text"
+        },
+        {
+            "D104": "text"
+        },
+        {
+            "D105": "text"
+        },
+        {
+            "D106": "text"
+        },
+        {
+            "D107": "text"
+        },
+        {
+            "D108": "text"
+        },
+        {
+            "D109": "text"
+        },
+        {
+            "D110": "text"
+        },
+        {
+            "D111": "text"
+        },
+        {
+            "D112": "text"
+        },
+        {
+            "D113": "text"
+        },
+        {
+            "D114": "text"
+        },
+        {
+            "D115": "text"
+        },
+        {
+            "D116": "text"
+        },
+        {
+            "D117": "text"
+        },
+        {
+            "D118": "text"
+        },
+        {
+            "D119": "text"
+        },
+        {
+            "D120": "text"
+        },
+        {
+            "D121": "text"
+        },
+        {
+            "D122": "text"
+        },
+        {
+            "D123": "text"
+        },
+        {
+            "D124": "text"
+        },
+        {
+            "D125": "text"
+        },
+        {
+            "D126": "text"
+        },
+        {
+            "D127": "text"
+        },
+        {
+            "D128": "text"
+        },
+        {
+            "D129": "text"
+        },
+        {
+            "D130": "text"
+        },
+        {
+            "D131": "text"
+        },
+        {
+            "D132": "text"
+        },
+        {
+            "D133": "text"
+        },
+        {
+            "D134": "text"
+        },
+        {
+            "D135": "text"
+        },
+        {
+            "D136": "text"
+        },
+        {
+            "D137": "text"
+        },
+        {
+            "D138": "text"
+        },
+        {
+            "D139": "text"
+        },
+        {
+            "D140": "text"
+        },
+        {
+            "D141": "text"
+        },
+        {
+            "D142": "text"
+        },
+        {
+            "D143": "text"
+        },
+        {
+            "D144": "text"
+        },
+        {
+            "D145": "text"
+        },
+        {
+            "D146": "text"
+        },
+        {
+            "D147": "text"
+        },
+        {
+            "D148": "text"
+        },
+        {
+            "D149": "text"
+        },
+        {
+            "D150": "text"
+        },
+        {
+            "D151": "text"
+        },
+        {
+            "D152": "text"
+        },
+        {
+            "D153": "text"
+        },
+        {
+            "D154": "text"
+        },
+        {
+            "D155": "text"
+        },
+        {
+            "D156": "text"
+        },
+        {
+            "D157": "text"
+        },
+        {
+            "D158": "text"
+        },
+        {
+            "D159": "text"
+        },
+        {
+            "D160": "text"
+        },
+        {
+            "D161": "text"
+        },
+        {
+            "D162": "text"
+        },
+        {
+            "D163": "text"
+        },
+        {
+            "D164": "text"
+        },
+        {
+            "D165": "text"
+        },
+        {
+            "D166": "text"
+        },
+        {
+            "D167": "text"
+        },
+        {
+            "D168": "text"
+        },
+        {
+            "D169": "text"
+        },
+        {
+            "D170": "text"
+        },
+        {
+            "D171": "text"
+        },
+        {
+            "D172": "text"
+        },
+        {
+            "D173": "text"
+        },
+        {
+            "D174": "text"
+        },
+        {
+            "D175": "text"
+        },
+        {
+            "D176": "text"
+        },
+        {
+            "D177": "text"
+        },
+        {
+            "D178": "text"
+        },
+        {
+            "D179": "text"
+        },
+        {
+            "D180": "text"
+        },
+        {
+            "D181": "text"
+        },
+        {
+            "D182": "text"
+        },
+        {
+            "D183": "text"
+        },
+        {
+            "D184": "text"
+        },
+        {
+            "D185": "text"
+        },
+        {
+            "D186": "text"
+        },
+        {
+            "D187": "text"
+        },
+        {
+            "D188": "text"
+        },
+        {
+            "D189": "text"
+        },
+        {
+            "D190": "text"
+        },
+        {
+            "D191": "text"
+        },
+        {
+            "D192": "text"
+        },
+        {
+            "D193": "text"
+        },
+        {
+            "D194": "text"
+        },
+        {
+            "D195": "text"
+        },
+        {
+            "D196": "text"
+        },
+        {
+            "D197": "text"
+        },
+        {
+            "D198": "text"
+        },
+        {
+            "D199": "text"
+        },
+        {
+            "D150_": "text"
+        },
+        {
+            "D151_": "text"
+        },
+        {
+            "D152_": "text"
+        },
+        {
+            "D153_": "text"
+        },
+        {
+            "D154_": "text"
+        },
+        {
+            "D155_": "text"
+        },
+        {
+            "D156_": "text"
+        },
+        {
+            "D157_": "text"
+        },
+        {
+            "D158_": "text"
+        },
+        {
+            "D159_": "text"
+        },
+        {
+            "D160_": "text"
+        },
+        {
+            "D161_": "text"
+        },
+        {
+            "D162_": "text"
+        },
+        {
+            "D163_": "text"
+        },
+        {
+            "D164_": "text"
+        }
+    ]
 }
