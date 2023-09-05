@@ -2,7 +2,7 @@
 #include "AdminPanel/AdminWidget.h"
 
 #include <QApplication>
-//#include <QtWidgets/Qtex>
+#include <QtCore/QTextCodec>
 #include <QFile>
 #include <QSplashScreen>
 

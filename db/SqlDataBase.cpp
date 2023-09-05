@@ -104,11 +104,11 @@
              //logger::WriteLog(QString::fromStdString(fn));
              //logger::WriteLog(" ----- ");
 
-             sql_script +=tab_[tab_.size()-1].key + " " + tab_[tab_.size()-1].value+",\n";
-             //sql_script +=tab_[tab_.size()-1].key + " " + tab_[tab_.size()-1].value+"\n";
+             //sql_script +=tab_[tab_.size()-1].key + " " + tab_[tab_.size()-1].value+",\n";
+             sql_script +=tab_[tab_.size()-1].key + " " + tab_[tab_.size()-1].value+"\n";
              //std::map<std::string,std::string>::iterator it = tab_.begin();
-             sql_script += " CONSTRAINT "+ fn +"_pkey PRIMARY KEY ("+(tab_[0].key)+"))";
-             //sql_script += " )";
+             //sql_script += " CONSTRAINT "+ fn +"_pkey PRIMARY KEY ("+(tab_[0].key)+"))";
+             sql_script += " )";
              sql_script += " " + create_table_end;
 
              //std::cout << sql_script << "\n\n";
@@ -129,8 +129,8 @@
     std::string SqlDataBase::InsertStrokaFieldsNames(std::vector<std::string> columns_)
     {
         int sz = columns_.size();
-        std::string sql_script="(";                            
-        for(int i=0; i<sz-1;i++)
+        std::string sql_script="(";
+        for(int i=1; i<sz-1;i++)
         {     
             sql_script += columns_[i]+",\n";                 
         }      
@@ -144,8 +144,8 @@
     std::vector<std::string> columns_Name, std::vector<std::string> columns_)
     {
         int sz = columns_.size();
-        std::string sql_script="(";                            
-        sql_script += columns_[0]+",";                 
+        std::string sql_script="(";
+        //sql_script += columns_[0]+",";
         for(int i=1; i<sz-1;i++)
         {   
             if(Str::contains(Str::tolower(columns_Name[i]),"time")!=-1)
@@ -180,7 +180,7 @@
 
         int sz = columns_.size();
         std::string sql_script="(";                            
-        sql_script += std::to_string(rand()%10000)+",";                 
+        //sql_script += std::to_string(rand()%10000)+",";
         for(int i=1; i<sz-1;i++)
         {   
             if(Str::contains(Str::tolower(columns_Name[i]),"time")!=-1)
@@ -209,6 +209,20 @@
 
         return sql_script;                   
     }
+
+    void SqlDataBase::TableInsertValue(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value)
+    {
+        std::map<int, std::vector<std::string>> rows_ = csvfile::Read_TabMap(tab_fn);
+
+        std::string sql_script = "INSERT INTO " + tab_fn + InsertStrokaFieldsNames(rows_[0])+ " VALUES " +
+                                      ((DataSystems::Instance().db_check==DB_check::SQLITE)?
+                                      (InsertStrokaValues(datetime::GenerateTime_sqlite,columns_value, columns_value)+ ","):
+                                      (InsertStrokaValues(datetime::GenerateTime,columns_value, columns_value)+ ","));
+
+
+        //DataSystems::Instance().db_sql_table_insert[QString::fromStdString(tab_fn)]=QString::fromStdString(sql_script);
+    }
+
 
     void SqlDataBase::TableInsert(std::string tab_fn)
     {         

@@ -4,11 +4,15 @@
 #include <QString>
 #include "utils/Utils.h"
 
+#include "db/database.h"
+
 enum DB_check{ SQLITE, PGSQL };
 
 class DataSystems   //Singleton
 {
 public:
+
+    DataBase *db;
 
     DB_check db_check;
 

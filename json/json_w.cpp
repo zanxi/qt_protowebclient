@@ -1,4 +1,5 @@
 #include "json_w.h"
+#include "../csv/csvfile.h"
 
 json_w::json_w()
 {
@@ -335,3 +336,98 @@ QList<QString> json_w::readJsonFile_form_table2(QString pathApp)
 
     return temp;
 }
+
+QJsonDocument json_w::loadJson(QString fileName) {
+    QFile jsonFile(fileName);
+    jsonFile.open(QFile::ReadOnly);
+    return QJsonDocument().fromJson(jsonFile.readAll());
+}
+
+void json_w::saveJson(QJsonDocument document, QString fileName) {
+    QFile jsonFile(fileName);
+    jsonFile.open(QFile::WriteOnly);
+    jsonFile.write(document.toJson());
+}
+
+
+void json_w::Save_to_file(QString pathApp)
+{
+    QJsonObject mainObject;
+
+    mainObject.insert("name", "Burak Hamdi");
+    mainObject.insert("surname", "TUFAN");
+    mainObject.insert("age",26);
+
+    QJsonObject address;
+    address.insert("city", "Istanbul");
+    address.insert("country", "TURKEY");
+    //insert the inner json object inside main object
+    mainObject.insert("address",address);
+
+    //create a json array for main jsonobject
+    QJsonArray phones;
+    phones.push_back("0555555555");
+    phones.push_back("01111111111");
+
+    // we added JSON array into our main json object
+    mainObject.insert("phone", phones);
+
+    // lastly we created a JSON document and set mainObject as object of document
+    QJsonDocument jsonDoc;
+    jsonDoc.setObject(mainObject);
+
+    saveJson(jsonDoc,"json_save.json");
+    qDebug()<<"End save json";
+}
+
+void json_w::CreateJsonVarTab()
+{
+    std::vector<std::string> tabFiles = csvfile::ReadFiles();
+    for(auto fn: tabFiles)
+    {
+        std::map<int, std::vector<std::string>> tab_ = csvfile::Read_TabMap(fn);
+
+        logger::WriteMsg("file json: "+fn);
+
+        QJsonObject table;
+        QJsonArray records;
+
+        QJsonObject record0;
+        //record0.insert(QString::fromStdString(tab_[0][0]), "INTEGER PRIMARY KEY UNIQUE");
+        record0.insert(QString::fromStdString(tab_[0][0]), "BIGSERIAL PRIMARY KEY");
+        //record0.insert(QString::fromStdString(tab_[0][0]), "INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE");
+        //record0.insert(QString::fromStdString(tab_[0][0]), "text NOT NULL");
+        records.push_back(record0);
+
+        for(int i=1; i<tab_[0].size();i++)
+        {
+            QJsonObject record;
+            // INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE
+            if(tab_[0][i]=="\r")break;
+            if(Str::contains(Str::tolower(tab_[0][i]),"time")!=-1)
+            {
+                //record.insert(QString::fromStdString(tab_[0][i]), "text NOT NULL");
+                record.insert(QString::fromStdString(tab_[0][i]), "text");
+            }
+            else
+            {
+                //key_value_t kv{ tab_[0][i], "text NOT NULL" };
+                //record.insert(QString::fromStdString(tab_[0][i]), "QString");
+                //record.insert(QString::fromStdString(tab_[0][i]), "text NOT NULL");
+                record.insert(QString::fromStdString(tab_[0][i]), "text");
+            }
+            records.push_back(record);
+        }
+
+        table.insert(QString::fromStdString(fn),records);
+
+        QJsonDocument jsonDoc;
+        jsonDoc.setObject(table);
+
+        saveJson(jsonDoc,"./tables/"+QString::fromStdString(fn)+".json");
+        qDebug()<<"End save json: "<<"./tables/"+QString::fromStdString(fn)+".json";
+
+    }
+
+}
+

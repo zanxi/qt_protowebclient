@@ -30,6 +30,7 @@ public:
     static std::string InsertStrokaValuesRandom(std::string date_str(),
           std::vector<std::string> columns_Name, std::vector<std::string> columns_);
 
+    static void TableInsertValue(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value);
     static void TableInsert(std::string tab_fn = "RMilkSettings");
 
     static std::string UpdateValues(std::string date_str(),

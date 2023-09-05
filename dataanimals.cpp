@@ -5,18 +5,20 @@ void DataSystems::clear()
 {
     db = nullptr;
 
-
     log="";
     log_create_db="";
     mj.clear();
+
     mjpj.clear();
     db_sql.clear();
     db_sql_table_insert.clear();
 
-    db_check = DB_check::SQLITE;
-    //db_check = DB_check::PGSQL;
+    //db_check = DB_check::SQLITE;
+    db_check = DB_check::PGSQL;
 
-    db_host="192.168.124.135";
+    //db_host="192.168.124.135";
+    db_host="192.168.1.2";
+    //db_host="127.0.0.1";
     db_name="vim3";
     db_login="postgres";
     db_password="000";
@@ -26,8 +28,6 @@ void DataSystems::clear()
 //    db_sqlite_file="./db-lely3.db";
     //db_sqlite_file="db-test.db";
     db_sqlite_file="003.db";
-
-    db_sqlite_file="C:/lely/db-lely3.db";
 
     name_animals="корова";
 

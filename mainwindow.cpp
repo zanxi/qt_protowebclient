@@ -13,6 +13,8 @@
 #include "dataanimals.h"
 #include "db/SqlDataBase.h"
 
+#include "./json/json_w.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent)
     logger::ClearLog();
     DataSystems::Instance().clear();
 
+    json_w::CreateJsonVarTab();
+
     SqlDataBase::DropTables();
     SqlDataBase::DropDataBase(DataSystems::Instance().db_name.toStdString());
     SqlDataBase::UseDataBase("Use "+DataSystems::Instance().db_name.toStdString()+";");
@@ -49,10 +53,10 @@ MainWindow::MainWindow(QWidget *parent)
     DataSystems::Instance().db = new DataBase();
     if(DataSystems::Instance().db->Open())
     {
-        //DataSystems::Instance().db->sql_exec("DROP TABLE DataService;");
-        //DataSystems::Instance().db->sql_exec("CREATE TABLE IF NOT EXISTS  DataService(AnimalsId text NOT NULL,NumberAnswerId text NOT NULL,GroupId text NOT NULL,LabelId text NOT NULL,CONSTRAINT RIndication_pkey PRIMARY KEY (RecordId));");
+        DataSystems::Instance().db->sql_exec("DROP TABLE DataService;");
+        DataSystems::Instance().db->sql_exec("CREATE TABLE IF NOT EXISTS  DataService(AnimalsId text NOT NULL,NumberAnswerId text NOT NULL,GroupId text NOT NULL,LabelId text NOT NULL,CONSTRAINT RIndication_pkey PRIMARY KEY (RecordId));");
 
-        //DataSystems::Instance().db->DropTables();
+        DataSystems::Instance().db->DropTables();
 
         DataSystems::Instance().db->createTables();
         DataSystems::Instance().db->FillValue();

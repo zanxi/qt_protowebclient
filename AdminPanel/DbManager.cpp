@@ -31,6 +31,7 @@ DbManager::DbManager(QString nameTab, QWidget *parent) : QWidget(parent), ui(new
     hv->sectionsClickable();
     connect(hv, SIGNAL(sectionClicked(int)), ui->tableView, SLOT(sortByColumn(int)));
 
+    /*
     QObject::connect(ui->tableView, &QTableView::clicked,
                      ui->tableView, [=](const QModelIndex& index) {
                          qDebug() << "In slot";
@@ -61,6 +62,7 @@ DbManager::DbManager(QString nameTab, QWidget *parent) : QWidget(parent), ui(new
 
                          //ui->textEdit->append("("+QString::number(row)+", "+QString::number(col) +") -- Called edit(): "+index.data().toString()+" | " + QString::number(col) +" | " + label);
                      });
+    /**/
 
     connect(ui->tableView->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onDataChanged(const QModelIndex&, const QModelIndex&)));
 
@@ -72,9 +74,7 @@ void DbManager::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bot
 
     QModelIndex mi = ui->tableView->currentIndex();
     //                         QModelIndex mi = ui->tableView->in;
-    int col = mi.column();
-    //qDebug() << "Called edit(): "+index.data().toString()+" | " + QString::number(row);
-    //QString label = ui->tableView->verticalHeaderItem(row)->text();
+    int col = mi.column();    
     QString parameter = ui->tableView->model()->headerData(col, Qt::Horizontal).toString();
     QString value = topLeft.data().toString();
 
@@ -88,10 +88,8 @@ void DbManager::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bot
 
     QString sql="UPDATE " + nameTab + " SET "+parameter+" = '"+value+"'" +
                   " where " + parameterID + " = "+ "'"+ valueId +"'";
-    qDebug()<<"sql2"<<sql;
-    qDebug()<<"sql"<<sql;
+
     DataSystems::Instance().db->sql_exec(sql,"");
-    qDebug() << bottomRight.data().toString() << "|" <<topLeft.data().toString();
 }
 
 DbManager::~DbManager()
@@ -118,6 +116,9 @@ void DbManager::addRow()
 {        
     int rowNum = modelDB->rowCount();
     modelDB->insertRow(rowNum);
+    modelDB->select();
+
+    //modelDB->select();
 }
 
 void DbManager::Select()

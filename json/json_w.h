@@ -32,6 +32,11 @@ public:
     static QList<QString> readJsonFile_form_table2(QString pathApp);
     //static QMap<QString, QList<QString>> all_tables();
 
+    static QJsonDocument loadJson(QString fileName);
+    static void saveJson(QJsonDocument document, QString fileName);
+    static void Save_to_file(QString pathApp);
+    static void CreateJsonVarTab();
+
 };
 
 #endif // JSON_W_H

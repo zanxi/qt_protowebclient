@@ -10,13 +10,13 @@
 #define UI_DBMANAGER_H
 
 #include <QtCore/QVariant>
-#include <QAction>
-#include <QApplication>
-#include <QButtonGroup>
-#include <QGridLayout>
-#include <QHeaderView>
-#include <QTableView>
-#include <QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableView>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 

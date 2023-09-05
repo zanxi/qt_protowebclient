@@ -9,9 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AdminPanel/DbManager.cpp \
     AdminPanel/adminwidget.cpp \
-    AdminPanel/stumanager.cpp \
-    BuildData/json_w.cpp \
     Debug/data.cpp \
     Debug/datetime.cpp \
     Debug/logger.cpp \
@@ -21,13 +20,16 @@ SOURCES += \
     FormsMenu/table_form_1_2_otel.cpp \
     FormsMenu/table_form_2_1.cpp \
     connectiondialog.cpp \
+    csv/csvfile.cpp \
     dataanimals.cpp \
-    db/connectdb.cpp \
+    db/GenerateDB.cpp \
+    db/SqlDataBase.cpp \
     db/database.cpp \
     db/dialogwindow.cpp \
     form_2_1.cpp \
     form_in_work.cpp \
     formtemplate.cpp \
+    json/json_w.cpp \
     main.cpp \
     mainwindow.cpp \
     modelbuilder.cpp \
@@ -38,16 +40,16 @@ SOURCES += \
     table_form_1_2.cpp \
     table_form_1_2_batch_transfer.cpp \
     table_form_1_2_in_work.cpp \
+    utils/Utils.cpp \
     widget_form.cpp \
     widget_menu.cpp
 
 HEADERS += \
+    AdminPanel/DbManager.h \
     AdminPanel/adminwidget.h \
-    AdminPanel/stumanager.h \
     AdminPanel/ui_AdminWidget.h \
+    AdminPanel/ui_DbManager.h \
     AdminPanel/ui_mainwidget.h \
-    AdminPanel/ui_stumanager.h \
-    BuildData/json_w.h \
     Debug/data.h \
     Debug/datetime.h \
     Debug/logger.h \
@@ -58,13 +60,16 @@ HEADERS += \
     FormsMenu/table_form_2_1.h \
     FormsMenu/ui_table_form_2_1.h \
     connectiondialog.h \
+    csv/csvfile.h \
     dataanimals.h \
-    db/connectdb.h \
+    db/GenerateDB.h \
+    db/SqlDataBase.h \
     db/database.h \
     db/dialogwindow.h \
     form_2_1.h \
     form_in_work.h \
     formtemplate.h \
+    json/json_w.h \
     mainwindow.h \
     modelbuilder.h \
     tabelwidget_module/checkboxitemdelegate.h \
@@ -74,12 +79,13 @@ HEADERS += \
     table_form_1_2.h \
     table_form_1_2_batch_transfer.h \
     table_form_1_2_in_work.h \
+    utils/Utils.h \
     widget_form.h \
     widget_menu.h
 
 FORMS += \
+    AdminPanel/DbManager.ui \
     AdminPanel/adminwidget.ui \
-    AdminPanel/stumanager.ui \
     FormsMenu/form_1_1.ui \
     FormsMenu/form_1_2.ui \
     FormsMenu/form_1_2_general.ui \

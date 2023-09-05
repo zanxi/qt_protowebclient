@@ -41,9 +41,9 @@ Form_2_1::Form_2_1(QWidget *parent) :
 
     m_qlist_model = new QStringListModel();
     QStringList list;
-    list.append(QString("Доение - неудачные доения ")+"(3)");
-    list.append(QString("Календарь - обзор всех коров ")+"(7)");
-    list.append(QString("Копии всех образцов ")+"(9)");
+    list<<(QString("Доение - неудачные доения ")+"(3)");
+    list<<(QString("Календарь - обзор всех коров ")+"(7)");
+    list<<(QString("Копии всех образцов ")+"(9)");
 
     m_qlist_model->setStringList(list);
 
