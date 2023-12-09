@@ -86,9 +86,12 @@ void ModelBuilder::GetElementData(
     QDomNode child = dom_node.firstChild();
     QDomNode node = hash[id];
 
+    //logger::WriteMsg("GetElementData(tree): --- "+name.toStdString());
+
     if(!name.isEmpty()){
         QStandardItem *item = SetChild(treeItem,
                                        name.isEmpty()?id:name);
+        qDebug()<<"tree: "<<(name.isEmpty()?id:name);
         while(!child.isNull())
         {
             GetElementData(item,child,hash);
@@ -130,14 +133,44 @@ void ModelBuilder::GetElementData(
     }
 }
 
-QStandardItem *ModelBuilder::SetChild(
-    QStandardItem *parent, QString name)
+QStandardItem *ModelBuilder::SetChild(QStandardItem *parent, QString name, QString icon_picture)
 {
     if(parent == nullptr)
     {
         parent  = new QStandardItem(name);
         //parent->setIcon(QIcon(":/images/logo"));
-        parent->setIcon(QIcon(":/menu/icon.png"));
+        //parent->setIcon(QIcon(":/menu/icon.png"));
+        parent->setIcon(QIcon(icon_picture));
+        //parent->setFlags(Qt::ItemFlags::enum_type::ItemIsEditable);
+        //parent->setEditable(false); //Qt::ItemFlags::enum_type::ItemIsEditable);
+        logger::WriteMsg("GetElementData(tree): --- "+name.toStdString());
+        if(name.contains("Начало"))
+        {
+           parent->setIcon(QIcon(":/menu/icon.png"));
+        }
+        else if(name.contains("Ввод данных"))
+        {
+           parent->setIcon(QIcon(":/images/1.png"));
+
+        }
+        else if(name.contains("Анализ/доклады"))
+        {
+           parent->setIcon(QIcon(":/images/2.png"));
+        }
+        else if(name.contains("Конфигурация"))
+        {
+           parent->setIcon(QIcon(":/images/3.png"));
+
+        }
+        else if(name.contains("Обслуживание"))
+        {
+           parent->setIcon(QIcon(":/images/4.png"));
+        }
+        else if(name.contains("Электронное обучение"))
+        {
+           parent->setIcon(QIcon(":/images/5.png"));
+        }
+
 
 
         if(tree_model->rowCount()==0)

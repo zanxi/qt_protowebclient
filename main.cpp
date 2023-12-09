@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_digitalfarm.h"
 #include "AdminPanel/AdminWidget.h"
 
 #include <QApplication>
@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
         file.close();
     }
 
+    //***************** Запуск эмблемы ВИМ перед запуском приложения ****************************//
     QFont font = QApplication::font();
     QFont fontSmall = font;
     font.setPointSize(10);
@@ -33,24 +34,33 @@ int main(int argc, char *argv[])
     splash.showMessage(QObject::tr("Initializing VIM"),
                        Qt::AlignLeft | Qt::AlignTop, Qt::black);  //This line represents the alignment of text, color and position
 
+    //***************** END Запуск эмблемы ВИМ перед запуском приложения ****************************//
+
+    //***************** Установка шрифта ****************************//
+
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
-    myappTranslator.load("HadronResonanceGas_" + QLocale::system().name());
+    myappTranslator.load("VIM_" + QLocale::system().name());
     a.installTranslator(&myappTranslator);
 
+    //***************** END Установка шрифта ****************************//
 
 
     //std::ios_base::sync_with_stdio(false);
 
-    MainWindow w;
+    //***************** Запуск основного приложения прототипа lely ****************************//
+
+    Main_DigitalFarm main_DigitalFarm;
     //AdminWidget *w = new AdminWidget();
 
-    w.show();
-    splash.finish(&w);
+    main_DigitalFarm.show();
+    splash.finish(&main_DigitalFarm);
+
+    //***************** End Запуск основного приложения прототипа lely ****************************//
 
 
 

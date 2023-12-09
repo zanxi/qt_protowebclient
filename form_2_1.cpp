@@ -2,6 +2,7 @@
 #include "ui_form_2_1.h"
 
 #include "FormsMenu/table_form_2_1.h"
+#include "dataanimals.h"
 
 Form_2_1::Form_2_1(QWidget *parent) :
     QWidget(parent),
@@ -19,7 +20,7 @@ Form_2_1::Form_2_1(QWidget *parent) :
                                 "}"
                                 "QGroupBox::title {"
                                 "color: white;"
-                                "background-color:#14B143;"
+                                "background-color:"+DataSystems::Instance().settings___color_header+";"
                                 "padding: 4 20000 4 10;"
                                 "}");
 
@@ -28,7 +29,7 @@ Form_2_1::Form_2_1(QWidget *parent) :
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 

@@ -1,8 +1,141 @@
 #include "dataanimals.h"
 #include <QApplication>
 
+void DataSystems::cow_card()
+{
+    // Дневная запись - карты коров
+    dataentry_cow_card_Id = -1;
+    dataentry_dataentry_cow_card_animals="";
+    dataentry_dataentry_cow_card_responder="";
+    dataentry_dataentry_cow_card_name="";
+    dataentry_dataentry_cow_card_group="";
+    dataentry_dataentry_cow_card_life_number="";
+    dataentry_dataentry_cow_card_present="";
+    dataentry_dataentry_cow_card_birth_date="";
+    dataentry_dataentry_cow_card_location="";
+    dataentry_dataentry_cow_card_label="";
+    dataentry_dataentry_cow_card_keep="";
+    dataentry_dataentry_cow_card_gender="";
+    dataentry_dataentry_cow_card_use_as_sire="";
+    dataentry_dataentry_cow_card_father_life_number="";
+    dataentry_dataentry_cow_card_father_name="";
+    dataentry_dataentry_cow_card_mother_life_number="";
+    dataentry_dataentry_cow_card_mother_name="";
+    dataentry_dataentry_cow_card_hair_color="";
+    dataentry_dataentry_cow_card_gestation="";
+    dataentry_dataentry_cow_card_calm="";
+    dataentry_dataentry_cow_card_blood_type="";
+    dataentry_dataentry_cow_card_percentage="";
+    dataentry_dataentry_cow_card_description="";
+    dataentry_dataentry_cow_card_transfer_in="";
+    //QString dataentry_dataentry_cow_card_;
+    //QString dataentry_dataentry_cow_card_;
+}
+
+void DataSystems::clear_dry_off()
+{
+    dry_off_animal_No = "";
+    //dry_off_number = "";
+    dry_off_Robot_number = "";
+    dry_off_lactation_number = "";
+    dry_off_lactation_days = "";
+    dry_off_days_pregnant = "";
+    dry_off_day_production = "";
+    dry_off_total_day = "";
+    dry_off_udder_health_add = "";
+    dry_off_udder_health_add_count = "";
+}
+
+void DataSystems::clear_insemenation()
+{
+    Insemenation_animal_No="";
+    Insemenation_Robot_number="";
+    Insemenation_lactation_number="";
+    Insemenation_lactation_days="";
+    Insemenation_since_insemenation="";
+    Insemenation_insemenation_number="";
+    Insemenation_day_production="";
+    Insemenation_Activity="";
+    Insemenation_days_since_heat="";
+
+
+
+}
+
+void DataSystems::clear_batch_transfer()
+{
+
+    dataentry_library_batch_transfer_animals="";
+    dataentry_library_batch_transfer_responder="";
+    dataentry_library_batch_transfer_life_number="";
+    dataentry_library_batch_transfer_birth_date="";
+    dataentry_library_batch_transfer_location="";
+    dataentry_library_batch_transfer_calving_date="";
+    dataentry_library_batch_transfer_insemenation_date="";
+
+}
+
+
+
+void DataSystems::create_milk_separation()
+{
+
+    milk_separation_animal_No="";
+    milk_separation_Robot_number="";
+    milk_separation_lactation_number="";
+    milk_separation_lactation_days="";
+    milk_separation_milk_separation_type="";
+    milk_separation_milk_separation_tank="";
+    milk_separation_end_date="";
+    milk_separation_milk_separation_status="";
+}
+
+void DataSystems::clear_otel()
+{
+
+    // ****************************/////////
+
+    otel_animal_No ="";
+    otel_number ="";
+    otel_Robot_No ="";
+    otel_lactation_No ="";
+    otel_lactation_days ="";
+    otel_days_pregnant ="";
+    otel_lactation_production ="";
+    otel_average_lactation ="";
+    otel_average_refusals ="";
+    otel_average_falures ="";
+    otel_average_milk_speed ="";
+
+}
+
 void DataSystems::clear()
 {
+    // ****************************************************
+
+    //0,125,128 007D80
+
+
+    settings___color_header="#14B143"; // зеленый (20,177,67)
+    settings___color_header___decimal="(20,177,67)"; //    (20,177,67)
+
+    settings___color_header="#FF6C6C"; // красный (255,108,108)
+    settings___color_header___decimal="(255,108,108)"; //    (255,108,108)
+
+    settings___color_header="#0683FF"; // синий   (06,131,255)
+    settings___color_header___decimal="(06,131,255)"; // синий   (06,131,255)
+
+    settings___color_header="#2222FF"; // синий   (34,34,255)
+    settings___color_header___decimal="(34,34,255)"; // синий   (34,34,255)
+
+    //settings___color_header="#FF0000"; // красный (255,0,0)
+    //settings___color_header___decimal="(255,0,0)"; //    (255,108,108)
+
+    settings___tabwidget_width="200px";
+
+    // ****************************************************
+
+
     db = nullptr;
 
     log="";
@@ -15,25 +148,322 @@ void DataSystems::clear()
 
     //db_check = DB_check::SQLITE;
     db_check = DB_check::PGSQL;
+    db_check_create = false;
+    //db_check_create = true;
+    exit_application = false;
 
     //db_host="192.168.124.135";
-    db_host="192.168.1.2";
+    //db_host="192.168.124.153";
+    //db_host="192.168.1.3";
+    db_host="192.168.0.3";
     //db_host="127.0.0.1";
+    //db_name="vim3";
     db_name="vim3";
+    db_port=5432;
+    //db_port=5433;
     db_login="postgres";
+    //db_login="zanxi";
+    db_login="vim";
+    //db_login="user1";
+    db_date_work="";
+    db_generate_random = true;
+    //db_generate_random = false;
+    id_max=2500;
+
     db_password="000";
     db_sql_create="create.sql";
     db_sql_insert="insert.sql";
     db_sql_drop="drop.sql";
-//    db_sqlite_file="./db-lely3.db";
+    db_sqlite_file = "c://lely//db-lely3.db";
+    db_sqlite_file_autorization = QApplication::applicationDirPath()+"/"+ "autorization_user_data.db";
+    //db_sqlite_file="c://db-prolely3.db";
     //db_sqlite_file="db-test.db";
-    db_sqlite_file="003.db";
+    //db_sqlite_file="003.db";
+
+    db_connection_counter = 0;
 
     name_animals="корова";
 
-
-
     //********************************
+
+    dataentry_robot_counter = 0;
+    dataentry_cow_card_counter = 0;
+    dataentry_transfer_counter = 0;
+    dataentry_otel_counter = 0;
+    dataentry_insemenation_counter = 0;
+    dataentry_dry_off_counter = 0;
+    dataentry_milk_separation_counter = 0;
+    dataentry_milk_settings_counter = 0;
+
+    //1_1
+
+
+    DataService_Id = -1;
+    DataService_FarmDepart= "";
+    DataService_counrty= "";
+    DataService_lang= "";
+    DataService_culture= "";
+    DataService_Index;
+    DataService_street= "";
+    DataService_street_number= "";
+    DataService_zip_code= "";
+    DataService_city= "";
+    DataService_telephone= "";
+    DataService_owner_name= "";
+
+    // Дневная запись - карты коров
+    dataentry_cow_card_Id = -1;
+    dataentry_dataentry_cow_card_animals="";
+    dataentry_dataentry_cow_card_responder="";
+    dataentry_dataentry_cow_card_name="";
+    dataentry_dataentry_cow_card_group="";
+    dataentry_dataentry_cow_card_life_number="";
+    dataentry_dataentry_cow_card_present="";
+    dataentry_dataentry_cow_card_birth_date="";
+    dataentry_dataentry_cow_card_location="";
+    dataentry_dataentry_cow_card_label="";
+    dataentry_dataentry_cow_card_keep="";
+    dataentry_dataentry_cow_card_gender="";
+    dataentry_dataentry_cow_card_use_as_sire="";
+    dataentry_dataentry_cow_card_father_life_number="";
+    dataentry_dataentry_cow_card_father_name="";
+    dataentry_dataentry_cow_card_mother_life_number="";
+    dataentry_dataentry_cow_card_mother_name="";
+    dataentry_dataentry_cow_card_hair_color="";
+    dataentry_dataentry_cow_card_gestation="";
+    dataentry_dataentry_cow_card_calm="";
+    dataentry_dataentry_cow_card_blood_type="";
+    dataentry_dataentry_cow_card_percentage="";
+    dataentry_dataentry_cow_card_description="";
+    dataentry_dataentry_cow_card_transfer_in="";
+    //QString dataentry_dataentry_cow_card_;
+    //QString dataentry_dataentry_cow_card_;
+
+    transfer_animal_No="";
+    transfer_number="";
+    transfer_Robot_No="";
+    transfer_lactation_No="";
+    transfer_lactation_days="";
+    transfer_days_pregnant="";
+    transfer_present="";
+
+
+
+
+    dataentry_library_Id = -1;
+    dataentry_library_siries_number= "";
+    dataentry_library_siries_sire_name= "";
+    dataentry_library_siries_life_number= "";
+    dataentry_library_siries_sire_code= "";
+    dataentry_library_siries_active= "";
+
+    dataentry_library_feed_types_number_feed_types= "";
+    dataentry_library_feed_types_dry_matter= "";
+    dataentry_library_feed_types_name= "";
+    dataentry_library_feed_types_active= "";
+    dataentry_library_feed_types_type= "";
+    dataentry_library_feed_types_remark= "";
+
+    dataentry_library_batch_transfer_animals="";
+    dataentry_library_batch_transfer_responder="";
+    dataentry_library_batch_transfer_life_number="";
+    dataentry_library_batch_transfer_birth_date="";
+    dataentry_library_batch_transfer_location="";
+    dataentry_library_batch_transfer_calving_date="";
+    dataentry_library_batch_transfer_insemenation_date="";
+
+   // ****************************************
+
+
+    // ****************************/////////
+
+    otel_animal_No ="";
+    otel_number ="";
+    otel_Robot_No ="";
+    otel_lactation_No ="";
+    otel_lactation_days ="";
+    otel_days_pregnant ="";
+    otel_lactation_production ="";
+    otel_average_lactation ="";
+    otel_average_refusals ="";
+    otel_average_falures ="";
+    otel_average_milk_speed ="";
+    // расширенные
+    otel_current_location =""; // 1 calving
+    otel_days_dry ="";
+    otel_waiting_time_dry_off ="";
+    otel_remarks_previous ="";
+    otel_expected_calving ="";
+    otel_calving_date ="";
+    otel_waiting_time_colostrum ="";
+    otel_number_of_calves ="";
+    otel_remarks ="";
+    otel_group ="";
+    otel_cow_number ="";
+    otel_responder ="";
+    otel_teat ="";
+    otel_separation_milk_tank ="";
+    otel_calf_born_dead =""; // 2 calf 1
+    otel_calf_keep_calf ="";
+    otel_calf_calf_number ="";
+    otel_calf_life_number ="";
+    otel_calf_name ="";
+    otel_calf_weight ="";
+    otel_calf_sex ="";
+    otel_calf_hair_color ="";
+    otel_calf_group ="";
+
+
+   // ***************************
+
+    dry_off_animal_No = "";
+    //dry_off_number = "";
+    dry_off_Robot_number = "";
+    dry_off_lactation_number = "";
+    dry_off_lactation_days = "";
+    dry_off_days_pregnant = "";
+    dry_off_day_production = "";
+    dry_off_total_day = "";
+    dry_off_udder_health_add = "";
+    dry_off_udder_health_add_count = "";
+
+    dry_off_date = "";
+    dry_off_medicine_used = "";
+    dry_off_medicine_category = "";
+    dry_off_medicine = "";
+    dry_off_dosage = "";
+    dry_off_Teat_LF = "";
+    dry_off_Teat_RF = "";
+    dry_off_Teat_LR = "";
+    dry_off_Teat_RR = "";
+    dry_off_separate_meat_untill = "";
+    dry_off_separate_milk_untill = "";
+    dry_off_group = "";
+
+
+    // *********************************
+
+    Insemenation_animal_No="";
+    Insemenation_Robot_number="";
+    Insemenation_lactation_number="";
+    Insemenation_lactation_days="";
+    Insemenation_since_insemenation="";
+    Insemenation_insemenation_number="";
+    Insemenation_day_production="";
+    Insemenation_Activity="";
+    Insemenation_days_since_heat="";
+
+    Insemenation_expected_otel="";
+
+
+
+    Insemenation_date="";
+    Insemenation_sire="";
+    Insemenation_person="";
+    Insemenation_group="";
+    Insemenation_remarks="";
+
+
+    // *************************************
+
+    milk_separation_animal_No="";
+    milk_separation_Robot_number="";
+    milk_separation_lactation_number="";
+    milk_separation_lactation_days="";
+    milk_separation_milk_separation_type="";
+    milk_separation_milk_separation_tank="";
+    milk_separation_end_date="";
+    milk_separation_milk_separation_status="";
+    milk_separation_start_separation_y="";
+    milk_separation_start_separation_h="";
+    milk_separation_end_separation_y="";
+    milk_separation_end_separation_h="";
+    milk_separation_expected_dry="";
+
+
+    //*********************
+
+    milk_settings_animal_No="";
+    milk_settings_Robot_number="";
+    milk_settings_lactation_number="";
+    milk_settings_lactation_days="";
+    milk_settings_priority_feeding="";
+    milk_settings_milk_teat_lf="";
+    milk_settings_milk_teat_lr="";
+    milk_settings_milk_teat_rf="";
+    milk_settings_milk_teat_rr="";
+    milk_settings_milk_under_supervision="";
+    milk_settings_training_period="";
+
+    //*********************
+
+    routing_animal_No="";
+    routing_Robot_number="";
+    routing_lactation_number="";
+    routing_lactation_days="";
+    routing_area="";
+    routing_from_date="";
+    routing_till_date="";
+    routing_from_till_time="";
+    routing_active_routing="";
+
+    //*********************
+
+    robot_robot_no = "";
+    robot_coord_teat_lf = "";
+    robot_coord_teat_lr = "";
+    robot_coord_teat_rf = "";
+    robot_coord_teat_rr = "";
+    robot_param1 = "";
+    robot_param2 = "";
+    robot_param3 = "";
+    robot_param4 = "";
+
+
+    //************************
+
+    dataentry_settings____milking__general_milking__colostrum_day = "";
+    dataentry_settings____milking__general_milking__milk_destination = "";
+    dataentry_settings____milking__general_milking__separation_milk_destination = "";
+    dataentry_settings____milking__general_milking__milk_teat_lf = "";
+    dataentry_settings____milking__general_milking__milk_teat_lr = "";
+    dataentry_settings____milking__general_milking__milk_teat_rf = "";
+    dataentry_settings____milking__general_milking__milk_teat_rr = "";
+    dataentry_settings____milking__general_milking__reset_teat_coordinates_aftre_dry = "";
+    dataentry_settings____milking__general_milking__training_period = "";
+    dataentry_settings____milking__general_milking__milk_under_supervision = "";
+    dataentry_settings____milking__general_milking__optimal_sampling_period = "";
+    dataentry_settings____milking__general_milking__teat_position_known = "";
+    dataentry_settings____milking__general_milking__correction_time = "";
+    dataentry_settings____milking__general_milking__alternative_connection_method = "";
+
+    //*********************
+
+    dataentry_settings____milking__post_milking__number_of_treatments_lf = "";
+    dataentry_settings____milking__post_milking__number_of_treatments_lr = "";
+    dataentry_settings____milking__post_milking__number_of_treatments_rf = "";
+    dataentry_settings____milking__post_milking__number_of_treatments_rr = "";
+    dataentry_settings____milking__post_milking__duration_per_treatment_lf = "";
+    dataentry_settings____milking__post_milking__duration_per_treatment_lr = "";
+    dataentry_settings____milking__post_milking__duration_per_treatment_rf = "";
+    dataentry_settings____milking__post_milking__duration_per_treatment_rr = "";
+    dataentry_settings____milking__post_milking__clean_milk_equipment = "";
+    dataentry_settings____milking__post_milking__priority_feeding = "";
+
+
+    //*********************
+
+    fixed_feeding_animal_No = "";
+    fixed_feeding_name = "";
+    fixed_feeding_group_ = "";
+    fixed_feeding_days_in = "";
+    fixed_feeding_days_feed = "";
+    fixed_feeding_milk_yield = "";
+    fixed_feeding_mb_markant = "";
+    fixed_feeding_mb_focus = "";
+    fixed_feeding_transition = "";
+
+
 
 
     //*********************
@@ -47,6 +477,7 @@ void DataSystems::clear()
     RIndication_Parameter2 = "";
     RIndication_Parameter3 = "";
     RIndication_Parameter4 = "";
+
 
 
     //*********************

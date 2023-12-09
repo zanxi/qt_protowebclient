@@ -10,6 +10,9 @@ Form_1_2_General::Form_1_2_General(QWidget *parent) :
     QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::white);
     this->setPalette(pal);
+
+
+
 }
 
 Form_1_2_General::~Form_1_2_General()

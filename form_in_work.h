@@ -13,6 +13,7 @@ class Form_in_work : public QWidget
 
 public:
     explicit Form_in_work(QWidget *parent = nullptr);
+    explicit Form_in_work(QByteArray ba, QWidget *parent = nullptr);
     ~Form_in_work();
 
 private:

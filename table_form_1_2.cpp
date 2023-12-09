@@ -11,6 +11,10 @@
 #include <QCompleter>
 #include <QStringList>
 
+#include "dataanimals.h"
+
+//1.3 Быстрый ввод номеров респондента (бирки)
+//1. Навигатор: Ввод данных  2. Меню: Дневная запись       3. Выбрать: Основные для партии
 
 Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
     QWidget(parent),
@@ -18,13 +22,16 @@ Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    this->setPalette(pal);
 
     ui->groupBox_2->setStyleSheet("QGroupBox {"
                                   "background-color: white;"
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -33,11 +40,15 @@ Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
-
+    ui->pushButton->setStyleSheet(
+        "background-color:"+DataSystems::Instance().settings___color_header+";"
+                                                                                "color: white;"
+                                                                                "padding: 4 50 4 10;"
+        );
 
 
     auto comboBoxDelegate = new ComboBoxItemDelegate(ui->tableWidget);
@@ -59,13 +70,14 @@ Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
     ui->tableWidget->setItemDelegateForColumn(0, spinBoxDelegate);
 
     ui->tableWidget->setHorizontalHeaderLabels( NameColumns );
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-    ui->tableWidget->hideColumn(0);
+    //ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    //ui->tableWidget->hideColumn(0);
+    for(int i=0;i<allColumns.count()+1;i++)ui->tableWidget->setColumnWidth(i, 150);
 
     //QStringList wordList;
     //wordList << "alpha" << "omega" << "omega2" << "omega3" <<"omicron" << "zeta";
 
-    for(int i=0;i<30;i++)
+    for(int i=0;i<3;i++)
     {
         //for(int j=0;j<allColumns.count();j++)
         {
@@ -83,11 +95,16 @@ Table_Form_1_2::Table_Form_1_2(QWidget *parent) :
             lineEdit->setText("3213");
             //ui->tableWidget->setCellWidget(i,i,lineEdit);
             ui->tableWidget->setCellWidget(i,2,lineEdit);
+            //ui->comboBox->addItem();
 
-            ui->tableWidget->setItem( i, 3,  new QTableWidgetItem(QString::number(rand()%2222)));
+            QString val = QString::number(rand()%2222);
+
+            ui->tableWidget->setItem( i, 3,  new QTableWidgetItem(val));
+            ui->comboBox->addItem(val);
         }
     }
 
+    on_comboBox_activated(0);
 
     QObject::connect(ui->tableWidget, &QTableWidget::clicked,
                      ui->tableWidget, [=](const QModelIndex& index) {
@@ -115,3 +132,40 @@ Table_Form_1_2::~Table_Form_1_2()
 {
     delete ui;
 }
+
+void Table_Form_1_2::on_comboBox_activated(int index)
+{
+    int i=0;
+    selectRow=-1;
+    //qDebug()<<"check: "<<ui->comboBox->currentText();
+    //QString check = ui->comboBox->currentData(index).toString();
+    QString check = ui->comboBox->currentText();
+    for(i=0;i<ui->tableWidget->rowCount();i++)
+    {
+        QString val;
+        QTableWidgetItem *item = ui->tableWidget->item(i,3);
+        if (NULL != item) {
+            val = item->text();
+            if(check.contains(val))
+            {
+                selectRow = i;
+                if(selectRowOld!=-1)ui->tableWidget->item(selectRowOld,3)->setBackground( Qt::white);
+                ui->tableWidget->item(selectRow,3)->setBackground( Qt::gray);
+                selectRowOld=selectRow;
+                qDebug()<<"--- break: "<<"i: "<<i<<"; "<<val;
+                break;
+            }
+            qDebug()<<"check: "<<check<<"; "<<"i: "<<i<<"; "<<val;
+        }
+    }
+
+
+
+}
+
+
+void Table_Form_1_2::on_pushButton_clicked()
+{
+    QMessageBox::information(this,"Спасибо","Сохранеы данные");
+}
+

@@ -7,12 +7,18 @@
 
 #include "json/json_w.h"
 
+#include "dataanimals.h"
+
 
 Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Table_Form_2_1)
 {
     ui->setupUi(this);
+
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    this->setPalette(pal);
 
     ui->tableWidget_lists_signals->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 
@@ -21,9 +27,10 @@ Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
                             "}"
                             "QGroupBox::title {"
                             "color: white;"
-                            "background-color:#14B143;"
+                            "background-color:"+DataSystems::Instance().settings___color_header+";"
                             "padding: 4 20000 4 10;"
                             "}");
+
 
 
     auto comboBoxDelegate = new ComboBoxItemDelegate(ui->tableWidget_lists_signals);
@@ -50,13 +57,14 @@ Table_Form_2_1::Table_Form_2_1(QWidget *parent) :
     ui->tableWidget_lists_signals->setItemDelegateForColumn(1, comboBoxDelegate);
     ui->tableWidget_lists_signals->setItemDelegateForColumn(2, spinBoxDelegate);
     ui->tableWidget_lists_signals->setItemDelegateForColumn(3, checkBoxDelegate);
+    for(int i=0;i<allColumns.count();i++)ui->tableWidget_lists_signals->setColumnWidth(i, 150);
 
     ui->tableWidget_lists_signals->setHorizontalHeaderLabels( NameColumns );
-    ui->tableWidget_lists_signals->horizontalHeader()->setStretchLastSection(true);
+    //ui->tableWidget_lists_signals->horizontalHeader()->setStretchLastSection(true);
 
     ui->tableWidget_lists_signals->hideColumn(0);
 
-    for(int i=0;i<10;i++)
+    for(int i=0;i<3;i++)
     {
         for(int j=0;j<allColumns.count();j++)
         {

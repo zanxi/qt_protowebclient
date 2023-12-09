@@ -54,6 +54,20 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_addRandom">
+             <property name="text">
+              <string>AddRandom</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_delete">
+             <property name="text">
+              <string>Удалить все</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>

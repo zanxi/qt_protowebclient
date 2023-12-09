@@ -7,6 +7,12 @@
         <file alias="minHover">min_hover.png</file>
         <file alias="minPress">min_pressed.png</file>
         <file alias="logo">app.ico</file>
+        <file>2.png</file>
+        <file>3.png</file>
+        <file>4.png</file>
+        <file>5.png</file>
+        <file>1.png</file>
+        <file>vim_logo.png</file>
     </qresource>
     <qresource prefix="/style">
         <file alias="app">app.qss</file>

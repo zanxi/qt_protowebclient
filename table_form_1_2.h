@@ -17,8 +17,17 @@ public:
 
     QString tab;
 
+private slots:
+    void on_comboBox_activated(int index);
+
+    void on_pushButton_clicked();
+
 private:
     Ui::Table_Form_1_2 *ui;
+
+    int selectRow=-1;
+    int selectRowOld=-1;
+
 };
 
 #endif // TABLE_FORM_1_2_H

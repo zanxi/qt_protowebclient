@@ -11,6 +11,10 @@ Widget_Form::Widget_Form(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::white);
+    this->setPalette(pal);
+
     bool flag = initDatabase();
     qDebug()<<"status Database: "<<flag<<"\n";
     logger::WriteMsg("status Database: "+QString::number(flag).toStdString()+"\n");

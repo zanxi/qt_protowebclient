@@ -29,7 +29,7 @@ private:
         QHash<QString, QDomNode> &hash,
         bool from_hash = false);
     QStandardItem *SetChild(QStandardItem *parent,
-                            QString name);
+                            QString name, QString icon_picture = ":/menu/icon.png");
     QStandardItemModel *tree_model;
 };
 

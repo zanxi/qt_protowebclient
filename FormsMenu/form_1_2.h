@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QStringListModel>
 #include <QItemSelection>
-
+#include <QTimer>
 
 namespace Ui {
 class Form_1_2;
@@ -21,9 +21,18 @@ public:
 private slots:
     void SelectionChanged(const QItemSelection& selection);
 
+public slots:
+    void UpdateList();
+    void UpdateList2();
+
 private:
     Ui::Form_1_2 *ui;
     QStringListModel *m_qlist_model;
+    QTimer *mTimer;
+
+    int GetDataCounter();
+    int GetData(QString tab);
+    //void UpdateList();
 };
 
 #endif // FORM_1_2_H

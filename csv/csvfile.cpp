@@ -10,8 +10,8 @@ std::vector<std::string> csvfile::ReadFiles(const char* fn)
    dpdf = opendir(fn);
 if (dpdf != NULL){
    while (epdf = readdir(dpdf)){       
-       if (!epdf->d_name || epdf->d_name[0] != '.'){                         
-              printf("Filename: %s \n",epdf->d_name);
+       if (!epdf->d_name || epdf->d_name[0] != '.'){
+              //printf("Filename: %s \n",epdf->d_name);
               temp.push_back(epdf->d_name);           
        }
       // std::cout << epdf->d_name << std::endl;
@@ -87,7 +87,7 @@ closedir(dpdf);
  
 	       fstream file ("./vartab/"+fname, ios::in);
 		   //cout<<"\n ********  Read_TabMap | "<<("./vartab/"+fname)<<"\n";
-		   logger::WriteMsg("class csvfile-> method <<<Read_TabMap>>> :  ./vartab/"+fname);
+           //logger::WriteMsg("class csvfile-> method <<<Read_TabMap>>> :  ./vartab/"+fname);
 	       if(file.is_open())
 	       {
 		     int w=0;

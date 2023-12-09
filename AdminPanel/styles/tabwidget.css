@@ -1,0 +1,29 @@
+QTabWidget
+{
+   background-color:rgb(255,255,255)
+}
+
+QTabWidget:tab-bar
+{
+    alignment: center
+}
+
+QTabBar:tab
+{
+    width: 150px;   
+   height: 30px;
+}
+
+QTabBar:selected
+{
+    background-color:rgb(120,120,120);
+    color.rgb(0,255,255);
+}
+
+QTabBar:tab:hover:!selected:hover
+{ 
+    background-color:rgb(255,0,0);
+    color.rgb(255,255,255);
+}
+
+

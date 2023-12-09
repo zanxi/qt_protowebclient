@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form_DataEntry_Settings</class>
+ <widget class="QWidget" name="Form_DataEntry_Settings">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1260</width>
+    <height>1039</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">QTabWidget
+{
+   background-color:rgb(0,255,128);
+}
+
+QTabWidget:tab-bar
+{
+    alignment: center;
+}
+
+QTabBar:tab
+{
+   width: 210px;   
+   height: 30px;
+}
+
+QTabBar:selected
+{
+    background-color:rgb(0,255,128);
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected
+{     
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected:hover
+{ 
+    background-color:rgb(0,255,128);
+    color.rgb(255,255,255);
+}
+
+
+</string>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab_lactation">
+      <attribute name="title">
+       <string>Лактация</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_milk">
+      <attribute name="title">
+       <string>Доение</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QTabWidget" name="tabWidget_3">
+         <property name="currentIndex">
+          <number>3</number>
+         </property>
+         <widget class="QWidget" name="tab_2">
+          <attribute name="title">
+           <string>Общее доение</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <widget class="QTableWidget" name="tableWidget_general_milking">
+             <column>
+              <property name="text">
+               <string/>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Молозиво(дни)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Место лактации</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Место сепарации молока</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Молозиво места лактации</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Способ взятия проб</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lf</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lr</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rf</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rr</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Молочные соски(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Сброс положения сосков после сухостойности(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Период перемещения(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Лактация под управлением(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Оптимальный период взятия(часы)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Позиции сосков известны(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Коррекция времени</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Альтернативный способ связи(да/нет)</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_7">
+          <attribute name="title">
+           <string>До доения</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_8">
+          <attribute name="title">
+           <string>Во время доения</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_9">
+          <attribute name="title">
+           <string>После доения</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item>
+            <widget class="QTableWidget" name="tableWidget_post_milking">
+             <column>
+              <property name="text">
+               <string/>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lf_1</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lr_1</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rf_1</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rr_1</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lf_2</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>lr_2</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rf_2</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>rr_2</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Способ(да/нет)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Чистое молочное оборудование</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Приоритетное кормление(да/нет)</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_10">
+          <attribute name="title">
+           <string>Доступ к молоку</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Категория</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QTreeView" name="treeView"/>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>Настройки</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_11">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_5">
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>Максимальное колличество доений:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>Максимальный ожидаемый надой за доение: </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>Минимальное количество доений:</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_6">
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_2"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_3"/>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_4"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_5"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_6"/>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_8">
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_7"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_8"/>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="lineEdit_9"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_9">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_10"/>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_4">
+                        <property name="text">
+                         <string>Дни после отела:</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_10">
+                      <item>
+                       <widget class="QLineEdit" name="lineEdit_11"/>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_5">
+                        <property name="text">
+                         <string>Дни до сухостойности:</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>Сухостойность:</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Не доить с/до:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_12"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_9">
+                    <property name="styleSheet">
+                     <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
+                    </property>
+                    <property name="text">
+                     <string>-</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_14"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Не доить c/до:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_13"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_10">
+                    <property name="styleSheet">
+                     <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
+                    </property>
+                    <property name="text">
+                     <string>-</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_15"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="text">
+                <string>Удалить</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Сохранить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_11">
+          <attribute name="title">
+           <string>Сигнал для привлечения внимания</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Кормления</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QTabWidget" name="tabWidget_2">
+         <property name="styleSheet">
+          <string notr="true">QTabWidget
+{
+   background-color:rgb(0,255,128);
+}
+
+QTabWidget:tab-bar
+{
+    alignment: center;
+}
+
+QTabBar:tab
+{
+   width: 210px;   
+   height: 30px;
+}
+
+QTabBar:selected
+{
+    background-color:rgb(0,255,128);
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected
+{     
+    color.rgb(0,255,128);
+}
+
+
+QTabBar:tab:!selected:hover
+{ 
+    background-color:rgb(0,255,128);
+    color.rgb(255,255,255);
+}
+
+
+</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_4">
+          <attribute name="title">
+           <string>Таблицы кормления</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QTableWidget" name="tableWidget_feeding___feed_tables"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_5">
+          <attribute name="title">
+           <string>Типы кормов</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_6">
+          <attribute name="title">
+           <string>Внимание</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_transition">
+      <attribute name="title">
+       <string>Задачи маршрутизации</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>DLM; параметры</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -15,21 +15,34 @@ public:
     DataBase *db;
 
     DB_check db_check;
+    bool db_check_create;
+    bool exit_application;
 
     QString db_host;
     QString db_name;
+    int db_port;
+    int db_connection_counter;
     QString db_login;
     QString db_password;
     QString db_sql_create;
     QString db_sql_insert;
     QString db_sql_drop;
+    QString db_date_work;
+
+    bool db_generate_random;
 
     QString db_sqlite_file;
+    QString db_sqlite_file_autorization;
 
     QString name_animals;
 
     QString log="";
     QString log_create_db;
+    int id_max;
+
+    QString settings___color_header;
+    QString settings___color_header___decimal;
+    QString settings___tabwidget_width;
 
     static DataSystems& Instance()
     {
@@ -37,7 +50,20 @@ public:
         return singleton;
     }
 
+    static DataSystems& I()
+    {
+        static DataSystems singleton;
+        return singleton;
+    }
+
     void clear();
+
+    void cow_card();
+    void clear_otel();
+    void clear_dry_off();
+    void clear_insemenation();
+    void clear_batch_transfer();
+    void create_milk_separation();
 
     // Other non-static member functions
 private:
@@ -47,6 +73,294 @@ private:
     DataSystems& operator=(const DataSystems&);      // Prevent assignment
 
 public:
+
+    // счетчики записей таблиц
+
+    int dataentry_robot_counter;
+    int dataentry_cow_card_counter;
+    int dataentry_transfer_counter;
+    int dataentry_otel_counter;
+    int dataentry_insemenation_counter;
+    int dataentry_dry_off_counter;
+    int dataentry_milk_separation_counter;
+    int dataentry_milk_settings_counter;
+    int dataentry_fixed_feeding_counter;
+    int dataentry_routing_counter;
+
+
+
+    // 1_1
+
+    // Конфигурация -> Глобальные установки фермы -> Ферма (параметры)
+    int DataService_Id;                        // номер записи
+    QString DataService_FarmDepart;            // название фермы
+    QString DataService_counrty;               // страна
+    QString DataService_lang;                  // нац. язык
+    QString DataService_culture;               // культура
+    QString DataService_Index;                 // индекс
+    QString DataService_street;                // улица
+    QString DataService_street_number;         // номер улицы
+    QString DataService_zip_code;              // почтовый индекс
+    QString DataService_city;                  // город
+    QString DataService_telephone;             //  телефон
+    QString DataService_owner_name;            //  фио владельца
+
+    // Ввод данных ->  Дневная запись -> карточки коров
+    int dataentry_cow_card_Id;    // номер записи
+    QString dataentry_dataentry_cow_card_animals;                       //  номер животного
+    QString dataentry_dataentry_cow_card_responder;                     // номер ответчика (респондент)
+    QString dataentry_dataentry_cow_card_name;                          // имя (название)
+    QString dataentry_dataentry_cow_card_group;                         // группа
+    QString dataentry_dataentry_cow_card_life_number;                   // номер жизни (тоже что и номер животного)
+    QString dataentry_dataentry_cow_card_present;                       // представление
+    QString dataentry_dataentry_cow_card_birth_date;                    // дата рождения
+    QString dataentry_dataentry_cow_card_location;                      // расположение
+    QString dataentry_dataentry_cow_card_label;                         // метка
+    QString dataentry_dataentry_cow_card_keep;                          // содержать
+    QString dataentry_dataentry_cow_card_gender;                        // пол
+    QString dataentry_dataentry_cow_card_use_as_sire;                   // использовать как самца
+    QString dataentry_dataentry_cow_card_father_life_number;            // номер жизни отца
+    QString dataentry_dataentry_cow_card_father_name;                   // имя отца
+    QString dataentry_dataentry_cow_card_mother_life_number;            // номер жизни матери
+    QString dataentry_dataentry_cow_card_mother_name;                   // имя матери
+    QString dataentry_dataentry_cow_card_hair_color;                    // цвет шерсти
+    QString dataentry_dataentry_cow_card_gestation;                     // беременность
+    QString dataentry_dataentry_cow_card_calm;                          // спокойность
+    QString dataentry_dataentry_cow_card_blood_type;                    // тип крови
+    QString dataentry_dataentry_cow_card_percentage;                    // процент
+    QString dataentry_dataentry_cow_card_description;                   // описание
+    QString dataentry_dataentry_cow_card_transfer_in;                   // Перевод в
+    //QString dataentry_dataentry_cow_card_;
+    //QString dataentry_dataentry_cow_card_;
+
+
+    // Ввод данных ->  Дневная запись -> Перевод
+
+    QString transfer_animal_No;                // номер животного
+    QString transfer_number;                   // номер лактации
+    QString transfer_Robot_No;                 // номер доильного аппарата
+    QString transfer_lactation_No;             // номер лактации
+    QString transfer_lactation_days;           // дни лактации
+    QString transfer_days_pregnant;            // дни беременности
+    QString transfer_present;                  // представление
+
+
+    // ************* Параметры Ввод данных -> библиотеки -> Партии  **************************
+
+    int dataentry_library_Id;                        // номер записи
+    QString dataentry_library_siries_number;         // номер серии
+    QString dataentry_library_siries_sire_name;      // имя самца
+    QString dataentry_library_siries_life_number;    // номер жизни
+    QString dataentry_library_siries_sire_code;      // код
+    QString dataentry_library_siries_active;         // активность
+
+    // ************* Параметры Ввод данных -> библиотеки -> Типы кормления  **************************
+
+    QString dataentry_library_feed_types_number_feed_types;     // номер типа кормления
+    QString dataentry_library_feed_types_dry_matter;            // сухое вещество
+    QString dataentry_library_feed_types_name;                  // имя(название типа)
+    QString dataentry_library_feed_types_active;                // активность
+    QString dataentry_library_feed_types_type;                  // тип
+    QString dataentry_library_feed_types_remark;                // замечание
+
+    // ************* Параметры Ввод данных -> библиотеки -> Основной перевод **************************
+
+    QString dataentry_library_batch_transfer_animals;                //  номер животного
+    QString dataentry_library_batch_transfer_responder;              //  ответчик
+    QString dataentry_library_batch_transfer_life_number;            // номер жизни
+    QString dataentry_library_batch_transfer_birth_date;             // дата рождения
+    QString dataentry_library_batch_transfer_location;               // расположение
+    QString dataentry_library_batch_transfer_calving_date;           // дата отёла
+    QString dataentry_library_batch_transfer_insemenation_date;      // дата осеменения
+
+
+
+    //QString dataentry_library_siries_sire_code;
+    //******************* Параметры отела **********************
+    // basic data
+    QString otel_animal_No;                        // номер животного
+    QString otel_number;                           //  номер
+    QString otel_Robot_No;                         //  номер доильного аппарата
+    QString otel_lactation_No;                     //  номер текущей лактации
+    QString otel_lactation_days;                   // дни лактации
+    QString otel_days_pregnant;                    //  дни беременности
+    QString otel_lactation_production;             // производительность лактации
+    QString otel_average_lactation;                //  средняя лактация
+    QString otel_average_refusals;                 //  средний отказ
+    QString otel_average_falures;                  //  средний провал
+    QString otel_average_milk_speed;               // скорость лактации
+    // расширенные
+    QString otel_current_location; // 1 calving    // текущее расположение
+    QString otel_days_dry;                         //  дни сухостойности
+    QString otel_waiting_time_dry_off;             // время ожидания сухостойности
+    QString otel_remarks_previous;                 // замечание к предыдущему
+    QString otel_expected_calving;                 // ожидаемый отёл
+    QString otel_calving_date;                     // дата отёла
+    QString otel_waiting_time_colostrum;           // время молозива
+    QString otel_number_of_calves;                 //  номер отёла
+    QString otel_remarks;                          // замечания
+    QString otel_group;                            // группа
+    QString otel_cow_number;                       // номер коровы
+    QString otel_responder;                        //  номер ответчика
+    QString otel_teat;                             // соски
+    QString otel_separation_milk_tank;             // резервуар для молока
+    QString otel_calf_born_dead; // 2 calf 1       // родился мертвый
+    QString otel_calf_keep_calf;                   // держать отёл
+    QString otel_calf_calf_number;                 // номер отёла
+    QString otel_calf_life_number;                 // номер жизни
+    QString otel_calf_name;                        // имя отела
+    QString otel_calf_weight;                      // вес отёла
+    QString otel_calf_sex;                         // пол отёла
+    QString otel_calf_hair_color;                  // цвет шерсти отёла
+    QString otel_calf_group;                       // группа отёла
+
+   // ******************* Параметры Сухостойность *****************************
+    QString dry_off_animal_No;               // номер животного
+    //QString dry_off_number;
+    QString dry_off_Robot_number;            // номер робота
+    QString dry_off_lactation_number;        // номер лактации
+    QString dry_off_lactation_days;          // дни лактации
+    QString dry_off_days_pregnant;           // дни беременности
+    QString dry_off_day_production;          // дни продуктивности
+    QString dry_off_total_day;               // всего дней
+    QString dry_off_udder_health_add;        // здоровье вымени тдобавить
+    QString dry_off_udder_health_add_count;  // счетчик здоровых выменей
+
+    QString dry_off_date;                    //  дата
+    QString dry_off_medicine_used;           //  использовать лекарство
+    QString dry_off_medicine_category;       //  категория лекарств
+    QString dry_off_medicine;                // лекарство
+    QString dry_off_dosage;                  // доза
+    QString dry_off_Teat_LF;                 // сосок левый нижний
+    QString dry_off_Teat_RF;                 //  сосок правый нижний
+    QString dry_off_Teat_LR;                 // сосок левый верхний
+    QString dry_off_Teat_RR;                 // правый верхний
+    QString dry_off_separate_meat_untill;    // отделение мяса пока
+    QString dry_off_separate_milk_untill;    // отделение молока пока
+    QString dry_off_group;                   // группа
+
+
+
+
+    // ************** Параметры Осеменение **********************
+    QString Insemenation_animal_No;            // номер животного
+    QString Insemenation_Robot_number;         // номер робота
+    QString Insemenation_lactation_number;     // номер текущей лактации
+    QString Insemenation_lactation_days;       //  дни лактации
+    QString Insemenation_since_insemenation;   // с момента осеменения
+    QString Insemenation_insemenation_number;  // номер осеменения
+    QString Insemenation_day_production;       // дни производительности
+    QString Insemenation_Activity;             // активность
+    QString Insemenation_days_since_heat;      // дни с момента жары
+
+    QString Insemenation_expected_otel;        // ожидаемый отёл
+
+    QString Insemenation_type;                 // тип
+    QString Insemenation_date;                 // дата
+    QString Insemenation_sire;                 // самец
+    QString Insemenation_person;               // персона
+    QString Insemenation_group;                // группа
+    QString Insemenation_remarks;              // замечания
+
+
+    // ****************** Параметры сепарации молока ******************************
+    QString milk_separation_animal_No;                  // номер животного
+    QString milk_separation_Robot_number;               // номер робота
+    QString milk_separation_lactation_number;           // номер текущей лактации
+    QString milk_separation_lactation_days;             // дни лактации
+    QString milk_separation_milk_separation_type;       // тип сепарации
+    QString milk_separation_milk_separation_tank;       // резервуар для сепарации
+    QString milk_separation_end_date;                   // дата окончания сепарации
+    QString milk_separation_milk_separation_status;     // статус сепарации
+    QString milk_separation_start_separation_y;         // дата старта сепарции yyyy-mm-dd
+    QString milk_separation_start_separation_h;         // дата старта сепарции hh-mm-ss
+    QString milk_separation_end_separation_y;           // дата конца сепарции yyyy-mm-dd
+    QString milk_separation_end_separation_h;           // дата конца сепарции hh-mm-ss
+    QString milk_separation_expected_dry;               // ожидаемая сухостойность
+
+
+    // ******************* Параметры Настройки лактации *****************************
+    QString milk_settings_animal_No;                    // номер животного
+    QString milk_settings_Robot_number;                 // номер робота
+    QString milk_settings_lactation_number;             // номер текущей лактации
+    QString milk_settings_lactation_days;               // дни лактации
+    QString milk_settings_priority_feeding;             // приоритетное кормление
+    QString milk_settings_milk_teat_lf;                 // сосок левый нижний
+    QString milk_settings_milk_teat_lr;                 // сосок левый верхний
+    QString milk_settings_milk_teat_rf;                 // сосок правый нижний
+    QString milk_settings_milk_teat_rr;                 // сосок правый верхний
+    QString milk_settings_milk_under_supervision;       // под управлением
+    QString milk_settings_training_period;              // период обучения
+
+    // ****************** Фиксированное кормление **********************************
+    QString fixed_feeding_animal_No;
+    QString fixed_feeding_name;
+    QString fixed_feeding_group_;
+    QString fixed_feeding_days_in;
+    QString fixed_feeding_days_feed;
+    QString fixed_feeding_milk_yield;
+    QString fixed_feeding_mb_markant;
+    QString fixed_feeding_mb_focus;
+    QString fixed_feeding_transition;
+
+
+    // ******************* Маршрутиазция *****************************
+
+    QString routing_animal_No;                          // номер животного
+    QString routing_Robot_number;                       // номер робота
+    QString routing_lactation_number;                   // номер текущей лактации
+    QString routing_lactation_days;                     // дни лактации
+    QString routing_area;                               // область
+    QString routing_from_date;                          // от даты
+    QString routing_till_date;                          // до даты
+    QString routing_from_till_time;                     // от до времени
+    QString routing_active_routing;                     // активное перемещение
+
+    // ******************* Параметры Robota *****************************
+
+    QString robot_robot_no;                             // номер робота
+    QString robot_coord_teat_lf;                        // координаты левого нижнего соска
+    QString robot_coord_teat_lr;                        // координаты левого верхнего соска
+    QString robot_coord_teat_rf;                        // координаты правого нижнего соска
+    QString robot_coord_teat_rr;                        // координаты правого верхнего соска
+    QString robot_param1;                               // параметр
+    QString robot_param2;                               // время
+    QString robot_param3;                               //
+    QString robot_param4;                               //
+
+    // *******************************************************************************
+
+    //Ввод данных (Data entry) 2. Меню: Настройки (Settings) 3. Вкладка: Доение – Общее доение (Milking – General Milking)
+
+    QString dataentry_settings____milking__general_milking__colostrum_day;                       // дни молозива
+    QString dataentry_settings____milking__general_milking__milk_destination;                    // молока цель
+    QString dataentry_settings____milking__general_milking__separation_milk_destination;         // пункт назначения сепарационного молока
+    QString dataentry_settings____milking__general_milking__milk_teat_lf;                        // соска для молока (да/нет)
+    QString dataentry_settings____milking__general_milking__milk_teat_lr;                        // соска для молока (да/нет)
+    QString dataentry_settings____milking__general_milking__milk_teat_rf;                        // соска для молока (да/нет)
+    QString dataentry_settings____milking__general_milking__milk_teat_rr;                        // соска для молока (да/нет)
+    QString dataentry_settings____milking__general_milking__reset_teat_coordinates_aftre_dry;    // сброс координат сосков после сухостойности // (да/нет)
+    QString dataentry_settings____milking__general_milking__training_period;                     // (да/нет)
+    QString dataentry_settings____milking__general_milking__milk_under_supervision;              // лактация под управлением // (да/нет)
+    QString dataentry_settings____milking__general_milking__optimal_sampling_period;             // оптимальный пробный период
+    QString dataentry_settings____milking__general_milking__teat_position_known;                 // позиции сосков известны // (да/нет)
+    QString dataentry_settings____milking__general_milking__correction_time;                     // корректировка времени
+    QString dataentry_settings____milking__general_milking__alternative_connection_method;       // альтернативный способ связи (да/нет)
+
+    // *****************************************************************************************
+    //     //Ввод данных (Data entry) 2. Меню: Настройки (Settings) 3. Вкладка: Доение –  После доения (Milking – after milking
+
+    QString dataentry_settings____milking__post_milking__number_of_treatments_lf;    // количество процедур соска левого нижнего
+    QString dataentry_settings____milking__post_milking__number_of_treatments_lr;    // количество процедур соска левого верхнего
+    QString dataentry_settings____milking__post_milking__number_of_treatments_rf;    // количество процедур соска правого нижнего
+    QString dataentry_settings____milking__post_milking__number_of_treatments_rr;    // количество процедур соска правого верхнего
+    QString dataentry_settings____milking__post_milking__duration_per_treatment_lf;  // продолжительность процедуры соска левого нижнего - секунды
+    QString dataentry_settings____milking__post_milking__duration_per_treatment_lr;  // продолжительность процедуры соска левого верхнего - секунды
+    QString dataentry_settings____milking__post_milking__duration_per_treatment_rf;  // продолжительность процедуры соска правого нижнего - секунды
+    QString dataentry_settings____milking__post_milking__duration_per_treatment_rr;  // продолжительность процедуры соска правого верхнего - секунды
+    QString dataentry_settings____milking__post_milking__sampling;                   // способ (да/нет)
+    QString dataentry_settings____milking__post_milking__clean_milk_equipment;       // чистое молочное оборудование
+    QString dataentry_settings____milking__post_milking__priority_feeding;           // приоритетное кормление (да/нет)
 
     //*********************
 
