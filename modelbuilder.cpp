@@ -166,6 +166,10 @@ QStandardItem *ModelBuilder::SetChild(QStandardItem *parent, QString name, QStri
         {
            parent->setIcon(QIcon(":/images/4.png"));
         }
+        else if(name.contains("Экспорт"))
+        {
+           parent->setIcon(QIcon(":/icons/icons/graphic__.png"));
+        }
         else if(name.contains("Электронное обучение"))
         {
            parent->setIcon(QIcon(":/images/5.png"));

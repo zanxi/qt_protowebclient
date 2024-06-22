@@ -14,7 +14,7 @@ class table_form_1_2_otel_add : public QDialog
 
 public:
     explicit table_form_1_2_otel_add(QWidget *parent = nullptr);
-    explicit table_form_1_2_otel_add(QString animals_number, QWidget *parent = nullptr);
+    explicit table_form_1_2_otel_add(const QString &animals_number, QWidget *parent = nullptr);
     ~table_form_1_2_otel_add();
 
     bool checkStatus(){ return status; }  // сохранены true; не сохранены - false

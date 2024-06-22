@@ -15,7 +15,7 @@ class Form_add_cow : public QDialog
 
 public:
     explicit Form_add_cow(QWidget *parent = nullptr);
-    explicit Form_add_cow(QString data, QWidget *parent = nullptr);
+    explicit Form_add_cow(const QString &data, QWidget *parent = nullptr);
     ~Form_add_cow();
 
     void SetData();

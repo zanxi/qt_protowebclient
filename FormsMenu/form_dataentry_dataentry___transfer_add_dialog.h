@@ -13,7 +13,7 @@ class form_dataentry_dataentry___transfer_add_Dialog : public QDialog
 
 public:
     explicit form_dataentry_dataentry___transfer_add_Dialog(QWidget *parent = nullptr);
-    explicit form_dataentry_dataentry___transfer_add_Dialog(QString checkAnimals, QWidget *parent = nullptr);
+    explicit form_dataentry_dataentry___transfer_add_Dialog(const QString &checkAnimals, QWidget *parent = nullptr);
     ~form_dataentry_dataentry___transfer_add_Dialog();
 
 private slots:

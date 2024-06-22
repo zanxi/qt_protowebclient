@@ -93,6 +93,13 @@
               </spacer>
              </item>
              <item>
+              <widget class="QProgressBar" name="Plot">
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLineEdit" name="lineEdit"/>
              </item>
              <item>

@@ -219,7 +219,7 @@ void form_dataentry_dataentry___milk_separationoff::GetData()
 
 }
 
-void form_dataentry_dataentry___milk_separationoff::GetData(QString str)
+void form_dataentry_dataentry___milk_separationoff::GetData(const QString &str)
 {
 
 

@@ -31,7 +31,7 @@ private:
     QTimer *mTimer;
 
     int GetDataCounter();
-    int GetData(QString tab);
+    int GetData(const QString &tab);
     //void UpdateList();
 };
 

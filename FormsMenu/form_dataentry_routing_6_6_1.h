@@ -32,7 +32,7 @@ private:
 
 
     void GetData();
-    void GetData(QString str);
+    void GetData(const QString &str);
     void addRandom();
 
 };

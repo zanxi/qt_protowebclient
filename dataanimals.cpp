@@ -5,7 +5,7 @@ void DataSystems::cow_card()
 {
     // Дневная запись - карты коров
     dataentry_cow_card_Id = -1;
-    dataentry_dataentry_cow_card_animals="";
+    dataentry_dataentry_cow_card_animal_No="";
     dataentry_dataentry_cow_card_responder="";
     dataentry_dataentry_cow_card_name="";
     dataentry_dataentry_cow_card_group="";
@@ -128,19 +128,59 @@ void DataSystems::clear()
     settings___color_header="#2222FF"; // синий   (34,34,255)
     settings___color_header___decimal="(34,34,255)"; // синий   (34,34,255)
 
-    //settings___color_header="#FF0000"; // красный (255,0,0)
-    //settings___color_header___decimal="(255,0,0)"; //    (255,108,108)
+    settings___color_header="#DB24C9"; //    (219,36,201)
+    settings___color_header___decimal="(219,36,201)"; // синий   (219,36,201)
 
-    settings___tabwidget_width="200px";
+    settings___color_header="#DEE173"; //    ()
+    settings___color_header___decimal="(222, 225, 115)"; // синий   ()
+
+    settings___color_header="#5999B5"; //    ()
+    settings___color_header___decimal="(89, 153, 181)"; // синий   ()
+
+    settings___color_header="#"; //    ()
+    settings___color_header___decimal="()"; // синий   ()
+
+    settings___color_header="#"; //    ()
+    settings___color_header___decimal="()"; // синий   ()
+
+
+
+    settings___color_header="#FF6C6C"; // красный (255,108,108)
+    settings___color_header_dialog="#ffffff"; //
+    settings___color_header___decimal="(255,108,108)"; //    (255,108,108)
+
+    settings___color_header="#DB24C9"; //    (219,36,201)
+    settings___color_header_textedit_code = "(208, 255, 208)";
+    settings___color_header___decimal="(219,36,201)"; // синий   (219,36,201)
+
+      //("#2222FF", "(81, 34, 129)"
+    settings___color_header="#2222FF"; //    (219,36,201)
+    settings___color_header_textedit_code = "(81, 34, 129)";
+    settings___color_header___decimal="(219,36,201)"; // синий   (219,36,201)
+
+
+    settings___tabwidget_width="700px";
 
     // ****************************************************
 
+    icons = {":/icons/icons/calendar__.png",
+             ":/icons/icons/delete__.png",
+             ":/icons/icons/detail_record__.png",
+             ":/icons/icons/edit2__.png",
+             ":/icons/icons/edit__.png",
+             ":/icons/icons/graphic__.png",
+             ":/icons/icons/report__.png",
+             ":/icons/icons/search__.png"};
 
     db = nullptr;
 
     log="";
+    log_execution_result = "";
     log_create_db="";
     mj.clear();
+
+    log_execution_result__lists.clear();
+    log__lists.clear();
 
     mjpj.clear();
     db_sql.clear();
@@ -155,11 +195,12 @@ void DataSystems::clear()
     //db_host="192.168.124.135";
     //db_host="192.168.124.153";
     //db_host="192.168.1.3";
-    db_host="192.168.0.3";
-    //db_host="127.0.0.1";
+    //db_host="192.168.0.3";
+    db_host="127.0.0.1";
     //db_name="vim3";
+    //db_name="vim5";
     db_name="vim3";
-    db_port=5432;
+    db_port=5433;
     //db_port=5433;
     db_login="postgres";
     //db_login="zanxi";
@@ -182,7 +223,11 @@ void DataSystems::clear()
 
     db_connection_counter = 0;
 
+    y=0;
+
     name_animals="корова";
+
+    savePath = QApplication::applicationDirPath();
 
     //********************************
 
@@ -213,7 +258,7 @@ void DataSystems::clear()
 
     // Дневная запись - карты коров
     dataentry_cow_card_Id = -1;
-    dataentry_dataentry_cow_card_animals="";
+    dataentry_dataentry_cow_card_animal_No="";
     dataentry_dataentry_cow_card_responder="";
     dataentry_dataentry_cow_card_name="";
     dataentry_dataentry_cow_card_group="";
@@ -273,6 +318,24 @@ void DataSystems::clear()
     dataentry_library_batch_transfer_insemenation_date="";
 
    // ****************************************
+
+    analyse_reports___x_link___cow_number="";
+    analyse_reports___x_link___robot_No="";
+    analyse_reports___x_link___group_No="";
+    analyse_reports___x_link___LF_condition="";
+    analyse_reports___x_link___LF_colour_code="";
+    analyse_reports___x_link___LR_condition="";
+    analyse_reports___x_link___LR_colour_code="";
+    analyse_reports___x_link___RF_condition="";
+    analyse_reports___x_link___RF_colour_code="";
+    analyse_reports___x_link___RR_condition="";
+    analyse_reports___x_link___RR_colour_code="";
+    analyse_reports___x_link___day_pregnance="";
+    analyse_reports___x_link___lactation_day="";
+    analyse_reports___x_link___lactation_No="";
+    analyse_reports___x_link___qqq="";
+    analyse_reports___x_link___qqr="";
+
 
 
     // ****************************/////////
@@ -418,7 +481,20 @@ void DataSystems::clear()
     robot_param2 = "";
     robot_param3 = "";
     robot_param4 = "";
+    robot_paramtime1 = "";                               // параметр
+    robot_paramtime2 = "";                               // время
+    robot_paramtime3 = "";                               //
+    robot_paramtime4 = "";                               //
 
+    robot_paramfilephoto1 = "";                               //
+    robot_paramfilephoto2 = "";                               //
+    robot_paramfilephoto3 = "";                               //
+    robot_paramfilephoto4 = "";                               //
+
+    robot_paramfile1 = nullptr;                               //
+    robot_paramfile2 = nullptr;                               //
+    robot_paramfile3 = nullptr;                               //
+    robot_paramfile4 = nullptr;                               //
 
     //************************
 
@@ -462,6 +538,28 @@ void DataSystems::clear()
     fixed_feeding_mb_markant = "";
     fixed_feeding_mb_focus = "";
     fixed_feeding_transition = "";
+
+
+    // ************** Ввод данных ->  Дневная запись -> Взятие проб у партии (Batch Sampling) *********************
+
+    dataentry_dataentry__Batch_Sampling__animal_No = "";
+    dataentry_dataentry__Batch_Sampling__milk_yield = "";
+    dataentry_dataentry__Batch_Sampling__fat = "";
+    dataentry_dataentry__Batch_Sampling__protein = "";
+    dataentry_dataentry__Batch_Sampling__standard_peak_production = "";
+    dataentry_dataentry__Batch_Sampling__SCC = ""; // SCC (количество соматических клетов)
+
+
+    // ************** Ввод данных ->  Дневная запись -> Кондиция партии (Batch condition) ***************************
+
+    dataentry_dataentry__Batch_condition__number = "";
+    dataentry_dataentry__Batch_condition__claw = "";
+    dataentry_dataentry__Batch_condition__body = "";
+    dataentry_dataentry__Batch_condition__breast = "";
+    dataentry_dataentry__Batch_condition__weight = "";
+
+
+
 
 
 

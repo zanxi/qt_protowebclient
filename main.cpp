@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     font.setPointSize(10);
     QApplication::setFont(font);
 
-    QPixmap pixmap("./images/vim.png");
+    QPixmap pixmap(":/images/vim.png");
     QSplashScreen splash(pixmap);
     splash.show();
     splash.setFont(fontSmall);
@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&myappTranslator);
 
     //***************** END Установка шрифта ****************************//
+
 
 
     //std::ios_base::sync_with_stdio(false);

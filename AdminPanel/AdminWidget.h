@@ -39,7 +39,8 @@ public slots:
 private slots:
     void addBtnClicked();
     void updateBtnClicked();
-    void deleteBtnClicked();
+    void deleteBtnClicked_row();
+    void deleteBtnClicked_allrow();
     void setCurTabIndex();
     void getSearchText();
 
@@ -62,7 +63,8 @@ private:
 //    QPushButton *refreshBtn;
     QPushButton *addBtn;
     QPushButton *updateBtn;
-    QPushButton *deleteBtn;
+    QPushButton *deleteBtn_allrow;
+    QPushButton *deleteBtn_row;
     DbManager *m_pDbManager;
     //teaManager *m_pTeaManager;
     void initUI(QString nameTab= "RFeedSettings");

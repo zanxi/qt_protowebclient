@@ -4,13 +4,14 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
+#include <QString>
 #include <string>
 #include <dirent.h>
 #include <ftw.h>
 #include <sys/stat.h>
 
 
-#include "../Debug/logger.h"
 
 struct db_propeties{
     std::string field_name;

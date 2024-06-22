@@ -1,5 +1,5 @@
 #include "AdminWidget.h"
-#include "db/connectdb.h"
+
 #include "ui_adminwidget.h"
 
 #include "modelbuilder.h"
@@ -23,7 +23,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                 "}"
                                 "QGroupBox::title {"
                                 "color: white;"
-                                "background-color:#14B143;"
+                                "background-color:"+DataSystems::Instance().settings___color_header+";"
                                 "padding: 4 20000 4 10;"
                                 "}");
 
@@ -34,7 +34,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -43,7 +43,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -52,7 +52,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -61,7 +61,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -70,7 +70,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -79,7 +79,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                       "}"
                                       "QGroupBox::title {"
                                       "color: white;"
-                                      "background-color:#14B143;"
+                                      "background-color:"+DataSystems::Instance().settings___color_header+";"
                                       "padding: 4 20000 4 10;"
                                       "}");
 
@@ -88,7 +88,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
                                   "}"
                                   "QGroupBox::title {"
                                   "color: white;"
-                                  "background-color:#14B143;"
+                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
                                   "padding: 4 20000 4 10;"
                                   "}");
 
@@ -106,7 +106,9 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
     searchEdit = new QLineEdit;
     addBtn = new QPushButton(tr("Добавить"));
     updateBtn = new QPushButton(tr("Обновить таблицу"));
-    deleteBtn = new QPushButton(tr("Удалить строчку"));
+    deleteBtn_row = new QPushButton(tr("Удалить строчку"));
+    deleteBtn_allrow = new QPushButton(tr("очистить таблицу"));
+    //deleteBtn = new QPushButton(tr("Удалить строчку"));
 
     creatCornerBtn();
 
@@ -118,7 +120,8 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
 
     connect(addBtn, SIGNAL(clicked(bool)), this, SLOT(addBtnClicked()));
     connect(updateBtn, SIGNAL(clicked(bool)), this, SLOT(updateBtnClicked()));
-    connect(deleteBtn, SIGNAL(clicked(bool)), this, SLOT(deleteBtnClicked()));
+    connect(deleteBtn_row, SIGNAL(clicked(bool)), this, SLOT(deleteBtnClicked_row()));
+    connect(deleteBtn_allrow, SIGNAL(clicked(bool)), this, SLOT(deleteBtnClicked_allrow()));
     connect(searchEdit,SIGNAL(textChanged(QString)), this, SLOT(getSearchText()));
     connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(setCurTabIndex()));
 
@@ -151,7 +154,7 @@ AdminWidget::AdminWidget(QWidget *parent) : QWidget(parent), ui(new Ui::mainWidg
 void AdminWidget::slotMenu(QString val)
 {
 
-    qDebug()<<"value tree item: "<<val;
+    //qDebug()<<"value tree item: "<<val;
     return;
 
 }
@@ -161,27 +164,25 @@ int cnt =0;
 void AdminWidget::selectTreeItem(const QItemSelection &selected, const QItemSelection &deselected)
 {
     cnt++;
-    qDebug()<<" key tree item: "<<cnt;
+    //qDebug()<<" key tree item: "<<cnt;
     //QModelIndexList indices =  qDebug()<<selected.at(0).indexes();
     QModelIndexList indices =  selected.at(0).indexes();
     QModelIndex signalIndex = indices[0];    
     QVariant qv = signalIndex.data(0);    
     QString val = qv.toStringList()[0];
-    qDebug()<<"val = "<<val;
+    //qDebug()<<"val = "<<val;
 
-    logger::WriteMsg("sent signal From Widget_menu to MainWindow: "+val.toStdString());
+    //logger::WriteMsg("sent signal From Widget_menu to MainWindow: "+val.toStdString());
     initUI(val);
 
 }
-
-
 
 AdminWidget::~AdminWidget()
 {
     delete ui;
     if(m_pDbManager!=nullptr)delete m_pDbManager;
     database.close();
-    qDebug() << "Database closeed!";
+    //qDebug() << "Database closeed!";
 }
 
 void AdminWidget::refresh()
@@ -202,11 +203,18 @@ void AdminWidget::updateBtnClicked()
     //else if (1 == tabNum) m_pTeaManager->updateTable();
 }
 
-void AdminWidget::deleteBtnClicked()
+void AdminWidget::deleteBtnClicked_row()
 {
     if (0 == tabNum) m_pDbManager->deleteRows();
     //else if (1 == tabNum) m_pTeaManager->deleteRows();
 }
+
+void AdminWidget::deleteBtnClicked_allrow()
+{
+    if (0 == tabNum) m_pDbManager->deleteAllRows();
+    //else if (1 == tabNum) m_pTeaManager->deleteRows();
+}
+
 
 void AdminWidget::setCurTabIndex()
 {
@@ -222,11 +230,13 @@ void AdminWidget::getSearchText()
 
 void AdminWidget::initUI(QString nameTab)
 {
+    //logger::WriteMsg(" -------------- " + nameTab.toStdString() +" ----------------- ");
     m_pDbManager = new DbManager(nameTab);
     QByteArray ba = m_pDbManager->NameTab().toLocal8Bit();
     const char *c_str2 = ba.data();    
     if(ui->tabWidget->count()>0)ui->tabWidget->removeTab(0);
     ui->tabWidget->addTab(m_pDbManager, tr(c_str2));// +QString::fromStdString("Таблица данных Farm").toStdString()));
+    logger::WriteMsg(" -------------- initui: --  " + nameTab.toStdString() + " | " + tr(c_str2).toStdString() +" ----------------- ");
 }
 
 void AdminWidget::creatCornerBtn()
@@ -239,7 +249,9 @@ void AdminWidget::creatCornerBtn()
     //hLayout->addStrut(170);
     ui->horizontalLayout->addWidget(addBtn);
     ui->horizontalLayout->addWidget(updateBtn);
-    ui->horizontalLayout->addWidget(deleteBtn);
+    ui->horizontalLayout->addWidget(deleteBtn_row);
+    ui->horizontalLayout->addWidget(deleteBtn_allrow);
+    //ui->horizontalLayout->addWidget(deleteBtn);
 
 
 }
@@ -247,22 +259,12 @@ void AdminWidget::creatCornerBtn()
 
 void AdminWidget::on_pushButton_2_clicked()
 {
-    if(DataSystems::Instance().db!=nullptr)DataSystems::Instance().db->closeDataBase();
-    DataSystems::Instance().db = nullptr;
-
     DataSystems::Instance().db_host=ui->linerEdit_db_pg_host->text();
     DataSystems::Instance().db_name=ui->lineEdit_db_pg_name->text();
     DataSystems::Instance().db_login=ui->lineEdit_db_pg_login->text();
     DataSystems::Instance().db_password=ui->lineEdit_db_pg_password->text();
 
     DataSystems::Instance().db_sqlite_file=ui->lineEdit_db_sqlite_file->text();
-
-        DataSystems::Instance().db = new DataBase();
-        if(!DataSystems::Instance().db->Open())
-        {
-            DataSystems::Instance().db->closeDataBase();
-        }
-
 
     this->close();
 }

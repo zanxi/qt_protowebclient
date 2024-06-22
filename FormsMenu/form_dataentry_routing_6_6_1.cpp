@@ -169,7 +169,7 @@ void Form_dataentry_routing_6_6_1::GetData()
 
 }
 
-void Form_dataentry_routing_6_6_1::GetData(QString str)
+void Form_dataentry_routing_6_6_1::GetData(const QString &str)
 {
 
 

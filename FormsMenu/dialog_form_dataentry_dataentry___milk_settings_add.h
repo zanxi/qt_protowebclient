@@ -13,7 +13,7 @@ class Dialog_form_dataentry_dataentry___milk_settings_add : public QDialog
 
 public:
     explicit Dialog_form_dataentry_dataentry___milk_settings_add(QWidget *parent = nullptr);
-    explicit Dialog_form_dataentry_dataentry___milk_settings_add(QString checkAnimals, QWidget *parent = nullptr);
+    explicit Dialog_form_dataentry_dataentry___milk_settings_add(const QString &checkAnimals, QWidget *parent = nullptr);
     ~Dialog_form_dataentry_dataentry___milk_settings_add();
 
 private slots:

@@ -7,10 +7,11 @@
 #include "FormsMenu/form_1_2_general.h"
 #include "FormsMenu/form_dataentry_settings.h"
 #include "FormsMenu/form_analyse_reports___reports.h"
+#include "FormsMenu/form_dataentry_groups.h"
+#include "FormsMenu/form_maintenance___backup_restoree.h"
 
 #include "form_2_1.h"
 #include "form_in_work.h"
-
 
 #include "dataanimals.h"
 #include "db/SqlDataBase.h"
@@ -18,32 +19,26 @@
 #include "./json/json_w.h"
 
 #include "FormsMenu/formlibrary_1_9.h"
+#include "FormsMenu/form_analyse_reports___x_link.h"
+
 
 #include <memory>
 #include <QScopedPointer>
 
-
 Main_DigitalFarm::Main_DigitalFarm(QWidget *parent)
-    : QMainWindow(parent)
+    : BaseWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
 
-    //***************** Инициализация ****************************//
+    setWindowTitle(QApplication::translate("MainWindow2", "Федеральный научный агроинженерный центр ВИМ", nullptr));
 
-    //***************** Осчистка логов отладки и дефолтная установка значений параметров системы (БД, наименований, таблиц) ****************************//
-    logger::ClearLog();
-    DataSystems::Instance().clear();
-    //***************** End Осчистка логов отладки и дефолтная установка значений параметров системы (БД, наименований, таблиц) ****************************//
+    //***************** Инициализация установок приложения по умолчанию в классе BaseWindow ****************************//
 
-    setWindowTitle("Система ""ЦИФРОВАЯ ФЕРМА""");
-
-    //***************** Установка белого цвета приложения и размеров ****************************//
-    QPalette pal = this->palette();
-    pal.setColor(QPalette::Window, Qt::white);
-    this->setPalette(pal);
-    setGeometry(QRect(200, 100, 1600, 800));
-    //***************** End Установка белого цвета приложения и размеров ****************************//
+    QRect r = QApplication::desktop()->screenGeometry();
+    //this->resize(r.width(), r.height());
+    setGeometry(QRect(50, 50, (r.width()-100), (r.height()-100)));
 
     //*****************  Стили отображения groupbox ****************************//
     ui->widget_title->setStyleSheet("background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 "+DataSystems::Instance().settings___color_header+", stop:1 "+DataSystems::Instance().settings___color_header+");"
@@ -102,6 +97,35 @@ void Main_DigitalFarm::InitDBautorization()
 }
 //***************** End Функция обработки авторизации в системе - если нажата кнопка выход то выход из приложения, если вход то работа с приложением ****************************//
 
+// *******************************************
+
+void Main_DigitalFarm::keyPressEvent(QKeyEvent *event)
+{
+    QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    if (keyEvent->key() == Qt::Key_Enter) {
+        //qDebug() << ("keyPressEvent: Enter received");
+    }
+    else if (keyEvent->key() == Qt::Key_A)
+    {
+        //qDebug() << ("keyPressEvent: A received");
+    }
+}
+
+void Main_DigitalFarm::keyReleaseEvent(QKeyEvent *event)
+{
+    QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    if (keyEvent->key() == Qt::Key_Escape)
+    {
+        //qDebug() << ("keyReleaseEvent: Escape received");
+        QMessageBox::information(this,"Спасибо","Вы вышли из программы <<<Цифровая ферма>>>");
+        QApplication::closeAllWindows();
+        QApplication::quit();
+    }
+}
+
+
+
+
 //***************** Функция инициализации работы с базой данных - конфигурирование таблиц, заполнение уставками ****************************//
 void Main_DigitalFarm::create()
 {
@@ -119,6 +143,7 @@ void Main_DigitalFarm::create()
     SqlDataBase::TablesUpdate();
     SqlDataBase::DropDataBase(DataSystems::Instance().db_name.toStdString());
     qDebug()<<"Default Postgresql database ";
+
 
     //DataSystems::Instance().db = new DataBase();
     {
@@ -176,9 +201,33 @@ void Main_DigitalFarm::create()
             logger::WriteMsg("create new table -------------------- ");
             db_func->DropTables();
             db_func->createTables();
-            //db_func->FillValue();
+            db_func->FillValue();
 
             db_func->sql_exec("DROP TABLE DataService;");
+            db_func->sql_exec("DROP TABLE dataentry_library_batch_transfer;");
+            db_func->sql_exec("DROP TABLE dataentry_library_feed_types;");
+            db_func->sql_exec("DROP TABLE dataentry_library;");
+            db_func->sql_exec("DROP TABLE dataentry_transfer;");
+            db_func->sql_exec("DROP TABLE dataentry_otel;");
+            db_func->sql_exec("DROP TABLE dataentry_milk_separation;");
+            db_func->sql_exec("DROP TABLE dataentry_insemenation;");
+            db_func->sql_exec("DROP TABLE dataentry_dry_off;");
+            db_func->sql_exec("DROP TABLE dataentry_milk_settings;");
+            db_func->sql_exec("DROP TABLE dataentry_batch_sampling;");
+            db_func->sql_exec("DROP TABLE dataentry_batch_condition;");
+            db_func->sql_exec("DROP TABLE dataentry_fixed_feeding;");
+            db_func->sql_exec("DROP TABLE dataentry_library_siries;");
+            db_func->sql_exec("DROP TABLE dataentry_settings____milking__general_milking;");
+            db_func->sql_exec("DROP TABLE dataentry_settings____milking__post_milking;");
+            db_func->sql_exec("DROP TABLE dataentry_robot;");
+
+            db_func->sql_exec("DROP TABLE dataentry_routing;");
+            db_func->sql_exec("DROP TABLE dataentry_cow_card;");
+            db_func->sql_exec("DROP TABLE analyse_reports___x_link;");
+
+
+
+            //db_func->sql_exec("DROP TABLE DataService;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  DataService"
                          "(id BIGSERIAL PRIMARY KEY, "
                          "db_type text,"
@@ -204,27 +253,11 @@ void Main_DigitalFarm::create()
                          "data_owner_name text)");
             qDebug()<<"Create Dataservice ";
 
-
-            db_func->sql_exec("DROP TABLE dataentry_library;");
-            db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_library"
-                              "(id BIGSERIAL PRIMARY KEY, "
-                              "siries_number text,"
-                              "siries_life_number text,"
-                              "siries_sire_code text,"
-                              "siries_active text,"
-                              "feed_types_number_feed_types text,"
-                              "feed_types_dry_matter text,"
-                              "feed_types_name text,"
-                              "feed_types_active text,"
-                              "feed_types_type text,"
-                              "feed_types_remark text"
-                              ")");
-
-            db_func->sql_exec("DROP TABLE dataentry_cow_card;");
+            //db_func->sql_exec("DROP TABLE dataentry_cow_card;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_cow_card"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animals text,"
-                              "responder text,"
+                              "animal_No text  UNIQUE NOT NULL,"
+                              "responder text  UNIQUE NOT NULL,"
                               "name_ text,"
                               "group_ text,"
                               "life_number text,"
@@ -246,27 +279,53 @@ void Main_DigitalFarm::create()
                               "percentage text,"
                               "description text,"
                               "transfer_in text"
+                              //                              "foreign key(animal_No) dataentry_transfer (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_otel (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_milk_separation (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_insemenation (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_dry_off (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_milk_settings (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_batch_sampling (animal_No),"
+                              //                              "foreign key(animal_No) dataentry_fixed_feeding (animal_No)"
                               ")");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_transfer;");
+
+
+            //db_func->sql_exec("DROP TABLE dataentry_library;");
+            db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_library"
+                              "(id BIGSERIAL PRIMARY KEY, "
+                              "siries_number text,"
+                              "siries_life_number text,"
+                              "siries_sire_code text,"
+                              "siries_active text,"
+                              "feed_types_number_feed_types text,"
+                              "feed_types_dry_matter text,"
+                              "feed_types_name text,"
+                              "feed_types_active text,"
+                              "feed_types_type text,"
+                              "feed_types_remark text"
+                              ")");
+
+            //db_func->sql_exec("DROP TABLE dataentry_transfer;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_transfer"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"                              
+                              "animal_No text UNIQUE NOT NULL,"
                               "Robot_No text,"
                               "lactation_No text,"
                               "lactation_days text,"
                               "days_pregnant text,"
-                              "present text"
+                              "present text,"
+                              "CONSTRAINT FK_dataentry_transfer_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_otel;");
+            //db_func->sql_exec("DROP TABLE dataentry_otel;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_otel"
               "(id BIGSERIAL PRIMARY KEY, "
-            "animal_No text,"
-            "number text,"
-            "Robot_No text,"
+            "animal_No text UNIQUE,"
+            "number_ text,"
+            "Robot_No text UNIQUE,"
             "lactation_No text,"
             "lactation_days text,"
             "days_pregnant text,"
@@ -298,14 +357,15 @@ void Main_DigitalFarm::create()
             "calf_weight text,"
             "calf_sex text,"
             "calf_hair_color text,"
-            "calf_group text"
+            "calf_group text,"
+            "CONSTRAINT FK_dataentry_otel_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
             ")", "create table");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_milk_separation;");
+            //db_func->sql_exec("DROP TABLE dataentry_milk_separation;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_milk_separation"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "Robot_No text,"
                               "lactation_No text,"
                               "lactation_days text,"
@@ -317,16 +377,17 @@ void Main_DigitalFarm::create()
                               "start_separation_h text,"
                               "end_separation_y text,"
                               "end_separation_h text,"
-                              "expected_dry text"
+                              "expected_dry text,"
+                              "CONSTRAINT FK_dataentry_milk_separation_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_insemenation;");
+            //db_func->sql_exec("DROP TABLE dataentry_insemenation;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_insemenation"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "Robot_No text,"
-                              "lactation_No text,"
+                              "lactation_No text UNIQUE,"
                               "lactation_days text,"
                               "since_insemenation text,"
                               "insemenation_number text,"
@@ -339,13 +400,14 @@ void Main_DigitalFarm::create()
                               "sire text,"
                               "person text,"
                               "group_ text,"
-                              "remarks text"
+                              "remarks text,"
+                              "CONSTRAINT FK_dataentry_insemenation_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
-            db_func->sql_exec("DROP TABLE dataentry_dry_off;");
+            //db_func->sql_exec("DROP TABLE dataentry_dry_off;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_dry_off"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "Robot_No text,"
                               "lactation_No text,"
                               "lactation_days text,"
@@ -365,14 +427,15 @@ void Main_DigitalFarm::create()
                               "Teat_RR text,"
                               "separate_meat_untill text,"
                               "separate_milk_untill text,"
-                              "group_ text"
+                              "group_ text,"
+                              "CONSTRAINT FK_dataentry_dry_off_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_milk_settings;");
+            //db_func->sql_exec("DROP TABLE dataentry_milk_settings;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_milk_settings"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "Robot_No text,"
                               "lactation_No text,"
                               "lactation_days text,"
@@ -382,13 +445,40 @@ void Main_DigitalFarm::create()
                               "milk_teat_rf text,"
                               "milk_teat_rr text,"
                               "milk_under_supervision text,"
-                              "training_period text"
+                              "training_period text,"
+                              "CONSTRAINT FK_dataentry_milk_settings_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
-            db_func->sql_exec("DROP TABLE dataentry_fixed_feeding;");
+
+
+            //db_func->sql_exec("DROP TABLE dataentry_batch_sampling;");
+            db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_batch_sampling"
+                              "(id BIGSERIAL PRIMARY KEY, "
+                              "animal_No text UNIQUE not null,"
+                              "milk_yield text,"
+                              "fat text,"
+                              "protein text,"
+                              "standard_peak_production text,"
+                              "SCC text,"
+                              "CONSTRAINT FK_dataentry_batch_sampling_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
+                              ")", "create table");
+
+
+            //db_func->sql_exec("DROP TABLE dataentry_batch_condition;");
+            db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_batch_condition"
+                              "(id BIGSERIAL PRIMARY KEY, "
+                              "number text,"
+                              "claw text,"
+                              "body text,"
+                              "breast text,"
+                              "weight text"
+                              ")", "create table");
+
+
+            //db_func->sql_exec("DROP TABLE dataentry_fixed_feeding;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_fixed_feeding"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "name text,"
                               "group_ text,"
                               "days_in text,"
@@ -396,15 +486,14 @@ void Main_DigitalFarm::create()
                               "milk_yield text,"
                               "mb_markant text,"
                               "mb_focus text,"
-                              "transition text"
+                              "transition text,"
+                              "CONSTRAINT FK_dataentry_fixed_feeding_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
-
-
-            db_func->sql_exec("DROP TABLE dataentry_routing;");
+            //db_func->sql_exec("DROP TABLE dataentry_routing;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_routing"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE not null,"
                               "Robot_No text,"
                               "lactation_No text,"
                               "lactation_days text,"
@@ -412,13 +501,12 @@ void Main_DigitalFarm::create()
                               "from_date text,"
                               "till_date text,"
                               "from_till_time text,"
-                              "active_routing text"
+                              "active_routing text,"
+                              "CONSTRAINT FK_dataentry_routing_dataentry_cow_card FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE"
                               ")", "create table");
 
 
-
-
-            db_func->sql_exec("DROP TABLE dataentry_library_feed_types;");
+            //db_func->sql_exec("DROP TABLE dataentry_library_feed_types;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_library_feed_types"
                               "(id BIGSERIAL PRIMARY KEY, "
                               "number_feed_types text,"
@@ -430,19 +518,21 @@ void Main_DigitalFarm::create()
                               ")", "create table");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_library_batch_transfer;");
+            //db_func->sql_exec("DROP TABLE dataentry_library_batch_transfer;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_library_batch_transfer"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "animal_No text,"
+                              "animal_No text UNIQUE  NOT NULL,"
                               "responder text,"
                               "life_number text,"
                               "birth_date text,"
                               "location text,"
                               "calving_date text,"
-                              "insemenation_date text"
+                              "insemenation_date text,"
+                              "CONSTRAINT FK_dataentry_library_batch_transfer_dataentry_cow_card_an FOREIGN KEY(animal_No) REFERENCES dataentry_cow_card(animal_No) ON DELETE CASCADE,"
+                              "CONSTRAINT FK_dataentry_library_batch_transfer_dataentry_cow_card_resp FOREIGN KEY(responder) REFERENCES dataentry_cow_card(responder) ON DELETE CASCADE"
                               ")", "create table");
 
-            db_func->sql_exec("DROP TABLE dataentry_library_siries;");
+            //db_func->sql_exec("DROP TABLE dataentry_library_siries;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_library_siries"
                               "(id BIGSERIAL PRIMARY KEY, "
                               "number text,"
@@ -454,7 +544,7 @@ void Main_DigitalFarm::create()
 
 
 
-            db_func->sql_exec("DROP TABLE dataentry_settings____milking__general_milking;");
+            //db_func->sql_exec("DROP TABLE dataentry_settings____milking__general_milking;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_settings____milking__general_milking"
                               "(id BIGSERIAL PRIMARY KEY, "
                               "colostrum_day text,"
@@ -474,7 +564,7 @@ void Main_DigitalFarm::create()
                               ")", "create table");
 
 
-            db_func->sql_exec("DROP TABLE dataentry_settings____milking__post_milking;");
+            //db_func->sql_exec("DROP TABLE dataentry_settings____milking__post_milking;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_settings____milking__post_milking"
                               "(id BIGSERIAL PRIMARY KEY, "
                               "number_of_treatments_lf text,"
@@ -490,12 +580,17 @@ void Main_DigitalFarm::create()
                               "priority_feeding text"
                               ")", "create table");
 
-            db_func->sql_exec("DROP TABLE dataentry_robot;");
+
+
+
+            //db_func->sql_exec("DROP TABLE dataentry_robot;");
             db_func->sql_exec("CREATE TABLE IF NOT EXISTS  dataentry_robot"
                               "(id BIGSERIAL PRIMARY KEY, "
-                              "Robot_No text,"
+                              "Robot_No text UNIQUE not null,"
                               "paramfile1 bytea,"
                               "paramfile2 bytea,"
+                              "paramfile3 bytea,"
+                              "paramfile4 bytea,"
                               "coord_teat_lf text,"
                               "coord_teat_lr text,"
                               "coord_teat_rf text,"
@@ -509,6 +604,29 @@ void Main_DigitalFarm::create()
                               "paramtime3 text,"
                               "paramtime4 text"
                               ")", "create table");
+
+            //db_func->sql_exec("DROP TABLE dataentry_robot;");
+            db_func->sql_exec("CREATE TABLE IF NOT EXISTS  analyse_reports___x_link"
+                              "(id BIGSERIAL PRIMARY KEY, "
+                                "cow_number text,"
+                                "robot_No text,"
+                                "group_No text,"
+                                "LF_condition text,"
+                                "LF_colour_code text,"
+                                "LR_condition text,"
+                                "LR_colour_code text,"
+                                "RF_condition text,"
+                                "RF_colour_code text,"
+                                "RR_condition text,"
+                                "RR_colour_code text,"
+                                "day_pregnance text,"
+                                "lactation_day text,"
+                                "lactation_No text,"
+                                "quad_dev text,"
+                                "dev_day text"
+                                ")", "create table");
+
+
 
         }
 
@@ -617,6 +735,8 @@ void Main_DigitalFarm::SaveAutorizartion()
 //***************** slot для отработки сигнала по нажатию на дерево меню ****************************//
 void Main_DigitalFarm::slotMenu(QString val)
 {
+    qDebug()<<val;
+
     QLayoutItem *child = ui->verticalLayout_2->takeAt(0);
     //while ((child = ui->verticalLayout_2->takeAt(0)) != 0)
 
@@ -655,13 +775,6 @@ void Main_DigitalFarm::slotMenu(QString val)
         {
                  fm = new FormLibrary_1_9;
         }
-
-        else if(val.contains("Группы"))
-        {
-                 //fm = new Form_1_2_General;
-                 fm = new Form_in_work;
-
-        }
         else if(val.contains("Настройки"))
         {
                  fm = new Form_DataEntry_Settings;
@@ -670,10 +783,24 @@ void Main_DigitalFarm::slotMenu(QString val)
         {
                  fm = new Form_analyse_reports___reports;
         }
+        else if(val.contains("Группы"))
+        {
+                 fm = new form_dataentry_groups;
+        }
+        else if(val.contains("Резервное копирование и восстановление"))
+        {
+                 fm = new Form_maintenance___backup_restoree;
+        }
+        else if(val.toLower().contains("x-link"))
+        {
+                 fm = new form_analyse_reports___X_Link;
+        }
         else
         {
+                 qDebug()<<" *******************************: "<<val;
            //fm = new Form_1_2_General;
            fm = new Form_in_work;
+           //fm = new form_dataentry_groups;
         }
 
         ui->verticalLayout_2->addWidget(fm);

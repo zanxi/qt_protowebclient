@@ -1,8 +1,11 @@
 #include "database.h"
 #include "dataanimals.h"
 #include "Debug/logger.h"
+#include "db/SqlDataBase.h"
 #include "csv/csvfile.h"
 
+#include <QSqlDatabase>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QDir>
 #include <QSqlError>
@@ -11,59 +14,117 @@
 
 DataBase::DataBase(QObject *parent) : QObject(parent)
 {
+    columns_Name_insert_temp.push_back("");
+    columns_value_insert_temp.push_back("");
+
+    columns_Name_update_temp.push_back("");
+    columns_value_update_temp.push_back("");
+
+//    key_value_t kv;
+//    kv.key="";
+//    kv.value="";
+//    columns_value_update.push_back(kv);
+
+    this->connection_name = "connection"+QString::number(DataSystems::Instance().db_connection_counter++);
+    db_open = Open();
 }
 
-DataBase::~DataBase() {}
+DataBase::DataBase(const QString& sqliteEmpty, QObject *parent) : QObject(parent)
+{
+    columns_Name_insert_temp.push_back("");
+    columns_value_insert_temp.push_back("");
+
+    columns_Name_update_temp.push_back("");
+    columns_value_update_temp.push_back("");
+
+    this->connection_name = "connection"+QString::number(DataSystems::Instance().db_connection_counter++);
+    db_open_sqlite = OpenSQLite();
+}
+
+
+DataBase::~DataBase()
+{
+
+    db.close();
+    QSqlDatabase::removeDatabase(connection_name);
+    //QSqlDatabasePrivate::removeDatabase(connection_name);
+    logger::WriteMsg(" ---------- база данных ------ "+connection_name.toStdString()+" удалена");
+    qDebug()<<" ---------- база данных ------ "+connection_name+" удалена";
+}
 
 void DataBase::WriteLog(QString msg)
 {
     log+=QString(" | ")+QString::fromStdString(datetime::utcExample())+"| message: "+msg+"  "+"\n";
 }
 
-bool DataBase::Open()                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
+bool DataBase::OpenSQLite()                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
 {
-    db_open = connectToDataBase();
-    return db_open;
+    if(QSqlDatabase::contains(connection_name)) {
+       db = QSqlDatabase::database(connection_name);
+       logger::WriteMsg("соедиенние: |"+connection_name.toStdString()+"| действует" );
+    }
+    else
+    {
+       logger::WriteMsg("соедиенние: |"+connection_name.toStdString()+"| отсутствует" );
+
+            logger::WriteMsg("----------- Initialize -------- QSQLITE -------------");
+            db = QSqlDatabase::addDatabase("QSQLITE", connection_name                                           );
+            db.setDatabaseName(DataSystems::Instance().db_sqlite_file_autorization);
+            logger::WriteMsg(QString("Подключение к драйверу SQLITE; база данных <<<" + DataSystems::Instance().db_sqlite_file +  ">>>").toStdString());
+            //logger:WriteLog("Подключение к драйверу SQLITE; база данных <<<" + DataSystems::Instance().db_sqlite_file);
+    }
+    //bool ret = db.open();
+    return db.open();
 }
 
-bool DataBase::connectToDataBase()                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
+
+bool DataBase::Open()                                          //  метод подключения к БД.   Если нашей бд не существовало, она будет создана и подключена.
 {
+
+    if(QSqlDatabase::contains(connection_name)) {
+       db = QSqlDatabase::database(connection_name);
+       logger::WriteMsg("соедиенние: |"+connection_name.toStdString()+"| действует" );
+    }
+    else
+    {
+       logger::WriteMsg("соедиенние: |"+connection_name.toStdString()+"| отсутствует" );
     switch(DataSystems::Instance().db_check)
     {
         case DB_check::SQLITE:
         {
-            db = QSqlDatabase::addDatabase("QSQLITE");
-            db.setDatabaseName(DataSystems::Instance().db_sqlite_file);
+
+            logger::WriteMsg("----------- Initialize -------- QSQLITE -------------");
+            db = QSqlDatabase::addDatabase("QSQLITE", connection_name                                           );
+            db.setDatabaseName(DataSystems::Instance().db_name);
             logger::WriteMsg(QString("Подключение к драйверу SQLITE; база данных <<<" + DataSystems::Instance().db_sqlite_file +  ">>>").toStdString());
-            logger:WriteLog("Подключение к драйверу SQLITE; база данных <<<" + DataSystems::Instance().db_sqlite_file);
+            //logger:WriteLog("Подключение к драйверу SQLITE; база данных <<<" + DataSystems::Instance().db_sqlite_file);
             break;
         }
          case DB_check::PGSQL:
          {
-            db = QSqlDatabase::addDatabase("QPSQL");              //  драйвер
-            db.setUserName(DataSystems::Instance().db_login);
-            db.setPassword(DataSystems::Instance().db_password);
+            logger::WriteMsg("----------- Initialize -------- QPSQL -------------");
+            db = QSqlDatabase::addDatabase("QPSQL", connection_name);              //  драйвер
             db.setHostName(DataSystems::Instance().db_host);              // или  localhost
-            db.setPort(5432);
+            db.setPort(DataSystems::Instance().db_port);
             db.setDatabaseName(DataSystems::Instance().db_name);       //  сперва подключаемся к встроенной бд, что-бы иметь возможность создать нашу.
+            db.setUserName(DataSystems::Instance().db_login);
+            db.setPassword(DataSystems::Instance().db_password);            
             logger::WriteMsg(QString("Подключение к драйверу PostgreSQL; база данных <<<" + DataSystems::Instance().db_name +  ">>>").toStdString());
             logger::WriteLog("Подключение к драйверу PostgreSQL; база данных <<<" + DataSystems::Instance().db_name +  ">>>");
             break;
          }
     }
-         bool ret = db.open();
-         if (ret)
-         {
-                logger::WriteMsg(QString("База данных <<<" + DataSystems::Instance().db_sql_create +  ">>> создана. Подключение прошло успешно.").toStdString());
-                logger::WriteLog("База данных <<<" + DataSystems::Instance().db_sql_create +  ">>> создана. Подключение прошло успешно.");
-         }
-         else
-         {
-                QMessageBox::critical(0, "Ошибка", "Не удалось подключиться к серверу.");
-                logger::WriteLog("Не удалось подключиться к серверу. <<<" + DataSystems::Instance().db_sqlite_file +  ">>>");
-         }
-         return ret;
+    }
+    //bool ret = db.open();
+    return db.open();
 }
+
+bool DataBase::isOpen()
+{
+    QSqlDatabase db=QSqlDatabase::database("createDb");
+    return db.isOpen();
+}
+
 
 void DataBase::FillValue()                  //   метод вставки строки в таблицу qual_table ,  принимает QVariantList  т.к.  значения в таблицах могут быть разных типов.
 {
@@ -102,7 +163,7 @@ bool DataBase::inserIntoTableSqlScript(QString file_sql)                  //   �
 }
 
 
-bool DataBase::inserIntoTable(QString table, const QList<QString>  columns, const QVariantList  &data)                  //   метод вставки строки в таблицу qual_table ,  принимает QVariantList  т.к.  значения в таблицах могут быть разных типов.
+bool DataBase::inserIntoTable2(QString table, const QList<QString>  columns, const QVariantList  &data)                  //   метод вставки строки в таблицу qual_table ,  принимает QVariantList  т.к.  значения в таблицах могут быть разных типов.
 {
     QSqlQuery query;
 
@@ -130,6 +191,9 @@ bool DataBase::inserIntoTable(QString table, const QList<QString>  columns, cons
     } else {
         return true;
     }
+
+    //QSqlDatabase::removeDatabase(DataSystems::Instance().conn_name);
+    //QSqlDatabase::removeDatabase(DataSystems::Instance().db_name);
 }
 
 void DataBase::createTables()
@@ -229,7 +293,6 @@ void DataBase::DropDataBase(QString nameDB)
 
 void DataBase::UseDataBase(QString nameDB)
 {
-    //std::string sql_script="";
     sql_exec(QString("USE database "+nameDB+";"));
 
 }
@@ -254,30 +317,249 @@ bool DataBase::CreateDataBase(QString file_sql)
     else return true;
 }
 
+
+bool DataBase::sql_exec(QString sql_script, QByteArray var1_qba, QByteArray var2_qba, QString comment)
+{
+    columns_Name_insert_temp.clear();
+    columns_Name_insert_temp.push_back("");
+    columns_value_insert_temp.clear();
+    columns_value_insert_temp.push_back("");
+
+    // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+    QSqlQuery *query = new QSqlQuery(db);
+    query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+    query->addBindValue(QVariant(var2_qba), QSql::In | QSql::Binary);
+
+    if(!query->exec(sql_script)) {
+        logger::WriteMsg(
+            QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                    comment+
+                    " --- "+
+                    sql_script +
+                    " ----> error ").toStdString());
+        logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+        logger::WriteLog("Error sql: "+query->lastError().text());
+        delete query;
+        return false;
+    }
+    else
+    {
+        delete query;
+        return true;
+    }
+}
+
+
 bool DataBase::sql_exec(QString sql_script, QString comment)
 {
+    columns_Name_insert_temp.clear();
+    columns_Name_insert_temp.push_back("");
+    columns_value_insert_temp.clear();
+    columns_value_insert_temp.push_back("");
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
         QSqlQuery *query = new QSqlQuery(db);
         if(!query->exec(sql_script)) {
                  logger::WriteMsg(
-                                 QString("Error sql script: XXXXXXXXXXXXXXXXX "+
+                                 QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
                                  comment+
                                  " --- "+
                                  sql_script +
                                  " ----> error ").toStdString());
-                //logger::WriteLog("Error sql script: XXXXXXXXXXXXXXXXX ");
-                //logger::WriteLog(sql_script);
+                 logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                 logger::WriteLog("Error sql: "+query->lastError().text());
+                 delete query;
                 return false;
         }
         else
         {
-                //logger::WriteMsg(QString("DataBase::"+comment+" ---"+ sql_script +" ----> DataBase: create excellent !!!! <<<" + DataSystems::Instance().db_sqlite_file).toStdString());
-                //logger::WriteLog("Error Excellent sql script: !!!!!!!!!!!!!!!!!! ");
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Excellent executive sql script: "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> executive !!!!!!!!!!!!!! ").toStdString());
+
+
+                delete query;
                 return true;
         }
 }
 
+bool DataBase::sql_prepare_exec(QString sql_script, QByteArray var1_qba, QByteArray var2_qba, QString vart1, QString vart2,  QString comment)
+{
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare(sql_script);
+        //query->bindValue(var_bytea, qba.toBase64());
+        query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(var2_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(vart1));
+        query->addBindValue(QVariant(vart2));
+        if(!query->exec()) {
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                logger::WriteLog("Error sql: "+query->lastError().text());
+                delete query;
+                return false;
+        }
+        else
+        {
+                delete query;
+                return true;
+        }
+}
+
+bool DataBase::sql_prepare_exec(QString sql_script, QByteArray var1_qba, QByteArray var2_qba, QString vart1, QString vart2, QString vart3, QString vart4,  QString comment)
+{
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare(sql_script);
+        //query->bindValue(var_bytea, qba.toBase64());
+        query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(var2_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(vart1));
+        query->addBindValue(QVariant(vart2));
+        query->addBindValue(QVariant(vart3));
+        query->addBindValue(QVariant(vart4));
+        if(!query->exec()) {
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                logger::WriteLog("Error sql: "+query->lastError().text());
+                delete query;
+                return false;
+        }
+        else
+        {
+                delete query;
+                return true;
+        }
+}
+
+bool DataBase::sql_prepare_exec(QString sql_script, QByteArray var1_qba, QByteArray var2_qba, QString robot_no, QString coord_teat_lf, QString coord_teat_lr, QString coord_teat_rf, QString coord_teat_rr, QString param1, QString param2, QString param3, QString param4, QString paramtime1, QString paramtime2, QString paramtime3, QString paramtime4,  QString comment)
+{
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare(sql_script);
+        //query->bindValue(var_bytea, qba.toBase64());
+        query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(var2_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(robot_no));
+        query->addBindValue(QVariant(coord_teat_lf));
+        query->addBindValue(QVariant(coord_teat_lr));
+        query->addBindValue(QVariant(coord_teat_rf));
+        query->addBindValue(QVariant(coord_teat_rr));
+        query->addBindValue(QVariant(param1));
+        query->addBindValue(QVariant(param2));
+        query->addBindValue(QVariant(param3));
+        query->addBindValue(QVariant(param4));
+        query->addBindValue(QVariant(paramtime1));
+        query->addBindValue(QVariant(paramtime2));
+        query->addBindValue(QVariant(paramtime3));
+        query->addBindValue(QVariant(paramtime4));
+        if(!query->exec()) {
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                logger::WriteLog("Error sql: "+query->lastError().text());
+                delete query;
+                return false;
+        }
+        else
+        {
+                delete query;
+                return true;
+        }
+}
+
+
+bool DataBase::sql_prepare_exec(QString sql_script, QByteArray var1_qba, QByteArray var2_qba,  QString comment)
+{
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare(sql_script);
+        //query->bindValue(var_bytea, qba.toBase64());
+        query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+        query->addBindValue(QVariant(var2_qba), QSql::In | QSql::Binary);        
+        if(!query->exec()) {
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                logger::WriteLog("Error sql: "+query->lastError().text());
+                delete query;
+                return false;
+        }
+        else
+        {
+                delete query;
+                return true;
+        }
+}
+
+bool DataBase::sql_prepare_exec(QString sql_script, QString vart1, QByteArray var1_qba, QString comment)
+{
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare(sql_script);
+        //query->bindValue(var_bytea, qba.toBase64());
+
+        //query.prepare("INSERT INTO pm_images (name, header, description, inventary, location, cd, pid, date, preview) VALUES (:name, :header, :description, :inventary, :location,:cd, :pid, :date, :preview)");
+//        query->bindValue(":name", QVariant(image.name));
+//        query->bindValue(":header", QVariant(image.header));
+//        query->bindValue(":description", QVariant(image.description));
+//        query->bindValue(":inventary", QVariant(image.inventary));
+//        query->bindValue(":location", QVariant(image.location));
+//        query->bindValue(":cd", QVariant(image.cd));
+
+        query->addBindValue(QVariant(vart1));
+        query->addBindValue(QVariant(var1_qba), QSql::In | QSql::Binary);
+
+        if(!query->exec()) {
+                logger::WriteMsg(
+                    QString("comment: "+comment+"; Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                logger::WriteMsg("Error sql: "+query->lastError().text().toStdString());
+                logger::WriteLog("Error sql: "+query->lastError().text());
+                delete query;
+                return false;
+        }
+        else
+        {
+                delete query;
+                return true;
+        }
+}
+
+
 QSqlQuery* DataBase::sql_exec2(QString sql_script, QString comment)
 {
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
         QSqlQuery *query = new QSqlQuery(db);
         if(!query->exec(sql_script)) {
                 logger::WriteMsg(
@@ -286,14 +568,42 @@ QSqlQuery* DataBase::sql_exec2(QString sql_script, QString comment)
                             " --- "+
                             sql_script +
                             " ----> error ").toStdString());
-                //logger::WriteLog("Error sql script: XXXXXXXXXXXXXXXXX ");
-                //logger::WriteLog(sql_script);
                 return nullptr;
         }
         else
         {
-                //logger::WriteMsg(QString("DataBase::"+comment+" ---"+ sql_script +" ----> DataBase: create excellent !!!! <<<" + DataSystems::Instance().db_sqlite_file).toStdString());
-                //logger::WriteLog("Error Excellent sql script: !!!!!!!!!!!!!!!!!! ");
+                return query;
+        }        
+}
+
+QSqlQuery* DataBase::sql_exec_insert_bytea(QString sql_script, QByteArray by, QString comment)
+{
+        QSqlQuery *query = new QSqlQuery(db);
+        query->prepare("insert into Test1 values(?)");
+        query->addBindValue(rand() % 1280);
+
+        if(!query->exec())
+        {
+                qDebug() << "Error" << __LINE__;
+        }
+
+
+
+
+
+        // QSqlDatabase db=QSqlDatabase::database(DataSystems::Instance().conn_name);
+        //QSqlQuery *query = new QSqlQuery(db);
+        if(!query->exec(sql_script)) {
+                logger::WriteMsg(
+                    QString("Error sql script: XXXXXXXXXXXXXXXXX "+
+                            comment+
+                            " --- "+
+                            sql_script +
+                            " ----> error ").toStdString());
+                return nullptr;
+        }
+        else
+        {
                 return query;
         }
 }
@@ -301,4 +611,75 @@ QSqlQuery* DataBase::sql_exec2(QString sql_script, QString comment)
 
 QString DataBase::GetLog()  {  return log;  }
 
-void DataBase::closeDataBase()  {  db.close();  }
+QString DataBase::insert_add(QString tab, QString var_type_add, QString val_add)
+{
+        columns_Name_insert_temp.push_back(var_type_add.toStdString());
+        columns_value_insert_temp.push_back(val_add.toStdString());
+
+        QString sql_insert = QString::fromStdString(SqlDataBase::TableInsertValue__(tab.toStdString(),columns_Name_insert_temp,columns_value_insert_temp));
+
+        return sql_insert;
+}
+
+QString DataBase::insert_add_question(QString tab, QString var_type_add)
+{
+        columns_Name_insert_temp.push_back(var_type_add.toStdString());
+        columns_value_insert_temp.push_back("?");
+
+        QString sql_insert = QString::fromStdString(SqlDataBase::TableInsertValue__(tab.toStdString(),columns_Name_insert_temp,columns_value_insert_temp));
+
+        return sql_insert;
+}
+
+
+QString DataBase::update_add(QString tab, QString parameterId, QString valueId, QString variable_add, QString val_add)
+{
+
+        columns_Name_update_temp.push_back(variable_add.toStdString());
+        columns_value_update_temp.push_back(val_add.toStdString());
+        //qDebug()<<"(1): "<<columns_Name_update_temp.size()<<"; (2): "<<columns_value_update_temp.size();
+
+        QString sql_update = QString::fromStdString(
+            SqlDataBase::UpdateValues__2(tab.toStdString(),
+                                                 parameterId.toStdString(),
+                                                 valueId.toStdString(),
+                                                 columns_Name_update_temp,
+                                                 columns_value_update_temp));
+
+        return sql_update;
+
+}
+
+QString DataBase::update_add(QString tab, QString parameterId, int valueId, QString variable_add, QString val_add)
+{
+
+        columns_Name_update_temp.push_back(variable_add.toStdString());
+        columns_value_update_temp.push_back(val_add.toStdString());
+        //qDebug()<<"(1): "<<columns_Name_update_temp.size()<<"; (2): "<<columns_value_update_temp.size();
+
+        QString sql_update = QString::fromStdString(
+            SqlDataBase::UpdateValues__2(tab.toStdString(),
+                                         parameterId.toStdString(),
+                                         valueId,
+                                         columns_Name_update_temp,
+                                         columns_value_update_temp));
+
+        return sql_update;
+
+}
+
+/*
+void SqlDataBase::TableInsertValue(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value)
+{
+        std::map<int, std::vector<std::string>> rows_ = csvfile::Read_TabMap(tab_fn);
+
+        std::string sql_script = "INSERT INTO " + tab_fn + InsertStrokaFieldsNames(rows_[0])+ " VALUES " +
+                                 ((DataSystems::Instance().db_check==DB_check::SQLITE)?
+                                      (InsertStrokaValues(datetime::GenerateTime_sqlite,columns_value, columns_value)+ ","):
+                                      (InsertStrokaValues(datetime::GenerateTime,columns_value, columns_value)+ ","));
+
+
+        //DataSystems::Instance().db_sql_table_insert[QString::fromStdString(tab_fn)]=QString::fromStdString(sql_script);
+}
+
+/**/

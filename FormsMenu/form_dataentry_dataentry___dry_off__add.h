@@ -13,7 +13,7 @@ class form_dataentry_dataentry___dry_off__add : public QDialog
 
 public:
     explicit form_dataentry_dataentry___dry_off__add(QWidget *parent = nullptr);
-    explicit form_dataentry_dataentry___dry_off__add(QString checkAnimals, QWidget *parent = nullptr);
+    explicit form_dataentry_dataentry___dry_off__add(const QString &checkAnimals, QWidget *parent = nullptr);
     ~form_dataentry_dataentry___dry_off__add();
 
 private slots:

@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QTimer>
+#include <QLabel>
 
 #include "dataanimals.h"
 #include <QMessageBox>
@@ -277,7 +278,16 @@ void form_1_9_insemenation_s::GetData()
             checkbox->setCheckState((rand()%20==4)?Qt::CheckState::Checked:Qt::CheckState::Unchecked);
             ui->tableWidget->setCellWidget(i,0,checkbox);
 
-            ui->tableWidget->setItem( i, 1,  new QTableWidgetItem( query->value("animal_No").toString() ));
+            QLabel *lb = new QLabel;
+            //MainTextEdit->setFontItalic(ItalyStyle->isChecked());
+            //lb->setFont(QFont::StyleNormal);
+            lb->setStyleSheet("border-radius: 0px; border-bottom-style: solid; border-bottom-color: red; border-bottom-width: 1px;");
+            lb->setText(query->value("animal_No").toString());
+
+            //ui->tableWidget->setItem( i, 1,  new QTableWidgetItem( query->value("animal_No").toString() ));
+            //ui->tableWidget->setItem( i, 1,  new QTableWidgetItem( lb ));
+            ui->tableWidget->setCellWidget(i, 1, lb);
+
             ui->comboBox_numbers->addItem(query->value("animal_No").toString());
             ui->tableWidget->setItem( i, 2,  new QTableWidgetItem( query->value("Robot_No").toString() ));
             ui->tableWidget->setItem( i, 3,  new QTableWidgetItem( query->value("lactation_No").toString() ));
@@ -298,7 +308,7 @@ void form_1_9_insemenation_s::GetData()
 
 }
 
-void form_1_9_insemenation_s::GetData(QString str)
+void form_1_9_insemenation_s::GetData(const QString &str)
 {
 
 
@@ -442,3 +452,13 @@ void form_1_9_insemenation_s::on_pushButton_select_clicked()
 
 
 // ***********************************************************************************************************************
+
+void form_1_9_insemenation_s::on_tableWidget_cellClicked(int row, int column)
+{    
+    QLabel *item =  qobject_cast<QLabel *>(ui->tableWidget->cellWidget(row,column));
+    if(item == nullptr)return;
+    QString animal_No = item->text();
+    qDebug()<<animal_No;
+
+}
+

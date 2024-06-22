@@ -249,14 +249,14 @@ void table_form_1_2_otel::GetData()
 
 }
 
-void  table_form_1_2_otel::tabwidget_insert_add_column(QSqlQuery *query, QTableWidget *tab, QString nameColumn, int numRow, int numColumn)
+void  table_form_1_2_otel::tabwidget_insert_add_column(QSqlQuery *query, QTableWidget *tab, const QString &nameColumn, int numRow, int numColumn)
 {
         QTableWidgetItem *item = new QTableWidgetItem(query->value(nameColumn).toString()); item->setTextAlignment(Qt::AlignHCenter);
         tab->setItem( numRow, numColumn,  item);
         //ui->comboBox->addItem(query->value(nameColumn).toString());
 }
 
-void table_form_1_2_otel::GetData_search(QString str)
+void table_form_1_2_otel::GetData_search(const QString &str)
 {
     ui->tableWidget->clear();
     ui->comboBox->clear();
@@ -329,7 +329,7 @@ void table_form_1_2_otel::GetData_search(QString str)
 }
 
 
-void table_form_1_2_otel::GetData(QString str)
+void table_form_1_2_otel::GetData(const QString &str)
 {
 
 

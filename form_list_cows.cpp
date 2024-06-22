@@ -5,9 +5,26 @@
 #include "FormsMenu/Form_add_cow.h"
 #include "Debug/logger.h"
 
+
+#include <QPrintPreviewDialog>
+
+#include "Src/pbs/pbsfileutil.h"
+#include "Src/pbs/pbstools.h"
+#include "Src/pbsmodelexporter.h"
+#include "src/pbstableprinter.h"
+
 Form_List_Cows::Form_List_Cows(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Form_List_Cows)
+    , actSaveExcel(QIcon(":/Resource/Images/xls.png"), PBSTR("Excel "), this)
+    , actSaveExcelXML(QIcon(":/Resource/Images/xls.png"), PBSTR("Excel (XML)"), this)
+    , actSaveWordXML(QIcon(":/Resource/Images/word.png"), PBSTR("Word (XML)"), this)
+    , actSavePDF(QIcon(":/Resource/Images/pdf.png"), PBSTR("PDF "), this)
+    , actSaveCSV(QIcon(":/Resource/Images/csv.png"), PBSTR("Text (CSV)"), this)
+    , actSaveXML(QIcon(":/Resource/Images/xml.png"), PBSTR("XML "), this)
+    , actSaveHTML(QIcon(":/Resource/Images/htm.png"), PBSTR("HTML "), this)
+    , actFilter(QIcon(":/Resource/Images/filter.png"), PBSTR("HTML "), this)
+
 {
     ui->setupUi(this);
 
@@ -17,48 +34,86 @@ Form_List_Cows::Form_List_Cows(QWidget *parent) :
 
 
 
-    ui->groupBox->setStyleSheet("QGroupBox {"
-                                "background-color: white;"
-                                "}"
-                                "QGroupBox::title {"
-                                "color: white;"
-                                "background-color:"+DataSystems::Instance().settings___color_header+";"
-                                                                                    "padding: 4 20000 4 10;"
-                                                                                    "}");
-    ui->groupBox_2->setStyleSheet("QGroupBox {"
-                                  "background-color: white;"
-                                  "}"
-                                  "QGroupBox::title {"
-                                  "color: white;"
-                                  "background-color:"+DataSystems::Instance().settings___color_header+";"
-                                                                                      "padding: 4 20000 4 10;"
-                                                                                      "}");
 
-    ui->pushButton_add->setStyleSheet(
-        "background-color:"+DataSystems::Instance().settings___color_header+";"
-                                                                                "color: white;"
-                                                                                "padding: 4 50 4 10;"
-        );
-    ui->pushButton_select->setStyleSheet(
-        "background-color:"+DataSystems::Instance().settings___color_header+";"
-                                                                                "color: white;"
-                                                                                "padding: 4 50 4 10;"
-        );
 
-    ui->pushButton_delete->setStyleSheet(
-        "background-color:"+DataSystems::Instance().settings___color_header+";"
-                                                                                "color: white;"
-                                                                                "padding: 4 50 4 10;"
-        );
+     create_table_view();
+
+     ThisStyle(DataSystems::Instance().settings___color_header);
 
     //addRandom();
-    GetData();
+
 }
 
 Form_List_Cows::~Form_List_Cows()
 {
     delete ui;
 }
+
+void Form_List_Cows::ThisStyle(QString color_h)
+{
+
+    QList<QPushButton*> allButton = findChildren<QPushButton*>();
+    for(int i=0;i<allButton.size();i++)
+    {
+        allButton[i]->setStyleSheet(
+            "background-color:"+color_h+";"
+                                            "color: white;"
+                                            "padding: 4 50 4 10;");
+    }
+
+    QList<QGroupBox*> allGroup = findChildren<QGroupBox*>();
+    for(int i=0;i<allGroup.size();i++)
+    {
+        allGroup[i]->setStyleSheet(
+            "QGroupBox {"
+            "background-color: white;"
+            "}"
+            "QGroupBox::title {"
+            "color: white;"
+            "background-color:"+color_h+";"
+                        "padding: 4 20000 4 10;"
+                        "}"
+            );
+    }
+
+//    ui->tableWidget_list_cows->setStyleSheet("QTableView"
+//                               "{"
+//                               "   background-color:rgb"+DataSystems::Instance().settings___color_header___decimal+";"
+//                                                                                             "}"
+
+//                                                                                             "QTabWidget:tab-bar"
+//                                                                                             "{"
+//                                                                                             "    alignment: center;"
+//                                                                                             "}"
+
+//                                                                                             "QTabBar:tab"
+//                                                                                             "{"
+//                                                                                             "   width: "+DataSystems::Instance().settings___tabwidget_width+";"
+//                                                                                      "   height: 30px;"
+//                                                                                      "}"
+
+//                                                                                      "QTabBar:selected"
+//                                                                                      "{"
+//                                                                                      "    background-color:rgb"+DataSystems::Instance().settings___color_header___decimal+";"
+//                                                                                             "    color.rgb"+DataSystems::Instance().settings___color_header___decimal+";"
+//                                                                                             "}"
+
+//                                                                                             "QTabBar:tab:!selected"
+//                                                                                             "{"
+//                                                                                             "    color.rgb"+DataSystems::Instance().settings___color_header___decimal+";"
+//                                                                                             "}"
+
+
+//                                                                                             "QTabBar:tab:!selected:hover"
+//                                                                                             "{"
+//                                                                                             "    background-color:rgb"+DataSystems::Instance().settings___color_header___decimal+";"
+//                                                                                             "    color.rgb(255,255,255);"
+//                                                                                             "}"
+//                                                                                             ")");
+
+
+}
+
 
 void Form_List_Cows::on_pushButton_delete_clicked()
 {
@@ -73,7 +128,7 @@ void Form_List_Cows::on_pushButton_delete_clicked()
     if(db_func->StatusOpen())
     {
         QString sql2=QString("Delete from dataentry_cow_card ")+
-                   " where animals =  '"+ checkAnimals + "';";
+                   " where animal_No =  '"+ checkAnimals + "';";
         db_func->sql_exec(sql2, "delete cow");
     }
 
@@ -196,7 +251,7 @@ void Form_List_Cows::GetData()
         int i=0;
 
         QStringList NameColumns;
-        NameColumns<<"Номер животного"<<"Ответчик"<<"Название"<<"Группа"<<"Номер жизни"<<"Представление"<<" "<<" ";
+        NameColumns<<"Выбор"<<"Номер животного"<<"Ответчик"<<"Название"<<"Группа"<<"Номер жизни"<<"Представление"<<" "<<" ";
 
         ui->tableWidget_list_cows->setColumnCount( NameColumns.count() );
         ui->tableWidget_list_cows->setRowCount( query->size() );
@@ -209,29 +264,25 @@ void Form_List_Cows::GetData()
         i=0;
         while(query->next())
         {
-            ui->tableWidget_list_cows->setItem( i, 0,  new QTableWidgetItem( query->value("animals").toString() ));
-            ui->comboBox_numbers->addItem(query->value("animals").toString());
-            ui->tableWidget_list_cows->setItem( i, 1,  new QTableWidgetItem(query->value("responder").toString()));
-            ui->tableWidget_list_cows->setItem( i, 2,  new QTableWidgetItem( query->value("name_").toString() ));
-            ui->tableWidget_list_cows->setItem( i, 3,  new QTableWidgetItem( query->value("group_").toString() ));
-            ui->tableWidget_list_cows->setItem( i, 4,  new QTableWidgetItem( query->value("life_number").toString() ));
-            ui->tableWidget_list_cows->setItem( i, 5,  new QTableWidgetItem( query->value("present").toString() ));
-            ui->tableWidget_list_cows->setItem( i, 6,  new QTableWidgetItem( query->value("birth_date").toString() ));
-            ui->tableWidget_list_cows->setItem( i, 7,  new QTableWidgetItem( query->value("location_").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 1,  new QTableWidgetItem( query->value("animal_No").toString() ));
+            ui->comboBox_numbers->addItem(query->value("animal_No").toString());
+            ui->tableWidget_list_cows->setItem( i, 2,  new QTableWidgetItem(query->value("responder").toString()));
+            ui->tableWidget_list_cows->setItem( i, 3,  new QTableWidgetItem( query->value("name_").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 4,  new QTableWidgetItem( query->value("group_").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 5,  new QTableWidgetItem( query->value("life_number").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 6,  new QTableWidgetItem( query->value("present").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 7,  new QTableWidgetItem( query->value("birth_date").toString() ));
+            ui->tableWidget_list_cows->setItem( i, 8,  new QTableWidgetItem( query->value("location_").toString() ));
             i++;
         }
     }
-
-
-
-
 
     /**/
 
 }
 
 
-void Form_List_Cows::GetData(QString str)
+void Form_List_Cows::GetData(const QString &str)
 {
 
 
@@ -242,7 +293,7 @@ void Form_List_Cows::GetData(QString str)
         //QString sql =  QString("SELECT * FROM public.rmilksettings ORDER BY tagid ASC ").toLower();
         //QString sql =  QString("SELECT * FROM public.dataentry_cow_card ORDER BY id ASC ").toLower();
         //QString sql =  QString("SELECT * FROM dataentry_cow_card WHERE id =  " + QString::number(DataSystems::Instance().DataService_Id)).toLower();
-        QString sql =  QString("SELECT * FROM public.dataentry_cow_card WHERE animals =  '" + str +"';").toLower();
+        QString sql =  QString("SELECT * FROM public.dataentry_cow_card WHERE animal_No =  '" + str +"';").toLower();
         //logger::WriteLog("SELECT vars: ----- " + sql);
 
         QSqlQuery* query = db_func->sql_exec2(sql);
@@ -253,7 +304,7 @@ void Form_List_Cows::GetData(QString str)
         int i=0;
         while(query->next())
         {
-            DataSystems::Instance().dataentry_dataentry_cow_card_animals =  query->value("animals").toString();
+            DataSystems::Instance().dataentry_dataentry_cow_card_animal_No =  query->value("animal_No").toString();
             DataSystems::Instance().dataentry_dataentry_cow_card_responder =  query->value("responder").toString();
             DataSystems::Instance().dataentry_dataentry_cow_card_name = query->value("name_").toString();
             DataSystems::Instance().dataentry_dataentry_cow_card_group = query->value("group_").toString();
@@ -292,7 +343,7 @@ void Form_List_Cows::addRandom()
 {
     for(int i=0;i<3;i++)
     {
-        DataSystems::Instance().dataentry_dataentry_cow_card_animals = "cow"+QString::number(rand()%100); // ui->lineEdit_animal_N->text();
+        DataSystems::Instance().dataentry_dataentry_cow_card_animal_No = "cow"+QString::number(rand()%100); // ui->lineEdit_animal_N->text();
         DataSystems::Instance().dataentry_dataentry_cow_card_responder = "responder"+QString::number(rand()%100); // ui->lineEdit_animal_N->text();
         DataSystems::Instance().dataentry_dataentry_cow_card_name = "vm"+QString::number(rand()%100); // ui->lineEdit_animal_N->text();
         DataSystems::Instance().dataentry_dataentry_cow_card_group = "automat";
@@ -337,7 +388,7 @@ void Form_List_Cows::addRandom()
 
 
             QString sql = QString("INSERT INTO dataentry_cow_card("
-                                  "animals,"
+                                  "animal_No,"
                                   "responder,"
                                   "name_,"
                                   "group_,"
@@ -363,7 +414,7 @@ void Form_List_Cows::addRandom()
                                   ")")+
                           QString("VALUES (")+
                           "'" +
-                          DataSystems::Instance().dataentry_dataentry_cow_card_animals + "', '" +
+                          DataSystems::Instance().dataentry_dataentry_cow_card_animal_No + "', '" +
                           DataSystems::Instance().dataentry_dataentry_cow_card_responder + "', '" +
                           DataSystems::Instance().dataentry_dataentry_cow_card_name + "', '" +
                           DataSystems::Instance().dataentry_dataentry_cow_card_group + "', '" +
@@ -387,7 +438,7 @@ void Form_List_Cows::addRandom()
                           DataSystems::Instance().dataentry_dataentry_cow_card_description + "', '" +
                           DataSystems::Instance().dataentry_dataentry_cow_card_transfer_in  + "');";  //,// '" +
 
-            db_func->insert_add("dataentry_cow_card", "animals", DataSystems::Instance().dataentry_dataentry_cow_card_animals);
+            db_func->insert_add("dataentry_cow_card", "animal_No", DataSystems::Instance().dataentry_dataentry_cow_card_animal_No);
             db_func->insert_add("dataentry_cow_card", "responder", DataSystems::Instance().dataentry_dataentry_cow_card_responder);
             db_func->insert_add("dataentry_cow_card", "name_", DataSystems::Instance().dataentry_dataentry_cow_card_name);
             db_func->insert_add("dataentry_cow_card", "group_", DataSystems::Instance().dataentry_dataentry_cow_card_group);
@@ -457,7 +508,7 @@ void Form_List_Cows::on_lineEdit_cow_textChanged(const QString &arg1)
 
 
     QString sql =  QString("SELECT * FROM public.dataentry_cow_card ORDER BY id ASC ").toLower();
-    sql =  QString("SELECT * FROM dataentry_cow_card WHERE animals LIKE '%"+arg1+"%' ORDER BY animals;");
+    sql =  QString("SELECT * FROM dataentry_cow_card WHERE animal_No LIKE '%"+arg1+"%' ORDER BY animal_No;");
     qDebug()<<"text: "<<sql;
     //return;
 
@@ -495,15 +546,15 @@ void Form_List_Cows::on_lineEdit_cow_textChanged(const QString &arg1)
     i=0;
     while(query->next())
     {
-        ui->tableWidget_list_cows->setItem( i, 0,  new QTableWidgetItem( query->value("animals").toString() ));
-        ui->comboBox_numbers->addItem(query->value("animals").toString());
-        ui->tableWidget_list_cows->setItem( i, 1,  new QTableWidgetItem(query->value("responder").toString()));
-        ui->tableWidget_list_cows->setItem( i, 2,  new QTableWidgetItem( query->value("name_").toString() ));
-        ui->tableWidget_list_cows->setItem( i, 3,  new QTableWidgetItem( query->value("group_").toString() ));
-        ui->tableWidget_list_cows->setItem( i, 4,  new QTableWidgetItem( query->value("life_number").toString() ));
-        ui->tableWidget_list_cows->setItem( i, 5,  new QTableWidgetItem( query->value("present").toString() ));
-        ui->tableWidget_list_cows->setItem( i, 6,  new QTableWidgetItem( query->value("birth_date").toString() ));
-        ui->tableWidget_list_cows->setItem( i, 7,  new QTableWidgetItem( query->value("location_").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 1,  new QTableWidgetItem( query->value("animal_No").toString() ));
+        ui->comboBox_numbers->addItem(query->value("animal_No").toString());
+        ui->tableWidget_list_cows->setItem( i, 2,  new QTableWidgetItem(query->value("responder").toString()));
+        ui->tableWidget_list_cows->setItem( i, 3,  new QTableWidgetItem( query->value("name_").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 4,  new QTableWidgetItem( query->value("group_").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 5,  new QTableWidgetItem( query->value("life_number").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 6,  new QTableWidgetItem( query->value("present").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 7,  new QTableWidgetItem( query->value("birth_date").toString() ));
+        ui->tableWidget_list_cows->setItem( i, 8,  new QTableWidgetItem( query->value("location_").toString() ));
         i++;
     }
     }
@@ -511,7 +562,207 @@ void Form_List_Cows::on_lineEdit_cow_textChanged(const QString &arg1)
     checkAnimals = ui->tableWidget_list_cows->item(0,0)->text();
     qDebug()<<"search: "<<checkAnimals;
 
-
-
 }
+
+
+void Form_List_Cows::create_table_view()
+{
+    GetData();
+
+    //connect(model, SIGNAL(AsyncSql::AsyncSqlTableModel::dataUpdated()), this, SLOT(createButton()));
+    //createButton();
+    //GetData();
+
+    createPopupMenu_();
+    connect(ui->tableWidget_list_cows, SIGNAL(onCreatePopupMenu(QMenu *)), SLOT(onCreateFooterMenu(QMenu *)));
+    connect(&actSaveExcel, &QAction::triggered, this, &Form_List_Cows::onActSaveExcel);
+    connect(&actSaveExcelXML, &QAction::triggered, this, &Form_List_Cows::onActSaveExcelXML);
+    connect(&actSaveWordXML, &QAction::triggered, this, &Form_List_Cows::onActSaveWordXML);
+    connect(&actSavePDF, &QAction::triggered, this, &Form_List_Cows::onActSavePDF);
+    connect(&actSaveCSV, &QAction::triggered, this, &Form_List_Cows::onActSaveCSV);
+    connect(&actSaveXML, &QAction::triggered, this, &Form_List_Cows::onActSaveXML);
+    connect(&actSaveHTML, &QAction::triggered, this, &Form_List_Cows::onActSaveHTML);
+    connect(&actSendToPrinter, &QAction::triggered, this, &Form_List_Cows::onActSendToPrinter);
+
+    //connect(ui->tableWidget_list_cows->horizontalHeader(), SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showCustomContextMenu(const QPoint&)));
+    connect(ui->tableWidget_list_cows->horizontalHeader(), SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showCustomContextMenu(const QPoint&)));
+
+    //ui->textEdit->setText(text);
+}
+
+void Form_List_Cows::createPopupMenu_()
+{
+    popupMenu.clear();
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addAction(&actFilter);
+    popupMenu.addSeparator();
+    //QMenu *saveAsMenu = popupMenu.addMenu(QIcon(":/Resource/Images/save.png"), ("Преобразовать в  ..."));
+    QMenu *saveAsMenu = popupMenu.addMenu(PBSTR("Transpose -> (EXCEL)Преобразовать в  ..."));
+    saveAsMenu->addAction(&actSaveExcel);
+    saveAsMenu->addAction(&actSaveExcelXML);
+    saveAsMenu->addAction(&actSaveWordXML);
+    //saveAsMenu->addSeparator();
+    saveAsMenu->addAction(&actSavePDF);
+    saveAsMenu->addAction(&actSaveCSV);
+    saveAsMenu->addAction(&actSaveXML);
+    saveAsMenu->addAction(&actSaveHTML);
+
+    //popupMenu.addSeparator();
+    //popupMenu.addAction(&actSaveLayout);
+
+    emit onCreatePopupMenu(HeaderMenu, &popupMenu);
+}
+
+
+void Form_List_Cows::showCustomContextMenu(const QPoint &p)
+{
+
+    logger::WriteMsg("showCustomContextMenu");
+
+    QPoint mP = mapToGlobal(p);
+    //mP.setY(mP.y()-50);
+
+    //int iCol = ui->tableWidget_list_cows->horizontalHeader()->logicalIndexAt(p),
+    // iSort = ui->tableWidget_list_cows->horizontalHeader()->sortIndicatorSection();
+
+    //actSortAsc.setChecked(iCol == iSort && ui->tableWidget_list_cows->horizontalHeader()->sortIndicatorOrder() == Qt::AscendingOrder);
+    //actSortDesc.setChecked(iCol == iSort && ui->tableWidget_list_cows->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
+
+    popupMenu.popup(mP);
+}
+
+void Form_List_Cows::onActSaveExcelXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    QFile f(sName);
+    f.open(QIODevice::ReadWrite);
+    PBSTableViewExcelXMLExporter e(ui->tableWidget_list_cows, &f, this);
+    e.execute();
+    f.close();
+    }
+}
+
+void Form_List_Cows::onActSaveWordXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    QFile f(sName);
+    f.open(QIODevice::ReadWrite);
+    PBSTableViewWordXMLExporter e(ui->tableWidget_list_cows, &f, this);
+    e.execute();
+    f.close();
+    }
+}
+
+void Form_List_Cows::onActSaveCSV()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    QFile f(sName);
+    f.open(QIODevice::ReadWrite);
+    PBSTableViewCSVExporter e(ui->tableWidget_list_cows, &f, this);
+    e.execute();
+    f.close();
+    }
+}
+
+void Form_List_Cows::onActSaveHTML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    QFile f(sName);
+    f.open(QIODevice::ReadWrite);
+    PBSTableViewHTMLExporter e(ui->tableWidget_list_cows, &f, this);
+    e.execute();
+    f.close();
+    }
+}
+
+void Form_List_Cows::onActSaveExcel()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    PBSTableViewXLSXExporter e(ui->tableWidget_list_cows, sName, this);
+    e.execute();
+    }
+}
+
+void Form_List_Cows::onActSaveXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    QFile f(sName);
+    f.open(QIODevice::ReadWrite);
+    PBSTableViewXMLExporter e(ui->tableWidget_list_cows, &f, this);
+    e.execute();
+    f.close();
+    }
+}
+
+void Form_List_Cows::onActSavePDF()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+    PBSTableViewPDFExporter e(ui->tableWidget_list_cows, sName, this);
+    e.execute();
+    }
+}
+
+void Form_List_Cows::onActSendToPrinter()
+{
+    QPrinter printer(QPrinter::ScreenResolution);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setFullPage(false);
+
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setPageMargins(0, 0, 0, 0, QPrinter::Unit::Millimeter);
+    printer.setResolution(96); // QApplication::screens().at(0)->logicalDotsPerInch());
+
+    QPrintPreviewDialog d(&printer, reinterpret_cast<QWidget*>(parent()));
+    d.setWindowFlags(Qt::Window | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
+
+    connect(&d, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
+
+    d.exec();
+}
+
+void Form_List_Cows::print(QPrinter *prn)
+{
+    QPainter painter;
+
+    painter.begin(prn);
+
+    PBSTablePrinter p(&painter, ui->tableWidget_list_cows, this);
+    p.setPrinter(prn);
+
+    p.setHeadersFont(ui->tableWidget_list_cows->horizontalHeader()->font());
+    p.setContentFont(font());
+
+    p.execute();
+}
+
+
+
+void Form_List_Cows::onCreateFooterMenu(QMenu *m)
+{
+    emit onCreatePopupMenu(FooterMenu, m);
+}
+
+
+
 

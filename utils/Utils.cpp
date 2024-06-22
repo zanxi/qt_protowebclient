@@ -8,7 +8,7 @@
             temp+=std::tolower(str[i]);
         }
         //std::cout<< " lower register stroka: "<<temp << "\n";
-        // logger::WriteMsg(" lower register stroka: "+temp);
+        // //logger::WriteMsg(" lower register stroka: "+temp);
         return temp;
     }
 
@@ -44,11 +44,11 @@
 
   int FD::CreateDir(std::string pathFolderDB)
   {
-     logger::WriteMsg("<<<DeleteFiles>>>");
+     //logger::WriteMsg("<<<DeleteFiles>>>");
 
     if (stat(pathFolderDB.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode))
     {
-       logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> exists !!!!!!!!!!!!"); 
+       //logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> exists !!!!!!!!!!!!");
        return 0;
     }
 
@@ -56,12 +56,12 @@
     const int dir_err = system(mkdir_create.c_str());
     if (-1 == dir_err)
     {
-        logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> NOT Created"); 
+        //logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> NOT Created");
         return dir_err;
        
     }
 
-    logger::WriteMsg("Folder <<<"+pathFolderDB+">>> was Created!!!!!!"); 
+    ////logger::WriteMsg("Folder <<<"+pathFolderDB+">>> was Created!!!!!!");
     return dir_err;
   }
 
@@ -69,27 +69,27 @@
   {
     if (stat(pathFolderDB.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode))
     {
-       logger::WriteMsg("Folder <<<"+pathFolderDB+">>> exists !!!!!!!!!!!!"); 
+       ////logger::WriteMsg("Folder <<<"+pathFolderDB+">>> exists !!!!!!!!!!!!");
        //return 0;
     }
     else
     {
-      logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> NOT EXISTS ?????!!!!!!"); 
+      ////logger::WriteMsgError("Folder <<<"+pathFolderDB+">>> NOT EXISTS ?????!!!!!!");
        return 0;
     }
 
     //std::string delete_files = "rm -r "+pathFolderDB+"/{*.*}";
     std::string delete_files = "rm -r "+pathFolderDB+"/*";
-    logger::WriteMsg("Cmd: <<<"+delete_files+">>> exists !!!!!!!!!!!!"); 
+    //logger::WriteMsg("Cmd: <<<"+delete_files+">>> exists !!!!!!!!!!!!");
     const int dir_err = system(delete_files.c_str());
     if (-1 == dir_err)
     {
-        logger::WriteMsgError("Files from dir <<<"+pathFolderDB+">>> NOT Deleted ??????"); 
+        //logger::WriteMsgError("Files from dir <<<"+pathFolderDB+">>> NOT Deleted ??????");
         return dir_err;
        
     }
 
-    logger::WriteMsg("Files from dir <<<"+pathFolderDB+">>> was Deleted!!!!!!"); 
+    //logger::WriteMsg("Files from dir <<<"+pathFolderDB+">>> was Deleted!!!!!!");
     return dir_err;
   }
 

@@ -15,7 +15,7 @@ class Form_1_9_insemenation : public QDialog
 
 public:
     explicit Form_1_9_insemenation(QWidget *parent = nullptr);
-    explicit Form_1_9_insemenation(QString checkAnimals, QWidget *parent = nullptr);
+    explicit Form_1_9_insemenation(const QString &checkAnimals, QWidget *parent = nullptr);
     ~Form_1_9_insemenation();
 
 private slots:

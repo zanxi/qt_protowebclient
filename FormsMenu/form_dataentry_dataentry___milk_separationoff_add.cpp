@@ -86,7 +86,7 @@ form_dataentry_dataentry___milk_separationoff_add::form_dataentry_dataentry___mi
 
 }
 
-form_dataentry_dataentry___milk_separationoff_add::form_dataentry_dataentry___milk_separationoff_add(QString animals_number, QWidget *parent) :
+form_dataentry_dataentry___milk_separationoff_add::form_dataentry_dataentry___milk_separationoff_add(const QString &animals_number, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::form_dataentry_dataentry___milk_separationoff_add)
 {

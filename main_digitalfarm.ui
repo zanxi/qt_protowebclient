@@ -81,10 +81,18 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout"/>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>1</number>
+        </property>
+       </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2"/>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>1</number>
+        </property>
+       </layout>
       </item>
      </layout>
     </item>

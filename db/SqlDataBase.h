@@ -26,16 +26,24 @@ public:
     static void CreateTables();
     static std::string InsertStrokaFieldsNames(std::vector<std::string> columns_);
     static std::string InsertStrokaValues(std::string date_str(),
-    std::vector<std::string> columns_Name, std::vector<std::string> columns_);
+                         std::vector<std::string> columns_Name, std::vector<std::string> columns_);
+    static std::string InsertStrokaValues_question(std::string date_str(),
+                          std::vector<std::string> columns_Name, std::vector<std::string> columns_);
     static std::string InsertStrokaValuesRandom(std::string date_str(),
           std::vector<std::string> columns_Name, std::vector<std::string> columns_);
 
     static void TableInsertValue(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value);
+    static std::string TableInsertValue__(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value);
+    static std::string TableInsertValue__question(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value);
     static void TableInsert(std::string tab_fn = "RMilkSettings");
 
     static std::string UpdateValues(std::string date_str(),
                                     std::vector<std::string> columns_Name, std::string row);
-    static std::string UpdateValues(std::string parameterId, std::string valueId, std::vector<key_value_t> columns_value);
+
+    static std::string UpdateValues(std::string parameterId, std::string valueId, std::vector<key_value_t> columns_value);    
+    static std::string UpdateValues__(std::string tab_fn, std::string parameterId, std::string valueId, std::vector<key_value_t> columns_value);
+    static std::string UpdateValues__2(std::string tab_fn, std::string parameterId, std::string valueId, std::vector<std::string> columns_name, std::vector<std::string> columns_value);
+    static std::string UpdateValues__2(std::string tab_fn, std::string parameterId, int valueId, std::vector<std::string> columns_name, std::vector<std::string> columns_value);
 
     static void TableUpdate(std::string rowId, std::string tab_fn = "RMilkSettings");
     static void TablesUpdate();

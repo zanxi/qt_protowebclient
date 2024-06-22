@@ -14,6 +14,7 @@ class Table_Form_2_1 : public QWidget
 public:
     explicit Table_Form_2_1(QWidget *parent = nullptr);
     ~Table_Form_2_1();
+    void createButton();
 
 private:
     Ui::Table_Form_2_1 *ui;

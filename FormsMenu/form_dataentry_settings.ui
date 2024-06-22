@@ -71,7 +71,7 @@ QTabBar:tab:!selected:hover
        <item>
         <widget class="QTabWidget" name="tabWidget_3">
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_2">
           <attribute name="title">
@@ -79,98 +79,7 @@ QTabBar:tab:!selected:hover
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_14">
            <item>
-            <widget class="QTableWidget" name="tableWidget_general_milking">
-             <column>
-              <property name="text">
-               <string/>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Молозиво(дни)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Место лактации</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Место сепарации молока</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Молозиво места лактации</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Способ взятия проб</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lf</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lr</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rf</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rr</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Молочные соски(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Сброс положения сосков после сухостойности(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Период перемещения(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Лактация под управлением(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Оптимальный период взятия(часы)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Позиции сосков известны(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Коррекция времени</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Альтернативный способ связи(да/нет)</string>
-              </property>
-             </column>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_gen_milk"/>
            </item>
           </layout>
          </widget>
@@ -183,6 +92,222 @@ QTabBar:tab:!selected:hover
           <attribute name="title">
            <string>Во время доения</string>
           </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_17">
+           <item>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="pushButton_7">
+                  <property name="minimumSize">
+                   <size>
+                    <width>260</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_3">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Частота пульсации</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_4">
+                  <property name="minimumSize">
+                   <size>
+                    <width>200</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>соотношение остаточного молока</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_6">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_5">
+                  <property name="minimumSize">
+                   <size>
+                    <width>350</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>SCC Стартовые дни</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tableWidget_during_milking">
+                <column>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Уровень вакуума</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>pr-lf</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>pr-rf</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>pr-lr</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>pr-rr</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>mrr-lf</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>mrr-rf</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>mrr-lr</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>mrr-rr</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Метод пульсации</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Снимать</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Задержка, плохое поведение(Да/Нет)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SCC образец</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Внимание к здоровью вымени(Да/Нет)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Внимание к надоям молока(Да/Нет)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>№ недели между SCC образцами</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>пон</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>вт</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>ср</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>чт</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>пт</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>сб</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>воск</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="tab_9">
           <attribute name="title">
@@ -190,68 +315,7 @@ QTabBar:tab:!selected:hover
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_15">
            <item>
-            <widget class="QTableWidget" name="tableWidget_post_milking">
-             <column>
-              <property name="text">
-               <string/>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lf_1</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lr_1</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rf_1</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rr_1</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lf_2</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>lr_2</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rf_2</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>rr_2</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Способ(да/нет)</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Чистое молочное оборудование</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Приоритетное кормление(да/нет)</string>
-              </property>
-             </column>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_post_milk"/>
            </item>
           </layout>
          </widget>

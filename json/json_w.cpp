@@ -387,7 +387,7 @@ void json_w::CreateJsonVarTab()
     {
         std::map<int, std::vector<std::string>> tab_ = csvfile::Read_TabMap(fn);
 
-        logger::WriteMsg("file json: "+fn);
+        //logger::WriteMsg("file json: "+fn);
 
         QJsonObject table;
         QJsonArray records;
@@ -425,7 +425,7 @@ void json_w::CreateJsonVarTab()
         jsonDoc.setObject(table);
 
         saveJson(jsonDoc,"./tables/"+QString::fromStdString(fn)+".json");
-        qDebug()<<"End save json: "<<"./tables/"+QString::fromStdString(fn)+".json";
+        //qDebug()<<"End save json: "<<"./tables/"+QString::fromStdString(fn)+".json";
 
     }
 

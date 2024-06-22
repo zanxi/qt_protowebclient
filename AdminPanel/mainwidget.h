@@ -10,7 +10,7 @@
 #include <QLineEdit>
 #include <QString>
 #include <QLabel>
-#include "stumanager.h"
+//#include "stumanager.h"
 
 
 #include "modelbuilder.h"

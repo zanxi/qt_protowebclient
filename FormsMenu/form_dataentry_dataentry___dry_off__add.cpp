@@ -82,7 +82,7 @@ form_dataentry_dataentry___dry_off__add::form_dataentry_dataentry___dry_off__add
     create();
 }
 
-form_dataentry_dataentry___dry_off__add::form_dataentry_dataentry___dry_off__add(QString checkAnimals, QWidget *parent) :
+form_dataentry_dataentry___dry_off__add::form_dataentry_dataentry___dry_off__add(const QString &checkAnimals, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::form_dataentry_dataentry___dry_off__add)
 {

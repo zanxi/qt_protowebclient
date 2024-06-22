@@ -2,6 +2,7 @@
 #define Main_pro_lely_H
 
 #include <QMainWindow>
+#include "basewindow.h"
 #include "widget_form.h"
 #include "widget_menu.h"
 
@@ -12,13 +13,18 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class Main_DigitalFarm : public QMainWindow
+class Main_DigitalFarm : public BaseWindow
 {
     Q_OBJECT
 
 public:
     Main_DigitalFarm(QWidget *parent = nullptr);
     ~Main_DigitalFarm();
+
+    virtual void keyPressEvent(QKeyEvent * event);
+    virtual void keyReleaseEvent(QKeyEvent * event);
+
+
 
 
 signals:

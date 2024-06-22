@@ -16,6 +16,8 @@ class logger
     static long cnt;
     static QString log;
     static std::string CreateLogName();
+    static std::string CreateLogName2();
+    static std::string time();
     static void ClearLog(std::string fn=Num::fn);
     static void WriteMsg(std::string msg, std::string fn=Num::fn);
     static void WriteMsgError(std::string msg, std::string fn=Num::fn);

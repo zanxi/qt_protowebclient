@@ -7,10 +7,19 @@
 #include "db/database.h"
 
 enum DB_check{ SQLITE, PGSQL };
+enum icons_i{calendar_i, delete_i, detail_record_i, edit2_i, edit_i, graphic_i, report_i, search_i };
+
+enum MenuTypes{
+    HeaderMenu = 0,
+    FooterMenu = 1
+};
+
 
 class DataSystems   //Singleton
 {
 public:
+
+    QList<QString> icons;
 
     DataBase *db;
 
@@ -37,12 +46,23 @@ public:
     QString name_animals;
 
     QString log="";
+    QString log_execution_result="";
     QString log_create_db;
+
+    QList<QString> log__lists;
+    QList<QString> log_execution_result__lists;
+
     int id_max;
 
     QString settings___color_header;
+    QString settings___color_header_textedit_code;
+    QString settings___color_header_dialog;
     QString settings___color_header___decimal;
     QString settings___tabwidget_width;
+
+    QString savePath;
+
+    long long y;
 
     static DataSystems& Instance()
     {
@@ -107,7 +127,7 @@ public:
 
     // Ввод данных ->  Дневная запись -> карточки коров
     int dataentry_cow_card_Id;    // номер записи
-    QString dataentry_dataentry_cow_card_animals;                       //  номер животного
+    QString dataentry_dataentry_cow_card_animal_No;                       //  номер животного
     QString dataentry_dataentry_cow_card_responder;                     // номер ответчика (респондент)
     QString dataentry_dataentry_cow_card_name;                          // имя (название)
     QString dataentry_dataentry_cow_card_group;                         // группа
@@ -172,6 +192,30 @@ public:
     QString dataentry_library_batch_transfer_location;               // расположение
     QString dataentry_library_batch_transfer_calving_date;           // дата отёла
     QString dataentry_library_batch_transfer_insemenation_date;      // дата осеменения
+
+
+    // ************** Ввод данных ->  Дневная запись -> Взятие проб у партии (Batch Sampling) *********************
+
+    QString dataentry_dataentry__Batch_Sampling__animal_No;
+    QString dataentry_dataentry__Batch_Sampling__milk_yield;
+    QString dataentry_dataentry__Batch_Sampling__fat;
+    QString dataentry_dataentry__Batch_Sampling__protein;
+    QString dataentry_dataentry__Batch_Sampling__standard_peak_production;
+    QString dataentry_dataentry__Batch_Sampling__SCC;
+
+    // ************** Ввод данных ->  Дневная запись -> Взятие проб у партии (Batch Sampling) *********************
+
+    // ************** Ввод данных ->  Дневная запись -> Взятие проб у партии (Batch Sampling) *********************
+
+    // ************** Ввод данных ->  Дневная запись -> Кондиция партии (Batch condition) ***************************
+
+    QString dataentry_dataentry__Batch_condition__number;
+    QString dataentry_dataentry__Batch_condition__claw;
+    QString dataentry_dataentry__Batch_condition__body;
+    QString dataentry_dataentry__Batch_condition__breast;
+    QString dataentry_dataentry__Batch_condition__weight;
+
+
 
 
 
@@ -318,6 +362,15 @@ public:
 
     // ******************* Параметры Robota *****************************
 
+    QString robot_id;                             // номер робота
+    QByteArray robot_paramfile1;                               //
+    QByteArray robot_paramfile2;                               //
+    QByteArray robot_paramfile3;                               //
+    QByteArray robot_paramfile4;                               //
+    QString robot_paramfilephoto1;
+    QString robot_paramfilephoto2;
+    QString robot_paramfilephoto3;
+    QString robot_paramfilephoto4;
     QString robot_robot_no;                             // номер робота
     QString robot_coord_teat_lf;                        // координаты левого нижнего соска
     QString robot_coord_teat_lr;                        // координаты левого верхнего соска
@@ -327,6 +380,11 @@ public:
     QString robot_param2;                               // время
     QString robot_param3;                               //
     QString robot_param4;                               //
+    QString robot_paramtime1;                               // параметр
+    QString robot_paramtime2;                               // время
+    QString robot_paramtime3;                               //
+    QString robot_paramtime4;                               //
+
 
     // *******************************************************************************
 
@@ -362,7 +420,48 @@ public:
     QString dataentry_settings____milking__post_milking__clean_milk_equipment;       // чистое молочное оборудование
     QString dataentry_settings____milking__post_milking__priority_feeding;           // приоритетное кормление (да/нет)
 
-    //*********************
+    //**************************************
+    // Анализ/доклады -> Доклады -> Обзор Стада
+
+    QString analys_reports___reports__animal_data___Herd_Name;
+    QString analys_reports___reports__animal_data___Date;
+    QString analys_reports___reports__animal_data___Lactation_Average_day;
+    QString analys_reports___reports__animal_data___Number_of_Caw;
+    /// etc....
+
+
+    //**************************************
+    // Обслуживание -> Копирование и восстановление из резервной копии
+    //QString maintenance___backup_restoree
+    QString maintenance___backup_restore___Name;
+    QString maintenance___backup_restore___Enabled;
+    QString maintenance___backup_restore___comment;
+    QString maintenance___backup_restore___success_full_time_created;
+
+
+    //**************************************
+    // Анализ/доклады -> Доклады -> Доклады (Reports) -> отчет, который должен быть показан на X-Link
+
+    QString analyse_reports___x_link___cow_number;
+    QString analyse_reports___x_link___robot_No;
+    QString analyse_reports___x_link___group_No;
+    QString analyse_reports___x_link___LF_condition;
+    QString analyse_reports___x_link___LF_colour_code;
+    QString analyse_reports___x_link___LR_condition;
+    QString analyse_reports___x_link___LR_colour_code;
+    QString analyse_reports___x_link___RF_condition;
+    QString analyse_reports___x_link___RF_colour_code;
+    QString analyse_reports___x_link___RR_condition;
+    QString analyse_reports___x_link___RR_colour_code;
+    QString analyse_reports___x_link___day_pregnance;
+    QString analyse_reports___x_link___lactation_day;
+    QString analyse_reports___x_link___lactation_No;
+    QString analyse_reports___x_link___qqq;
+    QString analyse_reports___x_link___qqr;
+
+    //QString maintenance___backup_restoree
+    //QString maintenance___backup_restoree
+    //**************************************
 
     map_json_prop mj;
     map_json_prop_json mjpj;

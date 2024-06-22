@@ -73,7 +73,7 @@ void form_dataentry_dataentry___milk_settings::addRandom()
         DataSystems::I().milk_settings_Robot_number = "robot"+QString::number(rand()%100);
         DataSystems::I().milk_settings_lactation_number = QString::number(rand()%100);
         DataSystems::I().milk_settings_lactation_days = QString::number(rand()%1000);
-        DataSystems::I().milk_settings_priority_feeding = QString::number(rand()%1000);
+        int valr = rand()%3;DataSystems::I().milk_settings_priority_feeding = (valr==0)?("Да"):((valr==1)?"нет":"");
         DataSystems::I().milk_settings_milk_teat_lf = QString::number(rand()%1000);
         DataSystems::I().milk_settings_milk_teat_lr = QString::number(rand()%100);
         DataSystems::I().milk_settings_milk_teat_rf = QString::number(rand()%100);
@@ -224,7 +224,7 @@ void form_dataentry_dataentry___milk_settings::GetData()
 
 }
 
-void form_dataentry_dataentry___milk_settings::GetData(QString str)
+void form_dataentry_dataentry___milk_settings::GetData(const QString &str)
 {
     QScopedPointer<DataBase> db_func(new DataBase());
     //QSqlDatabase db2=QSqlDatabase::database(DataSystems::Instance().conn_name);

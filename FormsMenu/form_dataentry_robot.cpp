@@ -15,15 +15,46 @@
 
 #include "FormsMenu/form_dataentry_dataentry___milk_separationoff_add.h"
 
-
 #include "dataanimals.h"
 #include "Debug/logger.h"
 
+#include "utils/dialog_viewphoto.h"
 #include <QMessageBox>
+
+#include "tabelwidget_module2/CustomDelegateView.h"
+#include "tabelwidget_module2/customdelegate.h"
+
+#include "zf_itemview/zf_table_view.h"
+#include "zf_itemview/zf_tree_view.h"
+
+#include <QDebug>
+#include <QMessageBox>
+#include <QkeyEvent>
+#include <QList>
+
+#include <QPrintPreviewDialog>
+
+
+#include "Src/pbs/pbsfileutil.h"
+#include "Src/pbs/pbstools.h"
+#include "Src/pbsmodelexporter.h"
+#include "src/pbstableprinter.h"
+
+
+
+
+
 
 form_dataentry_Robot::form_dataentry_Robot(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::form_dataentry_Robot)
+    , actSaveExcel(PBSTR("Excel "), this)
+    , actSaveExcelXML(PBSTR("Excel (XML)"), this)
+    , actSaveWordXML(PBSTR("Word (XML)"), this)
+    , actSavePDF(PBSTR("PDF "), this)
+    , actSaveCSV(PBSTR("Text (CSV)"), this)
+    , actSaveXML(PBSTR("XML "), this)
+    , actSaveHTML(PBSTR("HTML "), this)
 {
     ui->setupUi(this);
 
@@ -71,15 +102,64 @@ form_dataentry_Robot::form_dataentry_Robot(QWidget *parent) :
                                                                                 "padding: 4 50 4 10;"
         );
 
-    mTimer=new QTimer(this);    
-    connect(mTimer, SIGNAL(timeout()),this, SLOT(GetData()));
-    mTimer->start(1000);
+
+    create_table_view();
+
 
 }
+
+void form_dataentry_Robot::createButton() {
+    logger::WriteMsg("void form_dataentry_Robot::createButton()");
+    //logger::WriteMsg("createButton() " + QString::number(index));
+    logger::WriteMsg("createButton() ");
+    CustomDelegate *delegate = new CustomDelegate(12,this);
+    ui->tableView->setItemDelegateForColumn(12,delegate);
+
+    connect(
+        delegate,
+        &CustomDelegate::signalClicked,
+        [this](QModelIndex index)
+        {
+            int result = QMessageBox::warning(this,"Warnings", "delete?", QMessageBox::Yes, QMessageBox::No);
+            if(result == QMessageBox::Yes) this->onBtnClicked(index);
+        }
+        );
+
+//    connect(delegate, &CustomDelegate::signalClicked, ui->tableView, [this](QModelIndex index) {
+//        int result = QMessageBox::warning(this, "Предупреждение!", "Подтвердите удаление", QMessageBox::Yes, QMessageBox::No);
+//        if(result == QMessageBox::Yes);
+//            //this->onBtnClicked(index);
+//    });
+}
+
+void form_dataentry_Robot::onBtnClicked(QModelIndex index)
+{
+    //model->deleted(index.row());
+}
+
 
 form_dataentry_Robot::~form_dataentry_Robot()
 {
     delete ui;
+}
+
+void form_dataentry_Robot::PhotoView_Dialog()
+{
+    //OutputLog(QString::number(row));
+
+    //DataSystems::Instance().savePath = QApplication::applicationDirPath();
+
+    QString fileNamePicture = DataSystems::Instance().robot_paramfilephoto1; //ui->comboBox->currentText();
+    //OutputLog(fileNamePicture);
+
+    //fileNamePicture = "https://demotivatorium.ru/sstorage/3/2014/09/13001529222202/demotivatorium_ru_a_chto_eto_vi_tut_delaete_a_58272.jpg";
+    Dialog_ViewPhoto dvf(fileNamePicture, this);
+
+    if(!(dvf.exec()==QDialog::Accepted))
+    {
+        //QMessageBox::information(this,"Спасибо","Сухостойность");
+    }
+
 }
 
 
@@ -102,20 +182,117 @@ void form_dataentry_Robot::addRandom()
             QString sql_insert = db_func->insert_add(tab, "coord_teat_rr", DataSystems::Instance().robot_coord_teat_rr);
 
             //"----------" + "')";
-            db_func->sql_exec(sql_insert, "add dry off");
+            db_func->sql_exec(sql_insert, "add robot");
         }
     }
 }
 
 void form_dataentry_Robot::GetData()
 {
+    logger::WriteMsg("robot record getdata: ");// + QString::number(i).toStdString());
     GetData_search(searchText);
     return;    
     /**/
 }
 
-void form_dataentry_Robot::GetData(QString str)
+void form_dataentry_Robot::on_tableWidget_cellEntered2(int row, int column)
 {
+//    if(column !=2 && column!=3)return;
+//    //OutputLog(QString::number(row) + "|" + QString::number(column));
+//    QString id = "";
+//    QTableWidgetItem *item = tableWidget->item(row,0);
+//    if (NULL != item) {
+//        id = item->text();
+//        DataSystems::Instance().robot_id = id;
+//        //OutputLog(id);
+//        GetDataImage(id);
+//        if(DataSystems::Instance().robot_paramfile1==nullptr)
+//        {
+//            //OutputLog(QString("Empty photo") + "|" + QString::number(row) + "|" + QString::number(column));
+//            return;
+//        }
+
+//        PhotoView_Dialog();
+//    }
+    return;
+}
+
+void form_dataentry_Robot::OutputLog(QString f)
+{
+
+}
+
+void form_dataentry_Robot::GetDataImage(QString id)
+{
+    /*
+
+    //tableWidget->row()
+
+    //tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Параметры робота"));
+    for(int i=0;i<tableWidget->columnCount();i++)tableWidget->setColumnWidth(i, 250);
+
+    tableWidget->update();
+
+    QString str = "vz";
+
+    QScopedPointer<DataBase> db_func(new DataBase());
+    if(db_func->StatusOpen())
+    {
+        QString sql =  QString("SELECT * FROM public.dataentry_robot WHERE id =  '" + id +"';").toLower();
+        QSqlQuery* query = db_func->sql_exec2(sql);
+        if(query->size()<1)return;
+
+        int i=0;
+        while(query->next())
+        {
+            QString val_out="";
+            {
+                QVariant val = query->value("paramfile1");
+                DataSystems::Instance().robot_paramfile1 = (!val.isNull())?val.toByteArray():nullptr;
+                if(DataSystems::Instance().robot_paramfile1!=nullptr)
+                {
+                    OutputLog("Empty photo");
+                    DataSystems::Instance().robot_paramfilephoto1 = DataSystems::Instance().savePath+"/" + QString::fromStdString(logger::CreateLogName2())+ "_" + fileName+".jpg";
+                    QFileInfo file(DataSystems::Instance().robot_paramfilephoto1);
+                    if(file.exists()){
+                        QMessageBox::critical(this, tr("Пожалуйста, обрати внимание:") ,tr("В текущем пути уже есть файл с таким именем, пожалуйста, выберите новый путь, чтобы сохранить файл!"), QMessageBox::Ok | QMessageBox::Default , QMessageBox::Cancel | QMessageBox::Escape , 0 );
+                    }else{
+                        newFile = new QFile(DataSystems::Instance().robot_paramfilephoto1);
+                        newFile->open(QFile::WriteOnly);
+                        newFile->write(DataSystems::Instance().robot_paramfile1);
+                        newFile->flush();
+                        newFile->close();
+                    //            fileExits = true;
+                }
+                }
+            }
+            {
+                QVariant val = query->value("param1");
+                DataSystems::Instance().robot_param1 = (!val.isNull())?val.toString():" ";
+            }
+            {
+                QVariant val = query->value("paramtime1");
+                DataSystems::Instance().robot_paramtime1 = (!val.isNull())?val.toString():" ";
+            }
+            {
+                //QVariant val = query->value("id");
+                //val_out+=QString("id") + " = "  +((!val.isNull())?val.toString():" ");
+            }
+            i++;
+            //break;
+        }
+    }
+    else{
+        OutputLog("No connection db <<<VIM>>>");
+    }
+    /**/
+
+}
+
+
+void form_dataentry_Robot::GetData(const QString &str)
+{
+    //return;
     QScopedPointer<DataBase> db_func(new DataBase());
     //QSqlDatabase db2=QSqlDatabase::database(DataSystems::Instance().conn_name);
     if(db_func->StatusOpen())
@@ -143,123 +320,41 @@ void form_dataentry_Robot::GetData(QString str)
     /**/
 }
 
-void form_dataentry_Robot::GetData_search2(QString str)
+
+void form_dataentry_Robot::GetData_search(const QString &str)
 {
-    if(ui->tableWidget->rowCount()>30)ui->tableWidget->clear();
+    /*
+    //if(tableWidget->rowCount()>0)tableWidget->clear();
+    tableWidget->clear();
     ui->comboBox_id->clear();
 
-    //logger::WriteMsg(" GetData_search:  ---------- robot record: " + QString::number(355.0/113.0).toStdString());
-
-    //ui->tableWidget->dele;
+    //tableWidget->dele;
 
     QScopedPointer<DataBase> db_func(new DataBase());
     if(db_func->StatusOpen())
     {
         QString tab = "dataentry_robot";
-        //QString sql =  QString("SELECT * FROM public."+tab+" WHERE coord_teat_lf LIKE '%"+str+"%' OR coord_teat_lr LIKE '%"+str+"%' OR coord_teat_rf LIKE '%"+str+"%' or  coord_teat_rr LIKE '%"+str+"%'  ORDER BY id;").toLower();
-        QString sql =  QString("SELECT * FROM public."+tab+" WHERE id>0  ORDER BY id;").toLower();
-        qDebug()<<"sql: "<<sql;
-
-        //logger::WriteMsg(" GetData_search: read:  ---------- robot record: " + QString::number(355.0/113.0).toStdString());
-
-        //QString tab = "dataentry_robot";
-        //QString sql =  QString("SELECT * FROM public."+tab+" ORDER BY id ASC ").toLower();
+        QString sql = QString("SELECT * FROM public."+tab+" WHERE id>0  ORDER BY id;").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        if(query->size()<1)return;
-
-        auto datetimeDelegate = new DateTimeStyledItemDelegate(ui->tableWidget);
-
-        QStringList NameColumn;
-        int i=0;
-        NameColumn<<"id"<<"Robot N"<<"РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РµРІРѕРіРѕ РЅРёР¶РЅРµРіРѕ СЃРѕСЃРєР°"<<"РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СЃРѕСЃРєР°"<<"РєРѕРѕСЂРґРёРЅР°С‚С‹ РїСЂР°РІРѕРіРѕ РЅРёР¶РЅРµРіРѕ СЃРѕСЃРєР°"<<"РєРѕРѕСЂРґРёРЅР°С‚С‹ РїСЂР°РІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СЃРѕСЃРєР°"<<"param1"<<"param2"<<"param3"<<"param4"<<"paramtime1"<<"paramРµtime2"<<"paramtime3"<<"paramtime4";
-
-        ui->tableWidget->setColumnCount( NameColumn.count()+1 );
-
-        ui->tableWidget->setRowCount( 1 );
-        ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("РџР°СЂР°РјРµС‚СЂС‹ СЂРѕР±РѕС‚Р°"));
-        ui->tableWidget->setHorizontalHeaderLabels( NameColumn );
-
-
-
-
-
-        for(int i=0;i<NameColumn.count();i++)ui->tableWidget->setColumnWidth(i, 250);
-
-        i=0;
-        while(query->next())
+        if(query!=nullptr)
         {
-            QCheckBox *checkbox = new QCheckBox();
-            checkbox->installEventFilter(this);
-            checkbox->setText("");
-            checkbox->setCheckState((rand()%20==4)?Qt::CheckState::Checked:Qt::CheckState::Unchecked);
+        //if(query->size()<1)return;
 
-            //logger::WriteMsg("robot record: " + QString::number(i).toStdString());
-
-            tabwidget_insert_add_column(query,ui->tableWidget,"id", i, 0);
-            ui->comboBox_id->addItem(query->value("id").toString());
-            tabwidget_insert_add_column(query,ui->tableWidget,"robot_no", i, 1);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_lf", i, 2);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_lr", i, 3);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_rf", i, 4);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_rr", i, 5);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param1", i, 6);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param2", i, 7);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param3", i, 8);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param4", i, 9);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime1", i, 10);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime2", i, 11);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime3", i, 12);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime4", i, 13);
-            ui->tableWidget->insertRow( ui->tableWidget->rowCount() );
-            i++;
-        }
-    }
-
-    /**/
-}
-
-
-
-
-void form_dataentry_Robot::GetData_search(QString str)
-{
-    if(ui->tableWidget->rowCount()>30)ui->tableWidget->clear();
-    ui->comboBox_id->clear();
-
-    //ui->tableWidget->dele;
-
-    QScopedPointer<DataBase> db_func(new DataBase());
-    if(db_func->StatusOpen())
-    {
-        QString tab = "dataentry_robot";
-        QString sql =  QString("SELECT * FROM public."+tab+" WHERE coord_teat_lf LIKE '%"+str+"%' OR coord_teat_lr LIKE '%"+str+"%' OR coord_teat_rf LIKE '%"+str+"%' or  coord_teat_rr LIKE '%"+str+"%'  ORDER BY id;").toLower();
-        sql =  QString("SELECT * FROM public."+tab+" WHERE id>0  ORDER BY id;").toLower();
-        qDebug()<<"sql: "<<sql;
-
-        //QString tab = "dataentry_robot";
-        //QString sql =  QString("SELECT * FROM public."+tab+" ORDER BY id ASC ").toLower();
-        QSqlQuery* query = db_func->sql_exec2(sql);
-        if(query->size()<1)return;
-
-        auto datetimeDelegate = new DateTimeStyledItemDelegate(ui->tableWidget);
-
+        auto datetimeDelegate = new DateTimeStyledItemDelegate(tableWidget);
         QStringList NameColumn;
         int i=0;
         NameColumn<<"id"<<"Robot N"<<"paramfile1"<<"paramfile2"<<"координаты левого нижнего соска"<<"координаты левого верхнего соска"<<"координаты правого нижнего соска"<<"координаты правого верхнего соска"<<"param1"<<"param2"<<"param3"<<"param4"<<"paramtime1"<<"paramеtime2"<<"paramtime3"<<"paramtime4";
+        tableWidget->setColumnCount( NameColumn.count() );
+        tableWidget->setRowCount( query->size() );
+        tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Параметры робота"));
+        tableWidget->setHorizontalHeaderLabels( NameColumn );
 
-        ui->tableWidget->setColumnCount( NameColumn.count()+1 );
-
-        ui->tableWidget->setRowCount( 1 );
-        ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Параметры робота"));
-        ui->tableWidget->setHorizontalHeaderLabels( NameColumn );
-
-
-
-        for(int i=0;i<NameColumn.count();i++)ui->tableWidget->setColumnWidth(i, 250);
+        for(int i=0;i<NameColumn.count();i++)tableWidget->setColumnWidth(i, 250);
 
         i=0;
         while(query->next())
         {
+            //tableWidget->insertRow( tableWidget->rowCount() );
             QCheckBox *checkbox = new QCheckBox();
             checkbox->installEventFilter(this);
             checkbox->setText("");
@@ -267,25 +362,26 @@ void form_dataentry_Robot::GetData_search(QString str)
 
             //logger::WriteMsg("robot record: " + QString::number(i).toStdString());
 
-            tabwidget_insert_add_column(query,ui->tableWidget,"id", i, 0);
+            tabwidget_insert_add_column(query,tableWidget,"id", i, 0);
             ui->comboBox_id->addItem(query->value("id").toString());
-            tabwidget_insert_add_column(query,ui->tableWidget,"robot_no", i, 1);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramfile1", i, 2);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramfile2", i, 3);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_lf", i, 4);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_lr", i, 5);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_rf", i, 6);
-            tabwidget_insert_add_column(query,ui->tableWidget,"coord_teat_rr", i, 7);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param1", i, 8);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param2", i, 9);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param3", i, 10);
-            tabwidget_insert_add_column(query,ui->tableWidget,"param4", i, 11);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime1", i, 12);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime2", i, 13);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime3", i, 14);
-            tabwidget_insert_add_column(query,ui->tableWidget,"paramtime4", i, 15);
-            ui->tableWidget->insertRow( ui->tableWidget->rowCount() );
+            tabwidget_insert_add_column(query,tableWidget,"robot_no", i, 1);
+            tabwidget_insert_add_column(query,tableWidget,"paramfile1", i, 2);
+            tabwidget_insert_add_column(query,tableWidget,"paramfile2", i, 3);
+            tabwidget_insert_add_column(query,tableWidget,"coord_teat_lf", i, 4);
+            tabwidget_insert_add_column(query,tableWidget,"coord_teat_lr", i, 5);
+            tabwidget_insert_add_column(query,tableWidget,"coord_teat_rf", i, 6);
+            tabwidget_insert_add_column(query,tableWidget,"coord_teat_rr", i, 7);
+            tabwidget_insert_add_column(query,tableWidget,"param1", i, 8);
+            tabwidget_insert_add_column(query,tableWidget,"param2", i, 9);
+            tabwidget_insert_add_column(query,tableWidget,"param3", i, 10);
+            tabwidget_insert_add_column(query,tableWidget,"param4", i, 11);
+            tabwidget_insert_add_column(query,tableWidget,"paramtime1", i, 12);
+            tabwidget_insert_add_column(query,tableWidget,"paramtime2", i, 13);
+            tabwidget_insert_add_column(query,tableWidget,"paramtime3", i, 14);
+            tabwidget_insert_add_column(query,tableWidget,"paramtime4", i, 15);
+
             i++;
+        }
         }
     }
 
@@ -301,108 +397,76 @@ void form_dataentry_Robot::tabwidget_insert_add_column(QSqlQuery *query, QTableW
 }
 /**/
 
-void form_dataentry_Robot::tabwidget_insert_add_column(QSqlQuery *query, QTableWidget *tab, QString nameColumnX,  int numRow, int numColumn)
-{
-    //QString const DateTimeFormat = "yyyy-MM-ddTHH:mm:ss[Z|[+|-]HH:mm]";
+void form_dataentry_Robot::tabwidget_insert_add_column(QSqlQuery *query, QTableWidget *tab, const QString &nameColumnX,  int numRow, int numColumn)
+{    
     QString const DateTimeFormat = "yyyy-MM-ddTHH:mm:ss.zzzZ";
-    //QString const DateTimeFormat = "yyyy-MM-ddTHH:mm:ss.zzzZ";
 
-    if(nameColumnX.contains("timey2"))
+    //return;
+    logger::WriteMsg(QString("robot vars: " + nameColumnX).toStdString());
+
+
+    if(nameColumnX.contains("coord"))
     {
-        //uint t_ = query->value("timey2").toDouble();
-        double t_ = query->value("timey2").toDouble();
+        logger::WriteMsg(QString("robot vars: " + nameColumnX).toStdString());
+        QVariant val = query->value(nameColumnX);
+        double var =  (!val.isNull())?val.toDouble():0;
+
+        QTableWidgetItem *item = new QTableWidgetItem(((!val.isNull())?val.toString():""));
+        item->setTextAlignment(Qt::AlignHCenter);
+        tab->setItem( numRow, numColumn,  item);
+
         QTime a(0,0,0);
-        a = a.addSecs(int(t_));
-        QString time = a.toString();
+        a = a.addSecs(int(var));
+        QString time = a.toString();        
 
-        QTableWidgetItem *item = new QTableWidgetItem(time);
-        item->setTextAlignment(Qt::AlignHCenter);
-        tab->setItem( numRow, numColumn,  item);
-
-    }
-    else if(nameColumnX.contains("timey1"))
+    }    
+    else if(nameColumnX.contains("paramtime"))
     {
 
-        QString t_ = query->value("timey1").toString();
-        QDateTime a;
-        //a.fromString(t_,"yyyy-MM-ddTHH:mm:ss.zzzZ");
-        //a.fromString(t_,"yyyy-MM-dd HH:mm:ss.zzzZ");
-        //a.fromString(t_,("yyyy-MM-dd hh:mm:ss.ms"));
-        //a.fromString(t_,DateTimeFormat);
-        //a.fromString(t_, Qt::ISODate);
-        QDateTime time2 = QDateTime::fromString(t_, Qt::ISODateWithMs);
-        //fromStringValue(t_,a);
-        //logger::WriteMsg("date: "+a.toString().toStdString());
-        //a.fromString(t_, Qt::ISODateWithMs);
-        QString time = time2.toString("yyyy-MM-dd hh:mm:ss.zzzZ");
-
-        //fromStringValue(t_,a);
-
-        QTableWidgetItem *item = new QTableWidgetItem(time);
-        //QTableWidgetItem *item = new QTableWidgetItem(t_);
-        item->setTextAlignment(Qt::AlignHCenter);
-        tab->setItem( numRow, numColumn,  item);
-
-    }
-    else if(nameColumnX.contains("paramtime1"))
-    {
-
-        QString t_ = query->value("paramtime1").toString();
-        QDateTime a;
-        //QDateTime time2 = QDateTime::fromString(t_, Qt::ISODateWithMs).currentDateTimeUtc().toLocalTime();
-        QDateTime time2 = QDateTime::fromString(t_, Qt::ISODateWithMs);
-        double xi = time2.toTime_t();
-        QString time = time2.toString("yyyy-MM-dd hh:mm:ss.zzzZ");
-        QTableWidgetItem *item = new QTableWidgetItem(time);
-        //QTableWidgetItem *item = new QTableWidgetItem(t_);
-        item->setTextAlignment(Qt::AlignHCenter);
-        tab->setItem( numRow, numColumn,  item);
+        QVariant val = query->value(nameColumnX);
+        QString t_ = (!val.isNull())?val.toString():"";
+        if(t_== "")
+        {
+            QTableWidgetItem *item = new QTableWidgetItem(t_);
+            item->setTextAlignment(Qt::AlignHCenter);
+            tab->setItem( numRow, numColumn,  item);
+        }
+        else
+        {
+            QDateTime a;
+            //QDateTime time2 = QDateTime::fromString(t_, Qt::ISODateWithMs).currentDateTimeUtc().toLocalTime();
+            QDateTime time2 = QDateTime::fromString(t_, Qt::ISODateWithMs);
+            double xi = time2.toTime_t();
+            QString time = time2.toString("yyyy-MM-dd hh:mm:ss.zzzZ");
+            QTableWidgetItem *item = new QTableWidgetItem(time);
+            item->setTextAlignment(Qt::AlignHCenter);
+            tab->setItem( numRow, numColumn,  item);
+        }
     }
 
-    else if(nameColumnX.toLower().contains("paramfile1"))
+    else if(nameColumnX.toLower().contains("paramfile"))
     {
         //return;
-        QByteArray ba = QByteArray::fromBase64(query->value("paramfile1").toByteArray());
+        QByteArray ba = query->value(nameColumnX).toByteArray();
 
         if(ba == nullptr)
         {
-            QTableWidgetItem *item = new QTableWidgetItem(QString("[binary data]"));
+            QTableWidgetItem *item = new QTableWidgetItem(QString("[empty binary data]"));
             item->setTextAlignment(Qt::AlignHCenter);
             tab->setItem( numRow, numColumn,  item);
             return;
         }
-        return;
-        QPixmap p;
-        if(p.loadFromData(ba,"PNG"))
-        {
-            // do something with pixmap
-        }
-
+        else
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString("[photo binary data]"));
+                item->setTextAlignment(Qt::AlignHCenter);
+                tab->setItem( numRow, numColumn,  item);
+                return;
+            }
+        return;        
         Form_in_work *fiw = new Form_in_work(ba);
         tab->setCellWidget(numRow, numColumn,  fiw);
-    }
-    else if(nameColumnX.toLower().contains("paramfile2"))
-    {
-        //return;
-        QByteArray ba = QByteArray::fromBase64(query->value("paramfile2").toByteArray());
-
-        if(ba == nullptr)
-        {
-            QTableWidgetItem *item = new QTableWidgetItem(QString("[binary data]"));
-            item->setTextAlignment(Qt::AlignHCenter);
-            tab->setItem( numRow, numColumn,  item);
-            return;
-        }
-        return;
-        QPixmap p;
-        if(p.loadFromData(ba,"JPG"))
-        {
-            // do something with pixmap
-        }
-
-        Form_in_work *fiw = new Form_in_work(ba);
-        tab->setCellWidget(numRow, numColumn,  fiw);
-    }
+    }    
 
     else
     {
@@ -414,10 +478,7 @@ void form_dataentry_Robot::tabwidget_insert_add_column(QSqlQuery *query, QTableW
         QTableWidgetItem *item = new QTableWidgetItem(query->value(nameColumnX).toString());
         item->setTextAlignment(Qt::AlignLeft);
         tab->setItem( numRow, numColumn,  item);
-    }
-    //ui->comboBox->addItem(query->value(nameColumn).toString());
-    //xi = query->value(nameColumnX).toDouble();
-    //yi = query->value(nameColumnY).toDouble();
+    }    
 }
 
 
@@ -425,6 +486,7 @@ void form_dataentry_Robot::tabwidget_insert_add_column(QSqlQuery *query, QTableW
 
 void form_dataentry_Robot::on_comboBox_id_activated(int index)
 {
+    /*
     mTimer->stop();
     //DataSystems::Instance().clear_otel();
 
@@ -433,10 +495,10 @@ void form_dataentry_Robot::on_comboBox_id_activated(int index)
     //qDebug()<<"check: "<<ui->comboBox->currentText();
     //QString check = ui->comboBox->currentData(index).toString();
     checkId = ui->comboBox_id->currentText();
-    for(i=0;i<ui->tableWidget->rowCount();i++)
+    for(i=0;i<tableWidget->rowCount();i++)
     {
         QString val;
-        QTableWidgetItem *item = ui->tableWidget->item(i,0);
+        QTableWidgetItem *item = tableWidget->item(i,0);
         qDebug()<<"--- break: "<<"i: "<<i<<"; "<<val;
         if (NULL != item) {
             val = item->text();
@@ -444,14 +506,16 @@ void form_dataentry_Robot::on_comboBox_id_activated(int index)
             if(checkId.contains(val))
             {
                 selectRow = i;
-                if(selectRowOld!=-1)ui->tableWidget->item(selectRowOld,0)->setBackground( Qt::white);
-                ui->tableWidget->item(selectRow,0)->setBackground( Qt::gray);
+                if(selectRowOld!=-1)tableWidget->item(selectRowOld,0)->setBackground( Qt::white);
+                tableWidget->item(selectRow,0)->setBackground( Qt::gray);
                 selectRowOld=selectRow;
                 break;
             }
         }
     }
     //mTimer->start(1000);
+
+    /**/
 
 }
 
@@ -561,5 +625,272 @@ void form_dataentry_Robot::on_pushButton_view_param_clicked()
 
     //mTimer->start(1000);
 
+}
+
+
+void form_dataentry_Robot::create_table_view()
+{
+//    //    _table_model.setColumnCount(COL_COUNT);
+//    //    _table_model.setRowCount(ROW_COUNT);
+//    //    for(int row = 0; row < ROW_COUNT;row++)
+//    //    {
+//    //       for(int col = 0; col < COL_COUNT; col++)
+//    //        {
+//    //            _table_model.setData(_table_model.index(row,col),
+//    //                         QString::number(row)+QString("|")+QString::number(col),
+//    //                                Qt::EditRole);
+//    //        }
+//    //    }
+
+
+
+//    //logger::WriteLog("GetData()");
+//    //ui->textEdit->setText(DataSystems::Instance().log);
+
+//    GetData();
+
+//    ui->tableView = new zf::TableView;
+//    ui->tableView->setAutoResizeRowsHeight(false);
+//    ui->tableView->setSortingEnabled(true);
+//    ui->tableView->setModel(&_table_model);
+
+//    configureHeader2(ui->tableView->horizontalRootHeaderItem());
+
+//    QString text = "";
+
+
+    fileName = "";  //имя файла
+
+    //tableWidget = new ExtendQTableWidget(this);
+    //ui->verticalLayout->addWidget(tableWidget);
+    //connect(tableWidget, SIGNAL(cellEntered(int,int)), this, SLOT(on_tableWidget_cellEntered2(int,int)));
+    //mTimer=new QTimer(this);
+    //connect(mTimer, SIGNAL(timeout()),this, SLOT(GetData()));
+    //mTimer->start(1000);
+
+    //AsyncSql::DatabaseConnection::setDefaultDatabaseName(QApplication::applicationDirPath()+"/"+ "example.db");
+    AsyncSql::DatabaseConnection::setDefaultDriver(AsyncSql::DatabaseConnection::QPSQL);
+    AsyncSql::DatabaseConnection::setDefaultHostName(DataSystems::Instance().db_host);
+    AsyncSql::DatabaseConnection::setDefaultDatabaseName(DataSystems::Instance().db_name);
+    AsyncSql::DatabaseConnection::setDefaultPort(DataSystems::Instance().db_port);
+    AsyncSql::DatabaseConnection::setDefaultUserName(DataSystems::Instance().db_login);
+    AsyncSql::DatabaseConnection::setDefaultPassword(DataSystems::Instance().db_password);
+    TableName = "dataentry_robot";
+    //OptionsDialog::setTableName("per_test");
+
+    model = new AsyncSql::AsyncSqlTableModel(this);
+
+    model->setTable(TableName);
+    //model->setTable(OptionsDialog::getTableName());
+    //ui->tableView->verticalHeader()->hide();                                                //Скрытие вертикального заголовка таблицы
+    ui->tableView->setModel(model);
+    model->select();
+    ui->tableView->verticalHeader()->hide();
+    ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    //connect(model, SIGNAL(AsyncSql::AsyncSqlTableModel::dataUpdated()), this, SLOT(createButton()));
+    //createButton();
+    //GetData();
+
+    createPopupMenu_();
+    connect(ui->tableView, SIGNAL(onCreatePopupMenu(QMenu *)), SLOT(onCreateFooterMenu(QMenu *)));    
+    connect(&actSaveExcel, &QAction::triggered, this, &form_dataentry_Robot::onActSaveExcel);
+    connect(&actSaveExcelXML, &QAction::triggered, this, &form_dataentry_Robot::onActSaveExcelXML);
+    connect(&actSaveWordXML, &QAction::triggered, this, &form_dataentry_Robot::onActSaveWordXML);
+    connect(&actSavePDF, &QAction::triggered, this, &form_dataentry_Robot::onActSavePDF);
+    connect(&actSaveCSV, &QAction::triggered, this, &form_dataentry_Robot::onActSaveCSV);
+    connect(&actSaveXML, &QAction::triggered, this, &form_dataentry_Robot::onActSaveXML);
+    connect(&actSaveHTML, &QAction::triggered, this, &form_dataentry_Robot::onActSaveHTML);
+    connect(&actSendToPrinter, &QAction::triggered, this, &form_dataentry_Robot::onActSendToPrinter);
+
+    //connect(ui->tableView->horizontalHeader(), SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showCustomContextMenu(const QPoint&)));
+    connect(ui->tableView->horizontalHeader(), SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showCustomContextMenu(const QPoint&)));
+
+    //ui->textEdit->setText(text);
+}
+
+void form_dataentry_Robot::createPopupMenu_()
+{
+    popupMenu.clear();
+    //popupMenu.addAction(&actSortAsc);
+    //popupMenu.addAction(&actSortDesc);
+    //popupMenu.addSeparator();
+    //popupMenu.addAction(&actFooter);
+    //popupMenu.addAction(&actFilter);
+    //popupMenu.addSeparator();
+    //popupMenu.addAction(&actSendToPrinter);
+    //popupMenu.addSeparator();
+    //popupMenu.addAction(&actStretchColumn);
+    //popupMenu.addAction(&actStretchColumnAll);
+    //popupMenu.addAction(&actStretch);
+
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    popupMenu.addSeparator();
+    //QMenu *saveAsMenu = popupMenu.addMenu(QIcon(":/Resource/Images/save.png"), ("Преобразовать в  ..."));
+    QMenu *saveAsMenu = popupMenu.addMenu(PBSTR("Transpose -> (EXCEL)Преобразовать в  ..."));
+    saveAsMenu->addAction(&actSaveExcel);
+    saveAsMenu->addAction(&actSaveExcelXML);
+    saveAsMenu->addAction(&actSaveWordXML);
+    //saveAsMenu->addSeparator();
+    saveAsMenu->addAction(&actSavePDF);
+    saveAsMenu->addAction(&actSaveCSV);
+    saveAsMenu->addAction(&actSaveXML);
+    saveAsMenu->addAction(&actSaveHTML);
+
+    //popupMenu.addSeparator();
+    //popupMenu.addAction(&actSaveLayout);
+
+    emit onCreatePopupMenu(HeaderMenu, &popupMenu);
+}
+
+
+void form_dataentry_Robot::showCustomContextMenu(const QPoint &p)
+{
+
+    logger::WriteMsg("showCustomContextMenu");
+
+    QPoint mP = mapToGlobal(p);
+    //mP.setY(mP.y()-50);
+
+    //int iCol = ui->tableView->horizontalHeader()->logicalIndexAt(p),
+    // iSort = ui->tableView->horizontalHeader()->sortIndicatorSection();
+
+    //actSortAsc.setChecked(iCol == iSort && ui->tableView->horizontalHeader()->sortIndicatorOrder() == Qt::AscendingOrder);
+    //actSortDesc.setChecked(iCol == iSort && ui->tableView->horizontalHeader()->sortIndicatorOrder() == Qt::DescendingOrder);
+
+    popupMenu.popup(mP);
+}
+
+void form_dataentry_Robot::onActSaveExcelXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        QFile f(sName);
+        f.open(QIODevice::ReadWrite);
+        PBSTableViewExcelXMLExporter e(ui->tableView, &f, this);
+        e.execute();
+        f.close();
+    }
+}
+
+void form_dataentry_Robot::onActSaveWordXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        QFile f(sName);
+        f.open(QIODevice::ReadWrite);
+        PBSTableViewWordXMLExporter e(ui->tableView, &f, this);
+        e.execute();
+        f.close();
+    }
+}
+
+void form_dataentry_Robot::onActSaveCSV()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        QFile f(sName);
+        f.open(QIODevice::ReadWrite);
+        PBSTableViewCSVExporter e(ui->tableView, &f, this);
+        e.execute();
+        f.close();
+    }
+}
+
+void form_dataentry_Robot::onActSaveHTML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        QFile f(sName);
+        f.open(QIODevice::ReadWrite);
+        PBSTableViewHTMLExporter e(ui->tableView, &f, this);
+        e.execute();
+        f.close();
+    }
+}
+
+void form_dataentry_Robot::onActSaveExcel()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        PBSTableViewXLSXExporter e(ui->tableView, sName, this);
+        e.execute();
+    }
+}
+
+void form_dataentry_Robot::onActSaveXML()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        QFile f(sName);
+        f.open(QIODevice::ReadWrite);
+        PBSTableViewXMLExporter e(ui->tableView, &f, this);
+        e.execute();
+        f.close();
+    }
+}
+
+void form_dataentry_Robot::onActSavePDF()
+{
+    QString sName = PBSFileUtil::getSaveFileName(this, PBSTR("Введите имя сохраняемого фала"));
+    if(!sName.isEmpty())
+    {
+        PBSTableViewPDFExporter e(ui->tableView, sName, this);
+        e.execute();
+    }
+}
+
+void form_dataentry_Robot::onActSendToPrinter()
+{
+    QPrinter printer(QPrinter::ScreenResolution);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setFullPage(false);
+
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setPageMargins(0, 0, 0, 0, QPrinter::Unit::Millimeter);
+    printer.setResolution(96); // QApplication::screens().at(0)->logicalDotsPerInch());
+
+    QPrintPreviewDialog d(&printer, reinterpret_cast<QWidget*>(parent()));
+    d.setWindowFlags(Qt::Window | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
+
+    connect(&d, SIGNAL(paintRequested(QPrinter *)), this, SLOT(print(QPrinter *)));
+
+    d.exec();
+}
+
+void form_dataentry_Robot::print(QPrinter *prn)
+{
+    QPainter painter;
+
+    painter.begin(prn);
+
+    PBSTablePrinter p(&painter, ui->tableView, this);
+    p.setPrinter(prn);
+
+    p.setHeadersFont(ui->tableView->horizontalHeader()->font());
+    p.setContentFont(font());
+
+    p.execute();
+}
+
+
+
+void form_dataentry_Robot::onCreateFooterMenu(QMenu *m)
+{
+    emit onCreatePopupMenu(FooterMenu, m);
 }
 

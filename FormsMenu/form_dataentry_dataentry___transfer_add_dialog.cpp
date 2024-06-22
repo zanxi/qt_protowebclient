@@ -70,7 +70,7 @@ form_dataentry_dataentry___transfer_add_Dialog::form_dataentry_dataentry___trans
     check_insert_or_update = false;
 }
 
-form_dataentry_dataentry___transfer_add_Dialog::form_dataentry_dataentry___transfer_add_Dialog(QString checkAnimals, QWidget *parent) :
+form_dataentry_dataentry___transfer_add_Dialog::form_dataentry_dataentry___transfer_add_Dialog(const QString &checkAnimals, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::form_dataentry_dataentry___transfer_add_Dialog)
 {

@@ -420,6 +420,8 @@ void form_dataentry_robot_Dialog::GetData_search(QString id, QString tab, QStrin
         //ui->tableWidget->hideColumn(0);
         for(int i=0;i<NameColumns.count();i++)ui->tableWidget->setColumnWidth(i, 150);
 
+        ui->Plot->setValue(0);
+
         int i=0;
         while(query->next())
         {
@@ -474,6 +476,7 @@ void form_dataentry_robot_Dialog::GetData_search(QString id, QString tab, QStrin
 
             ui->tableWidget->insertRow( ui->tableWidget->rowCount() );
             i++;
+            ui->Plot->setValue((int)(100*i*1.0/query->size()));
         }
     }
 
@@ -974,6 +977,8 @@ void form_dataentry_robot_Dialog::plotRandom_()
         //addPoint(xi, yi);
     }
     plot->legend->setVisible(true);
+
+    ui->Plot->setValue(0);
 
     GetData_search(QString::number(this->id), "dataentry_robot", "");
     ui->lineEdit->setText("num: "+QString::number(cow_graph1_x.count()));

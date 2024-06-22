@@ -87,7 +87,7 @@ Form_add_cow::Form_add_cow(QWidget *parent) :
 }
 
 
-Form_add_cow::Form_add_cow(QString nnn, QWidget *parent) :
+Form_add_cow::Form_add_cow(const QString &nnn, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Form_add_cow)
 {
@@ -251,7 +251,7 @@ Form_add_cow::~Form_add_cow()
 
 void Form_add_cow::on_pushButton_save_clicked()
 {
-    DataSystems::Instance().dataentry_dataentry_cow_card_animals = ui->lineEdit_animal_N->text();
+    DataSystems::Instance().dataentry_dataentry_cow_card_animal_No = ui->lineEdit_animal_N->text();
     DataSystems::Instance().dataentry_dataentry_cow_card_responder = ui->lineEdit_responder->text();
     DataSystems::Instance().dataentry_dataentry_cow_card_name = ui->lineEdit_name->text();
     DataSystems::Instance().dataentry_dataentry_cow_card_group = ui->comboBox_group->currentText();
@@ -283,7 +283,7 @@ void Form_add_cow::on_pushButton_save_clicked()
 
              QString tab = "dataentry_cow_card";
              QString parameterId = "animals";
-             QString valueId = DataSystems::Instance().dataentry_dataentry_cow_card_animals;
+             QString valueId = DataSystems::Instance().dataentry_dataentry_cow_card_animal_No;
 
              db_func->update_add(tab, parameterId, valueId, "responder", DataSystems::Instance().dataentry_dataentry_cow_card_responder);
              db_func->update_add(tab, parameterId, valueId, "name_", DataSystems::Instance().dataentry_dataentry_cow_card_name);
@@ -312,7 +312,7 @@ void Form_add_cow::on_pushButton_save_clicked()
 /**/
         //qDebug()<<"after try catch ----------------------";
 
-             db_func->insert_add(tab, "animals", DataSystems::Instance().dataentry_dataentry_cow_card_animals);
+             db_func->insert_add(tab, "animal_No", DataSystems::Instance().dataentry_dataentry_cow_card_animal_No);
              db_func->insert_add(tab, "responder", DataSystems::Instance().dataentry_dataentry_cow_card_responder);
              db_func->insert_add(tab, "name_", DataSystems::Instance().dataentry_dataentry_cow_card_name);
              db_func->insert_add(tab, "group_", DataSystems::Instance().dataentry_dataentry_cow_card_group);
@@ -351,7 +351,7 @@ void Form_add_cow::on_pushButton_save_clicked()
 
 void Form_add_cow::SetData()
 {
-    ui->lineEdit_animal_N->setText(DataSystems::Instance().dataentry_dataentry_cow_card_animals);
+    ui->lineEdit_animal_N->setText(DataSystems::Instance().dataentry_dataentry_cow_card_animal_No);
     ui->lineEdit_responder->setText(DataSystems::Instance().dataentry_dataentry_cow_card_responder);
     ui->lineEdit_name->setText(DataSystems::Instance().dataentry_dataentry_cow_card_name);
     ui->comboBox_group->setEditText(DataSystems::Instance().dataentry_dataentry_cow_card_group);

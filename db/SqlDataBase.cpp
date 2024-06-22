@@ -3,6 +3,7 @@
 #include "../csv/csvfile.h"
 #include "../json/json_w.h"
 #include "../utils/Utils.h"
+#include "./Debug/logger.h"
 
 #include "../dataanimals.h"
 
@@ -64,8 +65,8 @@
              std::cout<< "sql: " << fn << "\n";
              //map_json_prop tab_ = libjson::Read_Tab(fn);
              vec_json_prop tab_ = json_w::readJsonFile_all_tables_json(QString::fromStdString(fn));//libjson::Read_Tab(fn);
-             std::cout<<fn<< "; size: " << tab_.size() << "\n";
-             logger::WriteLog(QString::fromStdString(fn + "; size: " + std::to_string(tab_.size())));
+             //std::cout<<fn<< "; size: " << tab_.size() << "\n";
+             //logger::WriteLog(QString::fromStdString(fn + "; size: " + std::to_string(tab_.size())));
              
              std::string sql_script = create_table+ " "+ fn + "(";
 
@@ -155,7 +156,8 @@
                  }
                  else 
                  {
-                    sql_script += "'"+columns_[i]+ "', ";                 
+                    if(columns_[i]!="?") sql_script += "'"+columns_[i]+ "', ";
+                    else sql_script += ""+columns_[i]+ ", ";
                  }
         }      
          
@@ -166,11 +168,47 @@
                  }
                  else 
                  {
-                    sql_script += "'"+columns_[sz-1]+ "'";                 
+                    if(columns_[sz-1]!="?") sql_script += "'"+columns_[sz-1]+ "'";
+                    else sql_script += ""+columns_[sz-1]+ "";
                  } 
 
         sql_script += ")\n";       
         return sql_script;                   
+    }
+
+    std::string SqlDataBase::InsertStrokaValues_question(std::string date_str(),
+                                                std::vector<std::string> columns_Name, std::vector<std::string> columns_)
+    {
+        int sz = columns_.size();
+        std::string sql_script="(";
+        //sql_script += columns_[0]+",";
+        for(int i=1; i<sz-1;i++)
+        {
+                    if(Str::contains(Str::tolower(columns_Name[i]),"time")!=-1)
+                    {
+                    //sql_script += "to_timestamp('"+columns_[i]+ "', 'dd-mm-yyyy hh24:mi:ss'),";
+                    sql_script += date_str() + ",";
+                    }
+                    else
+                    {
+                    sql_script += ""+columns_[i]+ ", ";
+                    }
+        }
+
+        if(Str::contains(Str::tolower(columns_Name[sz-1]),"time")!=-1)
+        {
+                    //sql_script += "to_timestamp('"+columns_[i]+ "', 'dd-mm-yyyy hh24:mi:ss'),";
+                    sql_script += date_str();
+        }
+        else
+        {
+                    sql_script += ""+columns_[sz-1]+ "";
+        }
+
+        sql_script += ")\n";
+
+        //logger::WriteMsg(sql_script);
+        return sql_script;
     }
 
     std::string SqlDataBase::InsertStrokaValuesRandom(std::string date_str(),
@@ -223,13 +261,37 @@
         //DataSystems::Instance().db_sql_table_insert[QString::fromStdString(tab_fn)]=QString::fromStdString(sql_script);
     }
 
+    std::string SqlDataBase::TableInsertValue__(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value)
+    {
+        //logger::WriteMsg("InsertStrokaFieldsNames(columns_Name): "+ InsertStrokaFieldsNames(columns_Name));
+        std::string sql_script = "INSERT INTO " + tab_fn + InsertStrokaFieldsNames(columns_Name)+ " VALUES " +
+                                 ((DataSystems::Instance().db_check==DB_check::SQLITE)?
+                                      (InsertStrokaValues(datetime::GenerateTime_sqlite,columns_value, columns_value)+ ";"):
+                                      (InsertStrokaValues(datetime::GenerateTime,columns_value, columns_value)+ ";"));
+
+        return sql_script;
+        //DataSystems::Instance().db_sql_table_insert[QString::fromStdString(tab_fn)]=QString::fromStdString(sql_script);
+    }
+
+    std::string SqlDataBase::TableInsertValue__question(std::string tab_fn, std::vector<std::string> columns_Name, std::vector<std::string> columns_value)
+    {
+        //logger::WriteMsg("InsertStrokaFieldsNames(columns_Name): "+ InsertStrokaFieldsNames(columns_Name));
+        std::string sql_script = "INSERT INTO " + tab_fn + InsertStrokaFieldsNames(columns_Name)+ " VALUES " +
+                                 ((DataSystems::Instance().db_check==DB_check::SQLITE)?
+                                      (InsertStrokaValues(datetime::GenerateTime_sqlite,columns_value, columns_value)+ ";"):
+                                      (InsertStrokaValues_question(datetime::GenerateTime,columns_value, columns_value)+ ";"));
+
+        return sql_script;
+        //DataSystems::Instance().db_sql_table_insert[QString::fromStdString(tab_fn)]=QString::fromStdString(sql_script);
+    }
+
 
     void SqlDataBase::TableInsert(std::string tab_fn)
     {         
         std::map<int, std::vector<std::string>> rows_ = csvfile::Read_TabMap(tab_fn);         
         //std::cout << "TableInsert - Size column: "<< rows_.size() << "\n\n";
-        std::cout << "TableInsert <<<"+tab_fn+">>> - Size Rows: "<< rows_.size() << "\n\n";
-        logger::WriteMsg("TableInsert <<<"+tab_fn+">>> - Size Rows: "+ std::to_string(rows_.size()));
+        //std::cout << "TableInsert <<<"+tab_fn+">>> - Size Rows: "<< rows_.size() << "\n\n";
+        //logger::WriteMsg("TableInsert <<<"+tab_fn+">>> - Size Rows: "+ std::to_string(rows_.size()));
         std::string sql_script = "INSERT INTO " + tab_fn + InsertStrokaFieldsNames(rows_[0]);
         
         if(rows_.size()<2)
@@ -238,8 +300,8 @@
             //std::cout << ("    ");
             //std::cout << ("<<<<No DATA>>>> <<< RANDOMIZE DATA>>>:" + sql_script);
 
-            logger::WriteMsg("    ");
-            logger::WriteMsg("<<<<No DATA>>>> <<< RANDOMIZE DATA>>>:");
+            //logger::WriteMsg("    ");
+            //logger::WriteMsg("<<<<No DATA>>>> <<< RANDOMIZE DATA>>>:");
 
             sql_script += " VALUES ";
             for(int n=1;n<50;n++){
@@ -391,8 +453,8 @@
     std::string SqlDataBase::SelectTable(std::string tab_fn)
     {
             std::map<int, std::vector<std::string>> rows_ = csvfile::Read_TabMap(tab_fn);
-            //std::string sql_script = SelectValues(rows_[0],tab_fn,{});
-            std::string sql_script = SelectValues(rows_[0],tab_fn,{key_value_t("RecordId","245")});
+            std::string sql_script = SelectValues(rows_[0],tab_fn,{});
+            //std::string sql_script = SelectValues(rows_[0],tab_fn,{key_value_t("RecordId","245")});
             //std::string sql_script = SelectValues({},tab_fn,{});
             //logger::WriteMsg("   ");
             sql_script_f = "select_table_"+tab_fn+".sql";
@@ -454,6 +516,41 @@
         return sql_script;
     }
 
+    /*
+    std::string SqlDataBase::UpdateValues__(std::string date_str(),
+                                          std::vector<std::string> columns_Name, std::string Idname, std::string rowId)
+    {
+        int sz = columns_Name.size();
+        std::string sql_script="";
+        sql_script += "";// columns_Name[0] + " = " +",";
+        for(int i=1; i<sz-1;i++)
+        {
+            if(Str::contains(Str::tolower(columns_Name[i]),"time")!=-1)
+            {
+                    //sql_script += "to_timestamp('"+columns_[i]+ "', 'dd-mm-yyyy hh24:mi:ss'),";
+                    sql_script += columns_Name[i] + " = " +date_str() + ",";
+            }
+            else
+            {
+                    sql_script += columns_Name[i] + " = " + "'" + std::to_string(rand()%10000) + "', ";
+            }
+        }
+
+        if(Str::contains(Str::tolower(columns_Name[sz-1]),"time")!=-1)
+        {
+            //sql_script += "to_timestamp('"+columns_[i]+ "', 'dd-mm-yyyy hh24:mi:ss'),";
+            sql_script += columns_Name[sz-1] + " = " + date_str();
+        }
+        else
+        {
+            sql_script += columns_Name[sz-1] + " = " + "'" + std::to_string(rand()%10000) + "'";
+        }
+
+        sql_script += " where " + Idname+ " = " + "'" + rowId+ "'" + "\n";
+        return sql_script;
+    }
+/**/
+
     std::string SqlDataBase::UpdateValues(std::string parameterId, std::string valueId, std::vector<key_value_t> columns_value)
     {
         int sz = columns_value.size();
@@ -474,10 +571,83 @@
         return sql_script;
     }
 
+
+    std::string SqlDataBase::UpdateValues__(std::string tab_fn, std::string parameterId, std::string valueId, std::vector<key_value_t> columns_value)
+    {
+        int sz = columns_value.size();
+        qDebug()<<"sz: "<<sz;
+        std::string sql_script="";
+        sql_script += "";// columns_Name[0] + " = " +",";
+        for(int i=1; i<sz-1;i++)
+        {
+
+            sql_script += columns_value[i].key + " = " + "'" + columns_value[i].value + "', ";
+
+        }
+
+        //qDebug()<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ";
+        sql_script += columns_value[sz-1].key + " = " + "'" + columns_value[sz-1].value + "'";
+        //qDebug()<<"------------------------------ ";
+        sql_script += " where " + parameterId+ " = " + "'" + valueId+ "'" + "\n";
+
+        sql_script = "UPDATE "+ tab_fn +" SET " +sql_script;
+
+        return sql_script;
+    }
+
+
+    std::string SqlDataBase::UpdateValues__2(std::string tab_fn, std::string parameterId, std::string valueId, std::vector<std::string> columns_name, std::vector<std::string> columns_value)
+    {
+        int sz = columns_value.size();
+        //qDebug()<<"sz: "<<sz;
+        std::string sql_script="";
+        sql_script += "";// columns_Name[0] + " = " +",";
+        for(int i=1; i<sz-1;i++)
+        {
+
+            sql_script += columns_name[i] + " = " + "'" + columns_value[i] + "', ";
+
+        }
+
+        //qDebug()<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ";
+        sql_script += columns_name[sz-1] + " = " + "'" + columns_value[sz-1] + "'";
+        //qDebug()<<"------------------------------ ";
+        sql_script += " where " + parameterId+ " = " + "'" + valueId+ "'" + "\n";
+
+        sql_script = "UPDATE "+ tab_fn +" SET " +sql_script;
+
+        return sql_script;
+    }
+
+    std::string SqlDataBase::UpdateValues__2(std::string tab_fn, std::string parameterId, int valueId, std::vector<std::string> columns_name, std::vector<std::string> columns_value)
+    {
+        int sz = columns_value.size();
+        //qDebug()<<"sz: "<<sz;
+        std::string sql_script="";
+        sql_script += "";// columns_Name[0] + " = " +",";
+        for(int i=1; i<sz-1;i++)
+        {
+
+            sql_script += columns_name[i] + " = " + "'" + columns_value[i] + "', ";
+
+        }
+
+        //qDebug()<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ";
+        sql_script += columns_name[sz-1] + " = " + "'" + columns_value[sz-1] + "'";
+        //qDebug()<<"------------------------------ ";
+        sql_script += " where " + parameterId+ " = " + std::to_string(valueId)+  "\n";
+
+        sql_script = "UPDATE "+ tab_fn +" SET " +sql_script;
+
+        return sql_script;
+    }
+
+
+
     void SqlDataBase::TableUpdate(std::string tab_fn, std::string rowId)
     {
         std::map<int, std::vector<std::string>> rows_ = csvfile::Read_TabMap(tab_fn);
-        logger::WriteMsg("TableInsert <<<"+tab_fn+">>> - Size Rows: "+ std::to_string(rows_.size()));
+        //logger::WriteMsg("TableInsert <<<"+tab_fn+">>> - Size Rows: "+ std::to_string(rows_.size()));
         std::string sql_script = "UPDATE "+ tab_fn +" SET " +
                                          ((DataSystems::Instance().db_check==DB_check::SQLITE)?
                                      UpdateValues(datetime::GenerateTime_sqlite,rows_[0],rowId):

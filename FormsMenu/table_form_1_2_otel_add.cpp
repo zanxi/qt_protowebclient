@@ -88,7 +88,7 @@ table_form_1_2_otel_add::table_form_1_2_otel_add(QWidget *parent) :
 }
 
 
-table_form_1_2_otel_add::table_form_1_2_otel_add(QString animals_number, QWidget *parent) :
+table_form_1_2_otel_add::table_form_1_2_otel_add(const QString &animals_number, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::table_form_1_2_otel_add)
 {

@@ -24,6 +24,8 @@ private slots:
 
     void on_pushButton_delete_clicked();
 
+    void on_tableWidget_cellClicked(int row, int column);
+
 private:
     Ui::form_1_9_insemenation_s *ui;
     void create();
@@ -34,7 +36,7 @@ private:
     QString checkAnimals="";
 
     void GetData();
-    void GetData(QString str);
+    void GetData(const QString &str);
     void addRandom();
 
 

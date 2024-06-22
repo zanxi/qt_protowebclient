@@ -151,7 +151,7 @@ void form_dataentry_dataentry___transfer::GetData()
 
 }
 
-void form_dataentry_dataentry___transfer::GetData(QString str)
+void form_dataentry_dataentry___transfer::GetData(const QString &str)
 {
 
 

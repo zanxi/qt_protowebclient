@@ -39,9 +39,9 @@ private:
 
     QTimer *mTimer;
 
-    void GetData_search(QString str);
-    void tabwidget_insert_add_column(QSqlQuery *quer, QTableWidget *tab, QString nameColumn,  int numRow,  int num);
-    void GetData(QString str);
+    void GetData_search(const QString &str);
+    void tabwidget_insert_add_column(QSqlQuery *quer, QTableWidget *tab, const QString &nameColumn,  int numRow,  int num);
+    void GetData(const QString &str);
     void addRandom();
 
     bool status = false; // не сохранять данные - false; сохранить - true

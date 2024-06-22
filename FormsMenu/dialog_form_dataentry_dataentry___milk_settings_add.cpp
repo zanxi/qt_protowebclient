@@ -57,7 +57,7 @@ Dialog_form_dataentry_dataentry___milk_settings_add::Dialog_form_dataentry_datae
 }
 
 
-Dialog_form_dataentry_dataentry___milk_settings_add::Dialog_form_dataentry_dataentry___milk_settings_add(QString checkAnimals, QWidget *parent) :
+Dialog_form_dataentry_dataentry___milk_settings_add::Dialog_form_dataentry_dataentry___milk_settings_add(const QString &checkAnimals, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog_form_dataentry_dataentry___milk_settings_add)
 {

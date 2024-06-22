@@ -13,7 +13,7 @@ class form_dataentry_dataentry___milk_separationoff_add : public QDialog
 
 public:
     explicit form_dataentry_dataentry___milk_separationoff_add(QWidget *parent = nullptr);
-    explicit form_dataentry_dataentry___milk_separationoff_add(QString animals_number, QWidget *parent = nullptr);
+    explicit form_dataentry_dataentry___milk_separationoff_add(const QString &animals_number, QWidget *parent = nullptr);
     ~form_dataentry_dataentry___milk_separationoff_add();
 
 private slots:

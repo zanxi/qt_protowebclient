@@ -60,7 +60,7 @@ form_dataentry_routing_6_6_1_add_Dialog_::form_dataentry_routing_6_6_1_add_Dialo
 
 }
 
-form_dataentry_routing_6_6_1_add_Dialog_::form_dataentry_routing_6_6_1_add_Dialog_(QString checkAnimals, QWidget *parent) :
+form_dataentry_routing_6_6_1_add_Dialog_::form_dataentry_routing_6_6_1_add_Dialog_(const QString &checkAnimals, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::form_dataentry_routing_6_6_1_add_Dialog_)
 {

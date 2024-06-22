@@ -15,6 +15,9 @@
 #include "FormsMenu/form_dataentry_routing_6_6_1.h"
 #include "FormsMenu/form_dataentry_dataentry___transfer.h"
 #include "FormsMenu/form_dataentry_robot.h"
+#include "FormsMenu/form_dataentry_dataentry___batch_sampling.h"
+#include "form_dataentry_dataentry___batch_condition.h"
+
 
 #include "form_list_cows.h"
 
@@ -89,6 +92,8 @@ void Form_1_2::UpdateList()
     list<<(QString("Пакетный перевод ")+"(0)");
     list<<(QString("Состояние партии ")+"(0)");
     list<<(QString("Напоминание ")+"(0)");
+    list<<(QString("Взятие проб у партии")+"(0)");
+    list<<(QString("Кондиция партии")+"(0)");
 
     m_qlist_model->setStringList(list);
 
@@ -130,7 +135,7 @@ void Form_1_2::UpdateList2()
 }
 
 
-int Form_1_2::GetData(QString tab)
+int Form_1_2::GetData(const QString &tab)
 {
     QScopedPointer<DataBase> db_func(new DataBase());
     //QSqlDatabase db2=QSqlDatabase::database(DataSystems::Instance().conn_name);
@@ -171,61 +176,61 @@ int Form_1_2::GetDataCounter()
         {
         QString sql =  QString("SELECT * FROM  dataentry_robot  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_robot_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_robot_counter = query->size();
         }
         {
         QString sql =  QString("SELECT * FROM  dataentry_cow_card  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_cow_card_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_cow_card_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_fixed_feeding  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_fixed_feeding_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_fixed_feeding_counter = query->size();
         }
         //dataentry_fixed_feeding
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_transfer  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_transfer_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_transfer_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_otel  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_otel_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_otel_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_insemenation  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_insemenation_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_insemenation_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_dry_off  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_dry_off_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_dry_off_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_milk_separation  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_milk_separation_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_milk_separation_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_milk_settings  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_milk_settings_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_milk_settings_counter = query->size();
         }
 
         {
         QString sql =  QString("SELECT * FROM  dataentry_routing  ORDER BY id ASC ").toLower();
         QSqlQuery* query = db_func->sql_exec2(sql);
-        DataSystems::Instance().dataentry_routing_counter = query->size();
+        if(query!=nullptr) DataSystems::Instance().dataentry_routing_counter = query->size();
         }
     }
     else
@@ -242,6 +247,8 @@ void Form_1_2::SelectionChanged(const QItemSelection& selection)
 
     QModelIndex index = selection.indexes().first();
     QString listCheck = index.data(Qt::DisplayRole).toString();
+
+    qDebug()<<listCheck;
 
     if (listCheck.contains("робот"))
     {
@@ -543,9 +550,55 @@ void Form_1_2::SelectionChanged(const QItemSelection& selection)
 
         qDebug()<<"CHeck ListView"<<listCheck<<"; delete Widget";
 
-    }
+    }    
+    //Взятие проб у партии
+    else  if (listCheck.contains("Взятие проб у партии"))
+    {
+        if(ui->horizontalLayout->count()<1)
+        {
+            form_dataentry_dataentry___Batch_Sampling *page = new form_dataentry_dataentry___Batch_Sampling(this);
+            ui->horizontalLayout->addWidget(page);
+            return;
+        }
+        QLayoutItem *child = ui->horizontalLayout->takeAt(0);
+        //while ((child = ui->verticalLayout_2->takeAt(0)) != 0)
+        if(!child) {return;}
+        QWidget* w = child->widget();
+        delete child;
+        if(!w) {return;}
+        ui->horizontalLayout->removeWidget(w);
+        delete w;
 
-    //
+        form_dataentry_dataentry___Batch_Sampling *page = new form_dataentry_dataentry___Batch_Sampling(this);
+        ui->horizontalLayout->addWidget(page);
+
+        qDebug()<<"CHeck ListView"<<listCheck<<"; delete Widget";
+
+    }
+    //"Кондиция партии"
+    else  if (listCheck.contains("Кондиция партии"))
+    {
+        if(ui->horizontalLayout->count()<1)
+        {
+            form_dataentry_dataentry___batch_condition *page = new form_dataentry_dataentry___batch_condition(this);
+            ui->horizontalLayout->addWidget(page);
+            return;
+        }
+        QLayoutItem *child = ui->horizontalLayout->takeAt(0);
+        //while ((child = ui->verticalLayout_2->takeAt(0)) != 0)
+        if(!child) {return;}
+        QWidget* w = child->widget();
+        delete child;
+        if(!w) {return;}
+        ui->horizontalLayout->removeWidget(w);
+        delete w;
+
+        form_dataentry_dataentry___batch_condition *page = new form_dataentry_dataentry___batch_condition(this);
+        ui->horizontalLayout->addWidget(page);
+
+        qDebug()<<"CHeck ListView"<<listCheck<<"; delete Widget";
+
+    }
 
     else
     {

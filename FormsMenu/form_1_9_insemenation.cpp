@@ -112,7 +112,7 @@ Form_1_9_insemenation::Form_1_9_insemenation(QWidget *parent) :
 }
 
 
-Form_1_9_insemenation::Form_1_9_insemenation(QString checkAnimals, QWidget *parent) :
+Form_1_9_insemenation::Form_1_9_insemenation(const QString &checkAnimals, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Form_1_9_insemenation)
 {
